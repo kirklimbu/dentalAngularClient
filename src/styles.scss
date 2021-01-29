@@ -213,8 +213,8 @@ mat-toolbar {
 
 /* print section */
 .print-button-container {
-  display: flex;
-  align-items: flex-end;
+
+  float: right;
 }
 
 .invoice-table {

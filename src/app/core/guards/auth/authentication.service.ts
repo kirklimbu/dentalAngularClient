@@ -15,12 +15,6 @@ export class AuthenticationService {
     private jwtHelper: JwtHelperService
   ) {}
 
-  /* get isLoggedIn() {
-    console.log(this.loggedIn.asObservable());
-
-    return this.loggedIn.asObservable();
-  } */
-
   isAuthenticated(): boolean {
     const token = localStorage.getItem("token");
     if (token) {
@@ -28,13 +22,4 @@ export class AuthenticationService {
       return !this.jwtHelper.isTokenExpired(token);
     } else return false;
   }
-
-  /*  logout() {
-    // remove user from local storage to log user out
-    // localStorage.removeItem('currentUser');
-    localStorage.removeItem('token');
-    this.loggedIn.next(false);
-    // this.userSubject.next(null);
-    this.router.navigate(['/home/letter']);
-  } */
 }

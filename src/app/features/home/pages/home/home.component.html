@@ -23,18 +23,12 @@
       <!-- table -->
       <div class="col example-container mat-elevation-z8" *ngIf="showTable">
         <table mat-table [dataSource]="chartTable" class="mb-3">
-          <!-- &lt;!&ndash;First Name Column &ndash;&gt;
-      <ng-container matColumnDef="customerid">
-        <th mat-header-cell *matHeaderCellDef> Customer Id</th>
-        <td mat-cell *matCellDef="let element"> {{element.customerid}} </td>
-      </ng-container>-->
+
           <!--First Name Column -->
           <ng-container matColumnDef="sn">
             <th mat-header-cell *matHeaderCellDef>S.n</th>
             <td mat-cell *matCellDef="let element; index as i">
-              <!--   <button mat-stroked-button routerLink="/customer-detail/id">
-               {{ element.fname }}
-             </button>-->
+
               {{ i + 1 }}.
             </td>
           </ng-container>
@@ -42,17 +36,13 @@
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef>Name</th>
             <td mat-cell *matCellDef="let element; index as i">
-              <!--   <button mat-stroked-button routerLink="/customer-detail/id">
-               {{ element.fname }}
-             </button>-->
+
               {{ element.name }}.
             </td> </ng-container
           ><ng-container matColumnDef="lastSms">
             <th mat-header-cell *matHeaderCellDef>mobile</th>
             <td mat-cell *matCellDef="let element">
-              <!--   <button mat-stroked-button routerLink="/customer-detail/id">
 
-             </button>-->
               {{ element.mobile }}
             </td>
           </ng-container>
