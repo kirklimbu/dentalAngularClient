@@ -62,7 +62,6 @@ export class MainVisitComponent implements OnInit {
         .pipe(
           tap((res) => {
             this.customerVisitDetail = res;
-            console.log(this.customerVisitDetail);
           })
         );
     }),

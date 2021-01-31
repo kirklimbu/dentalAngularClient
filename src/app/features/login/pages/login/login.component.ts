@@ -1,7 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Subscription } from "rxjs";
 import { first } from "rxjs/operators";
 import { User } from "src/app/core/models/user.model";
 import { LoginService } from "../../services/login.service";
@@ -11,7 +11,7 @@ import { LoginService } from "../../services/login.service";
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   // props
   hide = true;
   formSubmitted = false;
@@ -24,6 +24,8 @@ export class LoginComponent implements OnInit {
     false
   );
 
+  subscriptions: Subscription[] = [];
+
   constructor(
     private fb: FormBuilder,
     private loginService: LoginService,
@@ -35,8 +37,6 @@ export class LoginComponent implements OnInit {
   }
 
   routeChange() {
-    console.log("router change called");
-
     const token = localStorage.getItem("token");
     if (token !== null) {
       /* if (!this.jwtHelper.isTokenExpired(token)) {
@@ -70,7 +70,6 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    console.log("calling login" + this.loginForm);
     this.formSubmitted = true;
     this.loading = true;
     if (this.loginForm.valid && this.formSubmitted) {
@@ -91,5 +90,10 @@ export class LoginComponent implements OnInit {
           }
         );
     }
+  }
+
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }

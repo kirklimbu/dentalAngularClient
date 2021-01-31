@@ -63,7 +63,6 @@ export class CustomerComponent implements OnInit {
     this.fetchClientList();
   }
   fetchClientList() {
-    console.log("calling fetchcustomer list");
 
     this.spinner.show();
     this.clientListDataSource$ = this.clientService
@@ -71,7 +70,6 @@ export class CustomerComponent implements OnInit {
       .pipe(finalize(() => this.spinner.hide()))
       .pipe(
         tap((res) => {
-          console.log(res);
           this.clientListDataSource = res;
         })
       );
@@ -82,7 +80,6 @@ export class CustomerComponent implements OnInit {
   }
 
   onSearch() {
-    console.log();
   }
 
   onAdd(mode?: string, customer?: Customer) {
@@ -97,7 +94,6 @@ export class CustomerComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       // table refresh on cancel nagarne
-      console.log(result);
       //if response is not list -->  refreshing particular segment
       if (result !== "cancel") {
         this.fetchClientList();
@@ -106,7 +102,6 @@ export class CustomerComponent implements OnInit {
   }
 
   onViewDetails(customer: Customer) {
-    console.log(customer);
     this.router.navigate(["/dental/customer/visits"], {
       queryParams: { customerId: customer.id },
     });

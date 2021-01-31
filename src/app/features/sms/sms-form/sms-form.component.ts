@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ApiService } from 'src/app/_services/api.service';
 
 @Component({
   selector: 'app-sms-form',
@@ -12,7 +11,7 @@ export class SmsFormComponent implements OnInit {
   smsForm: FormGroup;
 
   constructor(private fb: FormBuilder,
-              private apiService: ApiService) {
+             ) {
   }
 
   ngOnInit() {
@@ -25,10 +24,10 @@ export class SmsFormComponent implements OnInit {
   }
 
   sendSms() {
-    this.apiService.sendSms(this.smsForm.value)
+    /* this.apiService.sendSms(this.smsForm.value)
       .subscribe(resopnse => {
         console.log('sms respons' + resopnse);
-      });
+      }); */
 
   }
 

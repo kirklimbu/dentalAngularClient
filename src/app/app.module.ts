@@ -8,7 +8,6 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { NgxPrintModule } from "ngx-print";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
-import { PovListComponent } from "./_components/pov-list/pov-list.component";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { NgxSpinnerComponent } from "./shared/components/ngx-spinner/ngx-spinner.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -18,7 +17,7 @@ import { BreadcrumbModule } from "xng-breadcrumb";
 import { HttpTokenInterceptorService } from "./core/http-interceptor/http-token/http-token-interceptor.service";
 
 @NgModule({
-  declarations: [AppComponent, PovListComponent, NgxSpinnerComponent],
+  declarations: [AppComponent, NgxSpinnerComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

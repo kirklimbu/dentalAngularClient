@@ -24,4 +24,16 @@ export class InvoiceService {
         })
       );
   }
+
+  getInvoiceDetails(visitDetailId?: number, visitMainId?: number) {
+    return this.http
+      .get(
+        `${this.API_URL}auth/customer/visit/detail/form?visitDetailId=${visitDetailId}&visitMainId=${visitMainId}`
+      )
+      .pipe(
+        catchError((err) => {
+          return throwError(err);
+        })
+      );
+  }
 }

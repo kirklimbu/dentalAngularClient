@@ -1,9 +1,9 @@
 import { NgxSpinnerComponent } from "./../../../../shared/components/ngx-spinner/ngx-spinner.component";
 import { ToastrService } from "ngx-toastr";
 import { HomeService } from "./../../services/home.service";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { NgxSpinnerService } from "ngx-spinner";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { finalize, tap } from "rxjs/operators";
 
 @Component({
@@ -11,7 +11,7 @@ import { finalize, tap } from "rxjs/operators";
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.scss"],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   /* props */
   /* table */
   showTable = false;
@@ -19,8 +19,8 @@ export class HomeComponent implements OnInit {
   chartTable = [];
 
   /* chart */
-  chart1Title='Num of patients'
-  chart2Title="New Customers"
+  chart1Title = "Num of patients";
+  chart2Title = "New Customers";
   view: any[] = [400, 300];
   showXAxis = true;
   showYAxis = true;
@@ -44,6 +44,9 @@ export class HomeComponent implements OnInit {
   charts: string[] = ["Vertical Bar", "Pie Chart", "Advance Pie Chart"];
   // chartData$: Observable<any>;
   selectedChart: string;
+
+  subscriptions: Subscription[] = [];
+
   constructor(
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
@@ -55,19 +58,16 @@ export class HomeComponent implements OnInit {
   }
 
   onChooseChart(chart: string) {
-    console.log(chart);
-
     this.selectedChart = chart;
     this.fetchChartData();
   }
 
   fetchChartData() {
-    this.spinner.show;
+    this.spinner.show();
     this.homeService
       .getChartData()
       .pipe(finalize(() => this.spinner.hide()))
       .subscribe((res: any) => {
-        console.log(res);
         this.chartTable = res.smsCustomerList;
         this.chartData = res.topVisitList;
         this.chart2Data = res.newCustomerList;
@@ -76,5 +76,10 @@ export class HomeComponent implements OnInit {
         this.toastr.error(err.message);
         this.spinner.hide();
       };
+  }
+
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }

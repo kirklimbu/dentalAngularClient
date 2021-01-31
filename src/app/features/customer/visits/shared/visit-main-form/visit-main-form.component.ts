@@ -1,13 +1,13 @@
 import { VisitType } from "./../../../../../core/models/visit-type.model";
 import { VisitMain } from "./../../../../../core/models/visit-main.model";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { Component, Inject, OnInit } from "@angular/core";
+import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
 import { VisitService } from "../../services/visit.service";
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from "ngx-toastr";
 import { ActivatedRoute, Router } from "@angular/router";
 import { finalize } from "rxjs/operators";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 
 @Component({
@@ -15,7 +15,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
   templateUrl: "./visit-main-form.component.html",
   styleUrls: ["./visit-main-form.component.scss"],
 })
-export class VisitMainFormComponent implements OnInit {
+export class VisitMainFormComponent implements OnInit, OnDestroy {
   /* props */
 
   visitMain = new VisitMain();
@@ -25,6 +25,7 @@ export class VisitMainFormComponent implements OnInit {
   visitMainId: number;
 
   loading: boolean = false;
+  subscriptions: Subscription[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -116,7 +117,6 @@ export class VisitMainFormComponent implements OnInit {
 
   onSave() {
     this.spinner.show();
-    console.log("visit main ko spinner call");
 
     if (this.visitMainForm.valid) {
       this.loading = true;
@@ -140,5 +140,9 @@ export class VisitMainFormComponent implements OnInit {
       this.spinner.hide();
       return;
     }
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }

@@ -2,7 +2,7 @@ import { ItemList } from "./../../../../../../core/models/item-list.model";
 import { CustomJs } from "src/app/shared/customjs/custom.js";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { VisitDetail } from "./../../../../../../core/models/visit-detail.model";
-import { Component, Inject, OnInit } from "@angular/core";
+import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
 import { DateFormatter } from "angular-nepali-datepicker";
 import { FormatDate } from "src/app/core/constants/format-date";
 import { DatePipe } from "@angular/common";
@@ -13,13 +13,14 @@ import { ToastrService } from "ngx-toastr";
 import { CustomerFormComponent } from "src/app/features/customer/shared/customer-form/customer-form.component";
 import { VisitDetailService } from "../../services/visit-detail.service";
 import { finalize, tap } from "rxjs/operators";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-visit-detail-form",
   templateUrl: "./visit-detail-form.component.html",
   styleUrls: ["./visit-detail-form.component.scss"],
 })
-export class VisitDetailFormComponent implements OnInit {
+export class VisitDetailFormComponent implements OnInit, OnDestroy {
   /* props */
   visitDetail = new VisitDetail();
   itemListObj = new ItemList();
@@ -35,6 +36,8 @@ export class VisitDetailFormComponent implements OnInit {
   isItToday: boolean;
   loading: boolean;
   visitMainId: number;
+
+  subscriptions: Subscription[] = [];
 
   visitDateFormatter: DateFormatter = (date) => {
     return this.formatDate.getFormatDate(date);
@@ -95,12 +98,13 @@ export class VisitDetailFormComponent implements OnInit {
 
   fetchVisitDetailForm() {
     this.spinner.show();
+    this.fetchQueryParmValues();
     let visitDetailId = this.modalData?.visitDetails?.id;
-    let visitMainId = this.modalData?.visitDetails?.customerId;
+    // let visitMainId = this.modalData?.visitDetails?.customerId;
     this.spinner.show();
     this.mode = "edit";
     this.visitDetailService
-      .getVisitMainFormValuesForEdit(visitDetailId, visitMainId)
+      .getVisitMainFormValuesForEdit(visitDetailId, this.visitMainId)
       .pipe(finalize(() => this.spinner.hide()))
       .subscribe((res: any) => {
         console.log(res);
@@ -228,5 +232,9 @@ export class VisitDetailFormComponent implements OnInit {
   /* comparing the dropdown values & setting the selected value in edit form */
   compareFn(optionOne: any, optionTwo: any): boolean {
     return optionOne?.id === optionTwo?.id;
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }

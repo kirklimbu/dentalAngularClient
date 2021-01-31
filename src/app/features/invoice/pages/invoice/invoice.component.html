@@ -63,28 +63,32 @@
               <th scope="rwo">Date of issue</th>
             </tr>
           </thead> -->
-              <tbody>
-                <tr>
-                  <th>Invoce num:</th>
-                  <td>{{ invoice.invoiceNum }}</td>
-                </tr>
-                <tr>
-                  <th>Date of Issue:</th>
-                  <td>{{ invoice.dateOfIssue }}</td>
-                </tr>
-                <tr>
-                  <th>Billed to:</th>
-                  <td>{{ invoice.customerName }}</td>
-                </tr>
-                <tr>
-                  <th>Address:</th>
-                  <td>{{ invoice.customerAddress }}</td>
-                </tr>
-                <tr>
-                  <th>Mobile:</th>
-                  <td>{{ invoice.customerMobile }}</td>
-                </tr>
-              </tbody>
+
+                <tbody  >
+                  <tr >
+                    <th >Invoce num:</th>
+                    <td>123</td>
+                  </tr>
+                  <tr>
+                    <th>Date of Issue:</th>
+                    <td>
+                      {{ clientDetails?.visitDateBs }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Billed to:</th>
+                    <td>{{ clientDetails?.name }}</td>
+                  </tr>
+                  <tr>
+                    <th>Address:</th>
+                    <td>{{ clientDetails?.address }}</td>
+                  </tr>
+                  <tr>
+                    <th>Mobile:</th>
+                    <td>{{ clientDetails?.mobile }}</td>
+                  </tr>
+                </tbody>
+
             </table>
             <!-- customer details table end-->
           </div>
@@ -92,7 +96,7 @@
       </div>
 
       <!-- items description table  -->
-      <table class="table invoice-table table-bordered  table-sm">
+      <table class="table invoice-table table-bordered table-sm">
         <thead>
           <tr>
             <th>Description</th>
@@ -102,18 +106,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>RCT</td>
-            <!-- <td class="calculation-table-head">1</td> -->
-            <!-- <td class="calculation-table-head">2500</td> -->
-            <!-- <td class="calculation-table-head"></td> -->
-            <td class="text-left">2500</td>
-          </tr>
+          <ng-container invoiceDetails$ | async>
+            <tr *ngFor="let item of invoiceDetails?.itemList">
+              <td>{{ item.visitType.type }}</td>
+              <td>{{ item.amount }}</td>
+            </tr>
+          </ng-container>
         </tbody>
         <tfoot>
           <tr>
-            <td class="text-right mr-4" >Total:</td>
-            <td class="text-left">2500</td>
+            <td class="text-right mr-4">Total:</td>
+            <td class="text-left">{{totalAmount}}</td>
           </tr>
         </tfoot>
       </table>

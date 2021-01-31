@@ -36,15 +36,10 @@ export class ClientService {
     );
   }
   createCustomer(customer) {
-    console.log("create service claled");
-
-    console.log(JSON.stringify(customer));
     return this.http
       .post(`${this.API_URL}auth/customer/save`, { ...customer })
       .pipe(
         catchError((err) => {
-          console.log("error 1 fdgdfgdffsdfsf");
-
           return throwError(err);
         })
       );

@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { AuthGuardService } from "./core/guards/auth/auth-guard.service";
-import { PovListComponent } from "./_components/pov-list/pov-list.component";
 
 const routes: Routes = [
   {
@@ -19,12 +18,6 @@ const routes: Routes = [
   },
 
   {
-    path: "pov",
-    // canActivate: [AuthGuard],
-    component: PovListComponent,
-  },
-
-  {
     path: "",
     pathMatch: "full",
     redirectTo: "login", // change it to login page
@@ -37,7 +30,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

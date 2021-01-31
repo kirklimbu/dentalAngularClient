@@ -1,9 +1,10 @@
+import { Subscription } from "rxjs";
 import { CustomJs } from "src/app/shared/customjs/custom.js";
 import { FormatDate } from "../../../../core/constants/format-date";
 import { ToastrService } from "ngx-toastr";
 import { finalize } from "rxjs/operators";
 import { NgxSpinnerService } from "ngx-spinner";
-import { Component, Inject, OnInit } from "@angular/core";
+import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { Router } from "@angular/router";
@@ -17,7 +18,7 @@ import { DatePipe } from "@angular/common";
   templateUrl: "./customer-form.component.html",
   styleUrls: ["./customer-form.component.scss"],
 })
-export class CustomerFormComponent implements OnInit {
+export class CustomerFormComponent implements OnInit, OnDestroy {
   /* props */
   customerForm: FormGroup;
   client: Customer = new Customer();
@@ -32,12 +33,15 @@ export class CustomerFormComponent implements OnInit {
   hideRegDate = false;
   formatDate = new FormatDate();
   customDate = new CustomJs();
+
   dobDateFormatter: DateFormatter = (date) => {
     return `${date.year} / ${date.month + 1} / ${date.day} `;
   };
   regDateFormatter: DateFormatter = (date) => {
     return `${date.year} / ${date.month + 1} / ${date.day} `;
   };
+
+  subscriptions: Subscription[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -76,8 +80,6 @@ export class CustomerFormComponent implements OnInit {
         (res: any) => {
           this.mode = "edit";
           this.client = res;
-          console.log(res);
-
           this.dob = this.customDate.getDatePickerObject(this.client.dob);
           this.regDate = this.customDate.getDatePickerObject(
             this.client.regDateBs
@@ -128,12 +130,10 @@ export class CustomerFormComponent implements OnInit {
 
   onSave() {
     this.spinner.show();
-    console.log(this.customerForm.value);
-    console.log("cusotmer form ko spinner");
 
-    if(this.dob!==undefined){
+    if (this.dob !== undefined) {
       let dob = this.customDate.getStringFromDatePicker(this.dob);
-    this.customerForm.controls["dob"].setValue(dob);
+      this.customerForm.controls["dob"].setValue(dob);
     }
 
     if (this.isItToday !== true) {
@@ -159,15 +159,16 @@ export class CustomerFormComponent implements OnInit {
             this.loading = false;
           }
         );
-    }else{
+    } else {
       this.spinner.hide();
       return;
-
     }
-
   }
 
   onDayCheck(e) {
     this.isItToday = e.checked;
+  }
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }

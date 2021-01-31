@@ -1,6 +1,6 @@
 import { VisitDetailFormComponent } from "./../../shared/visit-detail-form/visit-detail-form.component";
 import { VisitDetailService } from "./../../services/visit-detail.service";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { Component, OnInit } from "@angular/core";
 import { DatePipe } from "@angular/common";
 import { MatDialogRef, MatDialog } from "@angular/material";
@@ -34,6 +34,9 @@ export class VisitDetailComponent implements OnInit {
   label1 = "Visit";
   label2 = "Deposit";
   customerVisitDetail;
+
+  subscription: Subscription;
+
   constructor(
     private visitDetailService: VisitDetailService,
     private spinner: NgxSpinnerService,
@@ -62,7 +65,6 @@ export class VisitDetailComponent implements OnInit {
         .pipe(
           tap((res) => {
             this.customerVisitDetail = res;
-            console.log(this.customerVisitDetail);
           })
         );
     }),
@@ -74,10 +76,15 @@ export class VisitDetailComponent implements OnInit {
       };
   }
   onSearch() {}
-  onViewDetails(visit) {}
+
+  onViewDetails(visit) {
+    this.router.navigate(["/dental/invoice"], {
+      queryParams: { visitMainId: this.visitMainId, visitDetailId: visit.id },
+    });
+  }
+
   onAdd(mode: string, visitDetail?: any) {
     /* START BY CODE REFACTORING FROM HERE */
-    console.log(visitDetail);
     const dialogRef = this.dialog.open(VisitDetailFormComponent, {
       disableClose: true,
       // width: "450px",
@@ -94,4 +101,9 @@ export class VisitDetailComponent implements OnInit {
       }
     });
   }
+
+  /* ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.subscription.unsubscribe();
+} */
 }

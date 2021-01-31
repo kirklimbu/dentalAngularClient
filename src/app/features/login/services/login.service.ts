@@ -20,8 +20,6 @@ export class LoginService {
   constructor(private http: HttpClient, private router: Router) {}
 
   getLogin(userName, passWord): any {
-    console.log("calling login service ");
-
     /* return this.http
       .post<User>(`${this.API_URL}staff/login`, { username, password })
       .pipe(
@@ -36,8 +34,6 @@ export class LoginService {
           );
         })
       ); */
-
-    console.log("login service called" + userName + passWord);
 
     return this.http
       .post<User>(this.API_URL + "staff/login", {
@@ -55,8 +51,6 @@ export class LoginService {
   }
 
   logout() {
-    console.log("calling logout");
-
     // remove user from local storage to log user out
     // localStorage.removeItem('currentUser');
     localStorage.removeItem("token");
