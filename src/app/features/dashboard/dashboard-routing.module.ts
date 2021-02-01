@@ -46,17 +46,28 @@ const routes: Routes = [
         },
         // canActivate: [UserRoleGuardService],
       },
+      {
+        path: "404",
+        loadChildren: () =>
+          import("./../page-not-found/page-not-found.module").then(
+            (m) => m.PageNotFoundModule
+          ),
+        data: {
+          // allowedRoles: [UserRoleType.ROLE_ALL],
+        },
+        // canActivate: [UserRoleGuardService],
+      },
     ],
   },
   {
     path: "",
     pathMatch: "full",
-    redirectTo: "/dental/home", // change it to login page
+    redirectTo: "/dental/404", // change it to login page
   },
   {
     path: "**",
     pathMatch: "full",
-    redirectTo: "/dental/home", // change it to page 404
+    redirectTo: "/dental/404", // change it to page 404
   },
 ];
 

@@ -7,7 +7,7 @@
     (click)="sidenav.toggle()"
     class="rightSidenav_toggle"
   >
-    <mat-icon color="primary" (click)="onChangeIcon()">{{
+    <mat-icon (click)="onChangeIcon()" style="color: #2a8bf7">{{
       toggleActive ? "menu" : "sort"
     }}</mat-icon>
   </button>
