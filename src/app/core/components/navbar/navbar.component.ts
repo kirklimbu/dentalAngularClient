@@ -17,7 +17,9 @@ export class NavbarComponent implements OnInit {
     private loginService: LoginService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.title = localStorage.getItem("orgName");
+  }
   onChangeIcon() {
     this.toggleActive = !this.toggleActive;
   }

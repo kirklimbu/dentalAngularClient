@@ -78,7 +78,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         .subscribe(
           (res) => {
             this.loading = false;
-
             this.loggedIn.next(true);
             this.router.navigate(["/dental/home"]);
           },

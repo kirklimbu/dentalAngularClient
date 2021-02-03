@@ -19,21 +19,21 @@ export class HomeComponent implements OnInit, OnDestroy {
   chartTable = [];
 
   /* chart */
-  chart1Title = "Num of patients";
-  chart2Title = "New Customers";
+  chart1Title = "";
+  chart2Title = "";
   view: any[] = [400, 300];
   showXAxis = true;
   showYAxis = true;
   gradient = true;
   showLegend = false;
-  legendTitle1 = "Top patient list";
-  legendTitle2 = "New cusotmers";
+  legendTitle1 = "";
+  legendTitle2 = "";
   showXAxisLabel = true;
   showYAxisLabel = true;
   yAxisLabel1 = "Patients";
-  yAxisLabel2 = "Cusotmers";
-  xAxisLabel1 = "Visit Type";
-  xAxisLabel2 = "Month";
+  yAxisLabel2 = "New cusotmers";
+  xAxisLabel1 = "";
+  xAxisLabel2 = "";
   barPadding = 1;
   colorScheme = {
     domain: ["#777", "#fca402", "#35a7e0", "#4c49d8", "#fa1000", "#2cb713"],
