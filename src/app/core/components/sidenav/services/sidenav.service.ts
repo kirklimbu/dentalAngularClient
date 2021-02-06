@@ -7,7 +7,7 @@ import { Subject } from "rxjs";
   providedIn: "root",
 })
 export class SidenavService {
-  private sidenav: MatSidenav;
+  public sidenav: MatSidenav;
 
   public setSidenav(sidenav: MatSidenav) {
     this.sidenav = sidenav;

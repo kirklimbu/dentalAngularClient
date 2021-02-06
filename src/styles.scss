@@ -254,3 +254,17 @@ mat-toolbar {
   font-size: 5rem;
   color: coral;
 }
+
+.developers-info-section {
+  // color:rgb(86, 196, 236);
+
+  color: #2a8bf7;
+  display: grid;
+  place-items: center;
+  margin-top: 10rem;
+  font-family: Ubuntu !important
+}
+
+.send-sms {
+  float: right;
+}

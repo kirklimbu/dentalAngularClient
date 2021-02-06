@@ -1,0 +1,91 @@
+<div class="message">
+  <div class="row">
+    <div class="col-md-8 col-sm-8">
+      <h3>{{ messageType | titlecase }} Message</h3>
+    </div>
+    <div class="col-md-4 col-sm-4 mb-3">
+      <mat-button-toggle-group
+        #group="matButtonToggleGroup"
+        appearance="legacy"
+        name="fontStyle"
+        aria-label="Font Style"
+      >
+        <mat-button-toggle
+          value="mannual"
+          aria-label="Text align left"
+          (change)="toggleMessageType($event.value)"
+        >
+          Default
+        </mat-button-toggle>
+        <mat-button-toggle
+          value="default"
+          aria-label="Text align center"
+          (change)="toggleMessageType($event.value)"
+        >
+          Mannual
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+
+  <form [formGroup]="messageForm">
+    <ng-container *ngIf="messageType === 'mannual'">
+      <div class="row">
+        <div class="col-md-12 col-sm-12 full-width">
+          <!-- mannual messages -->
+          <app-form-group [required]="true">
+            <mat-form-field appearance="fill" class="=full-width">
+              <mat-label>Message</mat-label>
+              <textarea
+                formControlName="message"
+                matInput
+                #text
+                [maxLength]="300"
+                cdkTextareaAutosize
+                cdkAutosizeMinRows="2"
+                cdkAutosizeMaxRows="5"
+              ></textarea>
+              <mat-hint align="end">{{ text.value?.length || 0 }}/300</mat-hint>
+            </mat-form-field>
+          </app-form-group>
+
+          <!-- mannual messages end -->
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="messageType === 'default'">
+      <div class="row">
+        <!-- default messages -->
+        <div class="col-md-12 col-sm-12 full-width">
+          <app-form-group>
+            <mat-form-field appearance="fill">
+              <mat-label>Select Message</mat-label>
+              <mat-select formControlName="message">
+                <mat-option value="one">First option</mat-option>
+                <mat-option value="two">Second option</mat-option>
+                <mat-option value="one">First option</mat-option>
+                <mat-option value="two">Second option</mat-option>
+                <mat-option value="one">First option</mat-option>
+                <mat-option value="two">Second option</mat-option>
+                <mat-option value="one">First option</mat-option>
+                <mat-option value="two">Second option</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </app-form-group>
+        </div>
+        <!-- default messages end -->
+      </div>
+    </ng-container>
+    <div class="row">
+      <div class="col card-actions">
+        <mat-card-actions>
+          <app-save-cancel-buttons
+            [isSaveLoading]="loading"
+            (save)="onSave()"
+            (cancel)="onCancel()"
+          ></app-save-cancel-buttons>
+        </mat-card-actions>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,47 +1,128 @@
 <div class="content-wrapper">
-  <mat-card class="example-card mx-auto">
-    <mat-card-header>
-      <!--    <div mat-card-avatar class="example-header-image"></div>-->
-      <mat-card-title classs="mx-auto">Message</mat-card-title>
-      <mat-card-subtitle classs="mx-auto">SMS for clients</mat-card-subtitle>
-    </mat-card-header>
-    <!--  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
-    <mat-card-content fxLayoutAlign="center center">
-      <form
-        class="example-form"
-        (ngSubmit)="sendSms()"
-        [formGroup]="smsForm"
-        novalidate
-      >
-        <mat-form-field class="example-full-width mx-auto">
-          <span matPrefix>+977 &nbsp;</span>
-          <input
-            type="tel"
-            matInput
-            placeholder="Mobile"
-            formControlName="mobile"
-          />
-          <mat-icon matSuffix>mobile</mat-icon>
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-          <textarea
-            matInput
-            placeholder="Message"
-            formControlName="message"
-          ></textarea>
-        </mat-form-field>
-      </form>
-    </mat-card-content>
-    <mat-card-actions>
-      <button
-        mat-raised-button
-        color="primary"
-        align="center"
-        [disabled]="!smsForm.valid"
-      >
-        Send
-      </button>
-      <!--    <button mat-button>SHARE</button>-->
-    </mat-card-actions>
-  </mat-card>
+  <xng-breadcrumb></xng-breadcrumb>
+
+  <div
+    fxLayout
+    fxLayout.lt-md="column wrap"
+    fxLayoutAlign="center center"
+    fxLayoutGap.gt-sm="250px"
+    fxLayoutGap.lt.md="20px"
+  >
+    <div>
+      <!-- table top bar items -->
+      <app-table-top-bar
+        [enableSearch]="true"
+        (search)="onSearch()"
+      ></app-table-top-bar>
+      <!-- table top bar items end -->
+    </div>
+  </div>
+  <form>
+    <div class="example-container mat-elevation-z8">
+      <table mat-table [dataSource]="customerListTableDataSource" class="mb-3">
+        <ng-container matColumnDef="checked">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox
+              [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()"
+              (change)="$event ? selectAllClients() : null"
+            ></mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox
+              (click)="$event.stopPropagation()"
+              (change)="$event ? selection.toggle(row) : null"
+              [checked]="selection.isSelected(row)"
+            ></mat-checkbox>
+          </td>
+        </ng-container>
+        <!--First Name Column -->
+        <ng-container matColumnDef="S.n">
+          <th mat-header-cell *matHeaderCellDef>S.n</th>
+          <td mat-cell *matCellDef="let element; index as i">
+            <!--   <button mat-stroked-button routerLink="/customer-detail/id">
+             {{ element.fname }}
+           </button>-->
+            {{ i + 1 }}.
+          </td> </ng-container
+        ><ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>Id</th>
+          <td mat-cell *matCellDef="let element">
+            <!--   <button mat-stroked-button routerLink="/customer-detail/id">
+
+           </button>-->
+            {{ element.id }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let element">
+            <!--   <button mat-stroked-button routerLink="/customer-detail/id">
+
+           </button>-->
+            {{ element.name }}
+          </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="mobile">
+          <th mat-header-cell *matHeaderCellDef>Mobile</th>
+          <td mat-cell *matCellDef="let element">{{ element.mobile }}</td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef>Address</th>
+          <td mat-cell *matCellDef="let element">{{ element.address }}</td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <!-- <ng-container matColumnDef="visitType">
+        <th mat-header-cell *matHeaderCellDef>Type of Visit</th>
+        <td mat-cell *matCellDef="let element">{{ element.visitType.type }}</td>
+      </ng-container> -->
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="visitDate">
+          <th mat-header-cell *matHeaderCellDef>Last Visited Date</th>
+          <td mat-cell *matCellDef="let element">{{ element.visitDateBs }}</td>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="action" align="end">
+          <th mat-header-cell *matHeaderCellDef style="padding-right: 0">
+            Action
+          </th>
+          <td mat-cell *matCellDef="let row; let i = index">
+            <!--  <button
+            mat-icon-button
+            color="primary"
+            (click)="startEdit(row.name, row.address, row.mobile)"
+          >
+            <mat-icon aria-label="Edit">edit</mat-icon>
+          </button> -->
+            <app-table-action-buttons
+              [isEmpty]="clientList.length == 0"
+              [enableDelete]="false"
+              [enableEdit]="false"
+              [enableViewDetails]="false"
+            ></app-table-action-buttons>
+          </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <tr
+          mat-header-row
+          *matHeaderRowDef="displayedColumns; sticky: true"
+        ></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 send-sms">
+        <button mat-raised-button align="end" (click)="sendSms()">
+          Send SMS
+        </button>
+      </div>
+    </div>
+  </form>
 </div>
