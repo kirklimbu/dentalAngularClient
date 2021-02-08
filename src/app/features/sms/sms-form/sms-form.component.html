@@ -10,10 +10,29 @@
   >
     <div>
       <!-- table top bar items -->
-      <app-table-top-bar
-        [enableSearch]="true"
-        (search)="onSearch()"
-      ></app-table-top-bar>
+      <ng-container *ngIf="smsType === 'visitType'">
+        <app-table-top-bar
+          [optionType]="status"
+          [enableAdd]="false"
+          [enableSearch]="true"
+          (search)="onSearch()"
+        ></app-table-top-bar>
+      </ng-container>
+      <ng-container *ngIf="smsType === 'nextDay'">
+        <app-table-top-bar
+          [type]="type"
+          [placeholder]="placeholder"
+          [inputName]="inputName"
+          [enableInput]="true"
+          [enableStatus]="false"
+          [enableFromDate]="false"
+          [enableToDate]="false"
+          [enableSearch]="true"
+          [enableStatus]="false"
+          [enableAdd]="false"
+          (search)="onSearch()"
+        ></app-table-top-bar>
+      </ng-container>
       <!-- table top bar items end -->
     </div>
   </div>

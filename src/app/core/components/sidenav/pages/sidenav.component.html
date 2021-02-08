@@ -5,12 +5,8 @@
       <div class="logo-sn ms-d-block-lg">
         <!-- for logo -->
       </div>
-      <a
-        class="link"
-        mat-list-item
-        routerLinkActive
-        [routerLink]="['/dental/home']"
-        ><mat-icon>dashboard</mat-icon> Dashboard
+      <a class="link" mat-list-item routerLinkActive [routerLink]="['/dental/home']">
+        <mat-icon>dashboard</mat-icon> Dashboard
       </a>
       <a mat-list-item routerLinkActive [routerLink]="['/dental/customer']">
         <mat-icon>person</mat-icon> Customer
@@ -19,21 +15,20 @@
       <mat-accordion class="example-headers-align" multi>
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title><mat-icon>sms</mat-icon>SMS </mat-panel-title>
+            <mat-panel-title>
+              <mat-icon>sms</mat-icon>SMS
+            </mat-panel-title>
           </mat-expansion-panel-header>
           <mat-panel-description>
             <mat-list>
               <mat-list-item>
-                <a mat-list-item routerLinkActive [routerLink]="['/dental/sms']"
-                  ><mat-icon>sms</mat-icon> Visit Type
+                <a mat-list-item routerLinkActive (click)="navigateTo('visitType')">
+                  <mat-icon>sms</mat-icon> Visit Type
                 </a>
               </mat-list-item>
               <mat-list-item>
-                <a
-                  mat-list-item
-                  routerLinkActive
-                  [routerLink]="['/dental/sms/next-day']"
-                  ><mat-icon>person_add</mat-icon> Next Day
+                <a mat-list-item routerLinkActive (click)="navigateTo('nextDay')">
+                  <mat-icon>person_add</mat-icon> Next Day
                 </a>
               </mat-list-item>
             </mat-list>
@@ -49,8 +44,8 @@
       </a> -->
     </mat-nav-list>
 
-    <mat-nav-list> </mat-nav-list
-  ></mat-drawer>
+    <mat-nav-list> </mat-nav-list>
+  </mat-drawer>
   <mat-drawer-content class="main-content">
     <app-navbar></app-navbar>
 

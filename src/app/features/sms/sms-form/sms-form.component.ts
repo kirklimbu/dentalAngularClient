@@ -9,7 +9,7 @@ import { DateFormatter } from "angular-nepali-datepicker";
 import { Observable } from "rxjs";
 import { Customer } from "src/app/core/models/customer";
 import { NgxSpinnerService } from "ngx-spinner";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { finalize, tap } from "rxjs/operators";
 import { SelectionModel } from "@angular/cdk/collections";
@@ -54,6 +54,12 @@ export class SmsFormComponent implements OnInit {
   selectAll = false;
   selection = new SelectionModel<any>(true, []);
 
+  smsType: string;
+  status = "Visit Type";
+  type = "number";
+  placeholder = "Enter days";
+  inputName = "Days";
+
   // @ViewChild("selectAll") private selectAll: MatOption;
 
   /* fake customerlist */
@@ -94,11 +100,21 @@ export class SmsFormComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
     private router: Router,
+    private route: ActivatedRoute,
     private dialog: MatDialog
   ) {}
 
   ngOnInit() {
     // this.fetchClientList();
+    this.fetchQueryParm();
+  }
+
+  fetchQueryParm() {
+    // this.spinner.show();
+    this.route.queryParamMap.subscribe((params) => {
+      console.log(params);
+      this.smsType = params.get("smsType");
+    });
   }
   fetchClientList() {
     this.spinner.show();
@@ -151,7 +167,7 @@ export class SmsFormComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
-/* CALL BACKEND TO SAVE MESSAGE */
+      /* CALL BACKEND TO SAVE MESSAGE */
       // table refresh on cancel nagarne
       //if response is not list -->  refreshing particular segment
       if (result !== "cancel") {

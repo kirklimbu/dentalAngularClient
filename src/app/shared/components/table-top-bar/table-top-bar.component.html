@@ -36,8 +36,19 @@
 <!-- new table top bar items -->
 <mat-card-actions *ngIf="enableSearch">
   <div class="row top-bar-search">
-    <div class="col" *ngIf="enableStatus">
-      <label>Select status</label>
+    <div class="col-md-4 col-sm-4" *ngIf="enableInput">
+      <div class="form-group">
+        <label for="exampleFormControlInput1">{{ inputName }}</label>
+        <input
+          [type]=""
+          class="form-control"
+          [placeholder]=""
+          [(ngModel)]="inputValue"
+        />
+      </div>
+    </div>
+    <div class="col mb-2" *ngIf="enableStatus">
+      <label>Select {{ optionType }}</label>
       <select
         class="custom-select"
         id="inputGroupSelect03"

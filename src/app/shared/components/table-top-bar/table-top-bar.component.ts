@@ -19,6 +19,17 @@ export class TableTopBarComponent implements OnInit {
   isSearchShowing = false;
   customDate = new CustomJs();
   formatDate = new FormatDate();
+
+  /* input props */
+  @Input()
+  enableInput = false;
+  @Input()
+  placeholder: string = "Enter Days";
+  @Input()
+  type: string = "number"; //type of input
+  @Input()
+  inputName: string;
+
   @Input()
   enableSearch = false;
 
@@ -34,7 +45,10 @@ export class TableTopBarComponent implements OnInit {
   @Input()
   enableToDate = true;
 
-  // @Input()
+  @Input()
+  inputValue: any = 0;
+
+  @Input()
   fromDate: any;
 
   @Input()
@@ -43,13 +57,21 @@ export class TableTopBarComponent implements OnInit {
   @Input()
   status: string;
 
+  @Input()
+  optionType: string = "Status";
+
   keyword: string;
 
   @Output()
   add: EventEmitter<void> = new EventEmitter();
 
   @Output()
-  search = new EventEmitter<{ status: any; fromDate: any; toDate: any }>();
+  search = new EventEmitter<{
+    inputValue?: any;
+    status?: any;
+    fromDate?: any;
+    toDate?: any;
+  }>();
 
   constructor(private spinner: NgxSpinnerService) {}
 
@@ -70,11 +92,13 @@ export class TableTopBarComponent implements OnInit {
 
   onSearch() {
     this.search.emit({
+      inputValue: this.inputValue,
       status: this.status,
       fromDate: this.fromDate,
       toDate: this.toDate,
     });
 
+    console.log(this.inputValue);
     console.log(this.status);
     console.log(this.fromDate);
     console.log(this.toDate);
