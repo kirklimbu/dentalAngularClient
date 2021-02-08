@@ -12,7 +12,6 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { NgxSpinnerComponent } from "./shared/components/ngx-spinner/ngx-spinner.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { JwtModule } from "@auth0/angular-jwt";
-import { ToastrService } from "ngx-toastr";
 import { BreadcrumbModule } from "xng-breadcrumb";
 import { HttpTokenInterceptorService } from "./core/http-interceptor/http-token/http-token-interceptor.service";
 
@@ -28,6 +27,7 @@ import { HttpTokenInterceptorService } from "./core/http-interceptor/http-token/
     NgxPrintModule,
     NgbModule,
     BreadcrumbModule,
+
     JwtModule.forRoot({
       config: {
         // ...

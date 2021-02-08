@@ -24,6 +24,7 @@ const DECLARATIONS: any[] = [
     CoreRoutingModule,
     MaterialModule,
     NgxChartsModule,
+
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: "toast-bottom-right",

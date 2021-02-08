@@ -30,6 +30,7 @@
     "hammerjs": "^2.0.8",
     "jquery": "^3.5.1",
     "nepali-date": "^0.1.3",
+    "ng-material-multilevel-menu": "^5.5.3",
     "ngx-print": "^1.2.0-beta.5",
     "ngx-spinner": "^10.0.1",
     "ngx-toastr": "^11.3.2",

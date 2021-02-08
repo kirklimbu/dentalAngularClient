@@ -15,18 +15,42 @@
       <a mat-list-item routerLinkActive [routerLink]="['/dental/customer']">
         <mat-icon>person</mat-icon> Customer
       </a>
-      <a mat-list-item routerLinkActive [routerLink]="['/dental/sms']"
-        ><mat-icon>sms</mat-icon> SMS </a
-      >
+      <!-- test -->
+      <mat-accordion class="example-headers-align" multi>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title><mat-icon>sms</mat-icon>SMS </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-panel-description>
+            <mat-list>
+              <mat-list-item>
+                <a mat-list-item routerLinkActive [routerLink]="['/dental/sms']"
+                  ><mat-icon>sms</mat-icon> Visit Type
+                </a>
+              </mat-list-item>
+              <mat-list-item>
+                <a
+                  mat-list-item
+                  routerLinkActive
+                  [routerLink]="['/dental/sms/next-day']"
+                  ><mat-icon>person_add</mat-icon> Next Day
+                </a>
+              </mat-list-item>
+            </mat-list>
+          </mat-panel-description>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <!-- test end -->
+      <!--  <a mat-list-item routerLinkActive [routerLink]="['/dental/sms']"
+        ><mat-icon>sms</mat-icon> SMS
+      </a> -->
       <!-- <a mat-list-item routerLinkActive [routerLink]="['/dental/invoice']"
         ><mat-icon>mms</mat-icon> Bill
       </a> -->
     </mat-nav-list>
 
-    <mat-nav-list>
-
-    </mat-nav-list></mat-drawer
-  >
+    <mat-nav-list> </mat-nav-list
+  ></mat-drawer>
   <mat-drawer-content class="main-content">
     <app-navbar></app-navbar>
 
