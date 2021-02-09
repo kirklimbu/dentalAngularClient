@@ -12,10 +12,13 @@
       <!-- table top bar items -->
       <ng-container *ngIf="smsType === 'visitType'">
         <app-table-top-bar
+          [enableFromDate]="true"
+          [enableToDate]="true"
+          [enableInput]="false"
           [optionType]="status"
           [enableAdd]="false"
           [enableSearch]="true"
-          (search)="onSearch()"
+          (search)="onSearch($event)"
         ></app-table-top-bar>
       </ng-container>
       <ng-container *ngIf="smsType === 'nextDay'">
@@ -30,7 +33,7 @@
           [enableSearch]="true"
           [enableStatus]="false"
           [enableAdd]="false"
-          (search)="onSearch()"
+          (search)="onSearch($event)"
         ></app-table-top-bar>
       </ng-container>
       <!-- table top bar items end -->

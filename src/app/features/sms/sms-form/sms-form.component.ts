@@ -132,7 +132,9 @@ export class SmsFormComponent implements OnInit {
     };
   }
 
-  onSearch() {}
+  onSearch(e) {
+    console.log(e);
+  }
 
   updateCheckedList(e) {}
 

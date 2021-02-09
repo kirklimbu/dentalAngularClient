@@ -70,6 +70,7 @@ export class CustomJs {
       this.appendLeadingZeroes(date.getDate())
     );
   }
+
 /* sajan maharjan ko */
   getStringFromNepaliFunction(nepaliFunctionObject) {
     //convert NepaliFunction return object to string
@@ -93,6 +94,7 @@ export class CustomJs {
       this.getStringFromNepaliFunction(nepaliFunctionObject)
     );
   }
+  
 /* to string aaunxa */
   getStringFromDatePicker(datePickerObject) {
     //convert DatePicker return object to string

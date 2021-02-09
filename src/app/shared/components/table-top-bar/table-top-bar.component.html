@@ -43,7 +43,7 @@
           [type]=""
           class="form-control"
           [placeholder]=""
-          [(ngModel)]="inputValue"
+          [(ngModel)]="days"
         />
       </div>
     </div>
@@ -54,12 +54,8 @@
         id="inputGroupSelect03"
         [(ngModel)]="status"
       >
-        <option [selected] disabled>Choose...</option>
-        <option
-          value="1"
-          *ngFor="let status of statuses"
-          [value]="status.value"
-        >
+        <option value="" disabled>-- Please Select --</option>
+        <option selected *ngFor="let status of statuses" [value]="status.value">
           {{ status.name }}
         </option>
       </select>

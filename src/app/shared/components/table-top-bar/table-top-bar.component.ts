@@ -3,6 +3,7 @@ import { CustomJs } from "src/app/shared/customjs/custom.js";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { DateFormatter, NepaliDate } from "angular-nepali-datepicker";
+import { from } from "rxjs";
 
 @Component({
   selector: "app-table-top-bar",
@@ -14,6 +15,7 @@ export class TableTopBarComponent implements OnInit {
   statuses: any[] = [
     {
       name: "Pending",
+      value:'P'
     },
   ];
   isSearchShowing = false;
@@ -46,7 +48,7 @@ export class TableTopBarComponent implements OnInit {
   enableToDate = true;
 
   @Input()
-  inputValue: any = 0;
+  days: any;
 
   @Input()
   fromDate: any;
@@ -67,7 +69,7 @@ export class TableTopBarComponent implements OnInit {
 
   @Output()
   search = new EventEmitter<{
-    inputValue?: any;
+    days?: any;
     status?: any;
     fromDate?: any;
     toDate?: any;
@@ -75,7 +77,10 @@ export class TableTopBarComponent implements OnInit {
 
   constructor(private spinner: NgxSpinnerService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getCurrentDate();
+    this.getDateAfter();
+  }
 
   fromDateFormatter: DateFormatter = (date) => {
     return `${date.year} / ${date.month + 1} / ${date.day} `;
@@ -91,17 +96,36 @@ export class TableTopBarComponent implements OnInit {
   }
 
   onSearch() {
+    this.fromDate = this.convertDateToString(this.fromDate);
+    this.toDate = this.convertDateToString(this.toDate);
+
     this.search.emit({
-      inputValue: this.inputValue,
+      days: this.days,
       status: this.status,
       fromDate: this.fromDate,
       toDate: this.toDate,
     });
 
-    console.log(this.inputValue);
-    console.log(this.status);
-    console.log(this.fromDate);
-    console.log(this.toDate);
+    this.fromDate = this.convetStringToDate(this.fromDate);
+    this.toDate = this.convetStringToDate(this.toDate);
+  }
+
+  convertDateToString(date) {
+    return this.customDate.getStringFromDatePicker(date);
+  }
+
+  convetStringToDate(date) {
+    return this.customDate.getDatePickerObject(date);
+  }
+
+  getCurrentDate() {
+    let fromDate = this.customDate.getCurrentDateBS();
+    return (this.fromDate = this.convetStringToDate(fromDate));
+  }
+
+  getDateAfter() {
+    let toDate = this.customDate.getBeforeAfterDayDateBs(7);
+    return (this.toDate = this.convetStringToDate(toDate));
   }
 
   fetchDefaultList() {
@@ -115,6 +139,5 @@ export class TableTopBarComponent implements OnInit {
     let fromDate: NepaliDate = this.customDate.getBeforeAfterMonthDateBS(-1);
     fromDate = this.customDate.getNepaliFunctionDateObject(fromDate);
     this.fromDate = fromDate;
-    return;
   }
 }
