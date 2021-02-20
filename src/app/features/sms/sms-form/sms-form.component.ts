@@ -41,14 +41,6 @@ export class SmsFormComponent implements OnInit {
     "action",
   ];
 
-  /* displaying nepali date */
-  /* fromDateFormatter: DateFormatter = (date) => {
-     return this.formatDate.getFormatDate(date);
-   };
-   toDateFormatter: DateFormatter = (date) => {
-     return this.formatDate.getFormatDate(date);
-   }; */
-
   clientListDataSource: Customer[];
   selectedClients = [];
   selectAll = false;
@@ -61,39 +53,8 @@ export class SmsFormComponent implements OnInit {
   inputName = "Days";
 
   // @ViewChild("selectAll") private selectAll: MatOption;
-
-  /* fake customerlist */
-  clientList: any[] = [
-    {
-      id: 5,
-      name: "yemjee",
-      mobile: "98767676788",
-      address: "damak",
-      visitDateBs: "2077/10/10",
-      photo: null,
-      sms: true,
-    },
-    {
-      id: 6,
-      name: "Bickram Sambahamphe",
-      mobile: "123456",
-      address: "damak",
-      visitDateBs: "2077/10/17",
-      photo: null,
-      sms: true,
-    },
-    {
-      id: 36,
-      name: "sujan",
-      mobile: "789454",
-      address: "damak",
-      visitDateBs: "",
-      photo: null,
-      sms: false,
-    },
-  ];
-  /* fake customerlist end*/
-  customerListTableDataSource = new MatTableDataSource(this.clientList);
+  smsCustomerList: Customer[];
+  customerListTableDataSource = new MatTableDataSource();
 
   constructor(
     private smsService: SmsService,
@@ -105,7 +66,7 @@ export class SmsFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.fetchClientList();
+    // this.fetchDefaultSmsList();
     this.fetchQueryParm();
   }
 
@@ -116,33 +77,54 @@ export class SmsFormComponent implements OnInit {
       this.smsType = params.get("smsType");
     });
   }
-  fetchClientList() {
+
+  fetchDefaultSmsList() {
     this.spinner.show();
-    this.clientListDataSource$ = this.smsService
-      .getSmsList()
+    this.smsService
+      .getDefaultSmsList()
       .pipe(finalize(() => this.spinner.hide()))
-      .pipe(
-        tap((res) => {
-          this.clientListDataSource = res;
-        })
-      );
-    (err) => {
-      this.toastr.error(err.message);
-      this.spinner.hide();
-    };
+      .subscribe((res: any) => {
+        console.log(res);
+        this.clientListDataSource = res;
+      }),
+      (err) => {
+        this.toastr.error(err.message);
+        this.spinner.hide();
+      };
   }
 
   onSearch(e) {
     console.log(e);
+    if (this.smsType == "nextDay") {
+      console.log("next day");
+      let type = "nextXDay";
+      let nextDay = e.days;
+      let visitTypeId = 2;
+      this.smsService
+        .getCustomSmsList(visitTypeId, type, nextDay)
+        .subscribe((res: any) => {
+          console.log(res);
+          this.smsCustomerList = res;
+        }),
+        (err) => {
+          this.toastr.error(err.message);
+        };
+    }
   }
 
   updateCheckedList(e) {}
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
+    console.log(numSelected);
+    console.log(this.customerListTableDataSource);
+
     const numRows = this.customerListTableDataSource.data.length;
+    console.log(numRows);
+    console.log(numSelected === numRows);
     return numSelected === numRows;
   }
+
   selectAllClients() {
     this.isAllSelected()
       ? this.selection.clear()

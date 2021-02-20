@@ -20,12 +20,13 @@
           [enableSearch]="true"
           (search)="onSearch($event)"
         ></app-table-top-bar>
-      </ng-container> <ng-container *ngIf="smsType === 'birthday'">
+      </ng-container>
+      <ng-container *ngIf="smsType === 'birthday'">
         <app-table-top-bar
           [enableFromDate]="false"
           [enableToDate]="false"
           [enableInput]="false"
-          [optionType]="status"
+          [optionType]="smsType"
           [enableAdd]="false"
           [enableSearch]="true"
           (search)="onSearch($event)"
@@ -51,7 +52,11 @@
   </div>
   <form>
     <div class="example-container mat-elevation-z8">
-      <table mat-table [dataSource]="customerListTableDataSource" class="mb-3">
+      <table
+        mat-table
+        [dataSource]="smsCustomerList"
+        class="mb-3"
+      >
         <ng-container matColumnDef="checked">
           <th mat-header-cell *matHeaderCellDef>
             <mat-checkbox
@@ -133,7 +138,7 @@
             <mat-icon aria-label="Edit">edit</mat-icon>
           </button> -->
             <app-table-action-buttons
-              [isEmpty]="clientList.length == 0"
+             
               [enableDelete]="false"
               [enableEdit]="false"
               [enableViewDetails]="false"

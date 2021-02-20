@@ -32,7 +32,7 @@
 
   <!--/ search  -->
 </div>
-git 
+
 <!-- new table top bar items -->
 <mat-card-actions *ngIf="enableSearch">
   <div class="row top-bar-search">
@@ -40,7 +40,8 @@ git
       <div class="form-group">
         <label for="exampleFormControlInput1">{{ inputName }}</label>
         <input
-          [type]=""
+          type="number"
+          min="1"
           class="form-control"
           [placeholder]=""
           [(ngModel)]="days"

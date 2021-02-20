@@ -12,11 +12,22 @@ export class SmsService {
 
   constructor(private http: HttpClient) {}
 
-  getSmsList() {
-    return this.http.get(`${this.API_URL}auth/customer/list`).pipe(
+  getDefaultSmsList() {
+    return this.http.get(`${this.API_URL}auth/customer/default/sms/list`).pipe(
       catchError((err) => {
         return throwError(err);
       })
     );
+  }
+  getCustomSmsList(visitTypeId: number, type?: string, nextDay?: number) {
+    return this.http
+      .get(
+        `${this.API_URL}auth/customer/sms/list?visitTypeId=${visitTypeId}&type=${type}&nextDay=${nextDay}`
+      )
+      .pipe(
+        catchError((err) => {
+          return throwError(err);
+        })
+      );
   }
 }

@@ -68,7 +68,7 @@ export class TableTopBarComponent implements OnInit {
   status: string;
 
   @Input()
-  optionType: string = "Status";
+  optionType: string = "";
 
   keyword: string;
 
@@ -87,6 +87,7 @@ export class TableTopBarComponent implements OnInit {
   constructor(private spinner: NgxSpinnerService) {}
 
   ngOnInit(): void {
+    this.fetchVisitType();
     this.getCurrentDate();
     this.getDateAfter();
   }
@@ -103,7 +104,6 @@ export class TableTopBarComponent implements OnInit {
   }
 
   onSearch() {
-
     console.log(this.status);
     if (this.status == "P") {
       this.fromDate = this.convertDateToString(this.fromDate);
@@ -157,4 +157,6 @@ export class TableTopBarComponent implements OnInit {
     fromDate = this.customDate.getNepaliFunctionDateObject(fromDate);
     this.fromDate = fromDate;
   }
+
+  fetchVisitType() {}
 }
