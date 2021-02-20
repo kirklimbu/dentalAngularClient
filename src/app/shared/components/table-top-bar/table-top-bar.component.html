@@ -32,7 +32,7 @@
 
   <!--/ search  -->
 </div>
-
+git 
 <!-- new table top bar items -->
 <mat-card-actions *ngIf="enableSearch">
   <div class="row top-bar-search">
@@ -54,7 +54,7 @@
         id="inputGroupSelect03"
         [(ngModel)]="status"
       >
-        <option value="" disabled>-- Please Select --</option>
+        <option value="null" disabled selected>-- Please Select --</option>
         <option selected *ngFor="let status of statuses" [value]="status.value">
           {{ status.name }}
         </option>

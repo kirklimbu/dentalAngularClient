@@ -15,6 +15,9 @@ export class TableActionButtonsComponent implements OnInit {
   enableDelete = true;
 
   @Input()
+  enablePrint = false;
+
+  @Input()
   enableViewDetails = true;
 
   @Input()
@@ -25,6 +28,9 @@ export class TableActionButtonsComponent implements OnInit {
 
   @Output()
   delete: EventEmitter<void> = new EventEmitter();
+  
+  @Output()
+  print: EventEmitter<void> = new EventEmitter();
 
   @Output()
   viewDetails: EventEmitter<void> = new EventEmitter();
@@ -38,6 +44,9 @@ export class TableActionButtonsComponent implements OnInit {
   }
   onDelete() {
     this.delete.emit();
+  }
+  onPrint() {
+    this.print.emit();
   }
   onVerifyDetails() {
     this.viewDetails.emit();

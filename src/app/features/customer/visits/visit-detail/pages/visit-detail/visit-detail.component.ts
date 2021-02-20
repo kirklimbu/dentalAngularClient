@@ -77,7 +77,7 @@ export class VisitDetailComponent implements OnInit {
   }
   onSearch() {}
 
-  onViewDetails(visit) {
+  onPrint(visit) {
     this.router.navigate(["/dental/invoice"], {
       queryParams: { visitMainId: this.visitMainId, visitDetailId: visit.id },
     });

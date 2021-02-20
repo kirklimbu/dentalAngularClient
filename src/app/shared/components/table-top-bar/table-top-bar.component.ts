@@ -15,9 +15,14 @@ export class TableTopBarComponent implements OnInit {
   statuses: any[] = [
     {
       name: "Pending",
-      value:'P'
+      value: "P",
+    },
+    {
+      name: "Birthday",
+      value: "B",
     },
   ];
+
   isSearchShowing = false;
   customDate = new CustomJs();
   formatDate = new FormatDate();
@@ -51,6 +56,9 @@ export class TableTopBarComponent implements OnInit {
   days: any;
 
   @Input()
+  birthday: any;
+
+  @Input()
   fromDate: any;
 
   @Input()
@@ -70,6 +78,7 @@ export class TableTopBarComponent implements OnInit {
   @Output()
   search = new EventEmitter<{
     days?: any;
+    birthday?: any;
     status?: any;
     fromDate?: any;
     toDate?: any;
@@ -90,24 +99,32 @@ export class TableTopBarComponent implements OnInit {
   };
 
   onAdd() {
-    console.log("add click emitted");
-
     this.add.emit();
   }
 
   onSearch() {
-    this.fromDate = this.convertDateToString(this.fromDate);
-    this.toDate = this.convertDateToString(this.toDate);
+
+    console.log(this.status);
+    if (this.status == "P") {
+      this.fromDate = this.convertDateToString(this.fromDate);
+      this.toDate = this.convertDateToString(this.toDate);
+    } else if (this.status == "B" || this.days != undefined) {
+      this.fromDate = "";
+      this.toDate = "";
+    }
 
     this.search.emit({
       days: this.days,
+      birthday: this.birthday,
       status: this.status,
       fromDate: this.fromDate,
       toDate: this.toDate,
     });
 
-    this.fromDate = this.convetStringToDate(this.fromDate);
-    this.toDate = this.convetStringToDate(this.toDate);
+    if (this.status == "P") {
+      this.fromDate = this.convetStringToDate(this.fromDate);
+      this.toDate = this.convetStringToDate(this.toDate);
+    }
   }
 
   convertDateToString(date) {

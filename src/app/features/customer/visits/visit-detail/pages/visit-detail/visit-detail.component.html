@@ -75,11 +75,12 @@
            </button> -->
           <app-table-action-buttons
             [isEmpty]="visitDetailListDataSource.length == 0"
-            [enableDelete]="true"
+            [enableDelete]="false"
+            [enablePrint]="true"
             [enableEdit]="true"
+            [enableViewDetails]="false"
             (edit)="onAdd('edit', row)"
-            [enableViewDetails]="true"
-            (viewDetails)="onViewDetails(row)"
+            (print)="onPrint(row)"
           ></app-table-action-buttons>
         </td>
       </ng-container>

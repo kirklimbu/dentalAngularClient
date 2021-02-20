@@ -18,6 +18,16 @@
   >
     <mat-icon>delete_outline</mat-icon>
   </button>
+  
+  <button
+    mat-button
+    color="basic"
+    *ngIf="enablePrint"
+    ngbTooltip="Print"
+    (click)="onPrint()"
+  >
+    <mat-icon>print</mat-icon>
+  </button>
   <button
     mat-button
     color="primary"
