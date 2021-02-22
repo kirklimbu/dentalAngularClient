@@ -1,9 +1,10 @@
+import { SharedServiceService } from "./../../serviecs/shared-service.service";
 import { FormatDate } from "./../../../core/constants/format-date";
 import { CustomJs } from "src/app/shared/customjs/custom.js";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { DateFormatter, NepaliDate } from "angular-nepali-datepicker";
-import { from } from "rxjs";
+import { from, Observable } from "rxjs";
 
 @Component({
   selector: "app-table-top-bar",
@@ -12,17 +13,9 @@ import { from } from "rxjs";
 })
 export class TableTopBarComponent implements OnInit {
   /* props */
-  statuses: any[] = [
-    {
-      name: "Pending",
-      value: "P",
-    },
-    {
-      name: "Birthday",
-      value: "B",
-    },
-  ];
 
+  statuses$: Observable<any>;
+  statuses;
   isSearchShowing = false;
   customDate = new CustomJs();
   formatDate = new FormatDate();
@@ -84,7 +77,10 @@ export class TableTopBarComponent implements OnInit {
     toDate?: any;
   }>();
 
-  constructor(private spinner: NgxSpinnerService) {}
+  constructor(
+    private spinner: NgxSpinnerService,
+    private sharedService: SharedServiceService
+  ) {}
 
   ngOnInit(): void {
     this.fetchVisitType();
@@ -105,10 +101,10 @@ export class TableTopBarComponent implements OnInit {
 
   onSearch() {
     console.log(this.status);
-    if (this.status == "P") {
+    if (this.status) {
       this.fromDate = this.convertDateToString(this.fromDate);
       this.toDate = this.convertDateToString(this.toDate);
-    } else if (this.status == "B" || this.days != undefined) {
+    } else {
       this.fromDate = "";
       this.toDate = "";
     }
@@ -121,7 +117,7 @@ export class TableTopBarComponent implements OnInit {
       toDate: this.toDate,
     });
 
-    if (this.status == "P") {
+    if (this.status) {
       this.fromDate = this.convetStringToDate(this.fromDate);
       this.toDate = this.convetStringToDate(this.toDate);
     }
@@ -158,5 +154,13 @@ export class TableTopBarComponent implements OnInit {
     this.fromDate = fromDate;
   }
 
-  fetchVisitType() {}
+  fetchVisitType() {
+    this.statuses$ = this.sharedService.getVisitType();
+    console.log(this.statuses$);
+    /* this.sharedService.getVisitType()
+    .subscribe((res) => {
+      this.statuses = res;
+    }); */
+    console.log(this.statuses);
+  }
 }

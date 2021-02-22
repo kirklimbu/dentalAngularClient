@@ -4,7 +4,12 @@ import { SmsService } from "./../service/sms.service";
 import { CustomJs } from "src/app/shared/customjs/custom.js";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { MatDialog, MatOption, MatTableDataSource } from "@angular/material";
+import {
+  MatDialog,
+  MatOption,
+  MatPaginator,
+  MatTableDataSource,
+} from "@angular/material";
 import { DateFormatter } from "angular-nepali-datepicker";
 import { Observable } from "rxjs";
 import { Customer } from "src/app/core/models/customer";
@@ -55,6 +60,7 @@ export class SmsFormComponent implements OnInit {
   // @ViewChild("selectAll") private selectAll: MatOption;
   smsCustomerList: Customer[];
   customerListTableDataSource = new MatTableDataSource();
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private smsService: SmsService,
@@ -75,6 +81,9 @@ export class SmsFormComponent implements OnInit {
     this.route.queryParamMap.subscribe((params) => {
       console.log(params);
       this.smsType = params.get("smsType");
+      if (this.smsType == "birthday") {
+        this.onSearch(this.smsType);
+      }
     });
   }
 
@@ -85,7 +94,8 @@ export class SmsFormComponent implements OnInit {
       .pipe(finalize(() => this.spinner.hide()))
       .subscribe((res: any) => {
         console.log(res);
-        this.clientListDataSource = res;
+        this.customerListTableDataSource = new MatTableDataSource<any>(res);
+        this.customerListTableDataSource.paginator = this.paginator;
       }),
       (err) => {
         this.toastr.error(err.message);
@@ -99,13 +109,34 @@ export class SmsFormComponent implements OnInit {
       console.log("next day");
       let type = "nextXDay";
       let nextDay = e.days;
-      let visitTypeId = 2;
+      let visitTypeId = null;
       this.smsService
-        .getCustomSmsList(visitTypeId, type, nextDay)
+        .getCustomSmsListAferXdays(type, nextDay)
         .subscribe((res: any) => {
           console.log(res);
           this.smsCustomerList = res;
         }),
+        (err) => {
+          this.toastr.error(err.message);
+        };
+    } else if (this.smsType == "visitType") {
+      let visitTypeId = e.status;
+      let fromDate = e.fromDate;
+      let toDate = e.toDate;
+      this.smsService
+        .getSmsListByVisitType(this.smsType, visitTypeId, fromDate, toDate)
+        .subscribe((res: any) => {
+          console.log(res);
+          this.smsCustomerList = res;
+        }),
+        (err) => {
+          this.toastr.error(err.message);
+        };
+    } else {
+      this.smsService.getBirthdaySmsList(this.smsType).subscribe((res: any) => {
+        console.log(res);
+        this.smsCustomerList = res;
+      }),
         (err) => {
           this.toastr.error(err.message);
         };

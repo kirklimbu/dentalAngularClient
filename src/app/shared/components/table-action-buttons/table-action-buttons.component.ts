@@ -12,7 +12,7 @@ export class TableActionButtonsComponent implements OnInit {
   enableEdit = true;
 
   @Input()
-  enableDelete = true;
+  enableDelete = false;
 
   @Input()
   enablePrint = false;
@@ -28,7 +28,7 @@ export class TableActionButtonsComponent implements OnInit {
 
   @Output()
   delete: EventEmitter<void> = new EventEmitter();
-  
+
   @Output()
   print: EventEmitter<void> = new EventEmitter();
 

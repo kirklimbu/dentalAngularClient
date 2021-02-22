@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // apiUrl: 'http://18.219.113.193:8086/dental/api/',
-  apiUrl: 'https://kalpaantadental.herokuapp.com/dental/api/',
+  apiUrl: 'http://18.219.113.193:8086/dental/api/',
+  // apiUrl: 'https://kalpaantadental.herokuapp.com/dental/api/',
 };
 
 /*

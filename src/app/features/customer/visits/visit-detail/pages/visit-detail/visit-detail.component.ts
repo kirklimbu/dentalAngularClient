@@ -1,9 +1,14 @@
 import { VisitDetailFormComponent } from "./../../shared/visit-detail-form/visit-detail-form.component";
 import { VisitDetailService } from "./../../services/visit-detail.service";
 import { Observable, Subscription } from "rxjs";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { DatePipe } from "@angular/common";
-import { MatDialogRef, MatDialog } from "@angular/material";
+import {
+  MatDialogRef,
+  MatDialog,
+  MatTableDataSource,
+  MatPaginator,
+} from "@angular/material";
 import { Router, ActivatedRoute } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from "ngx-toastr";
@@ -18,7 +23,7 @@ import { VisitMainFormComponent } from "../../../shared/visit-main-form/visit-ma
 export class VisitDetailComponent implements OnInit {
   /* props */
   visitDetailListDataSource$: Observable<any>;
-  visitDetailListDataSource: [] = [];
+  visitDetailListDataSource;
   displayedColumns: string[] = [
     "S.n",
     "customerId",
@@ -36,6 +41,7 @@ export class VisitDetailComponent implements OnInit {
   customerVisitDetail;
 
   subscription: Subscription;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private visitDetailService: VisitDetailService,
@@ -59,7 +65,7 @@ export class VisitDetailComponent implements OnInit {
       // this.visitType = params.get("type");
       let type = "pay";
 
-      this.visitDetailListDataSource$ = this.visitDetailService
+      /* this.visitDetailListDataSource$ = this.visitDetailService
         .getVisitDetailList(type, this.visitMainId)
         .pipe(finalize(() => this.spinner.hide()))
         .pipe(
@@ -67,6 +73,14 @@ export class VisitDetailComponent implements OnInit {
             this.customerVisitDetail = res;
           })
         );
+    }) */
+      this.visitDetailService
+        .getVisitDetailList(type, this.visitMainId)
+        .pipe(finalize(() => this.spinner.hide()))
+        .subscribe((res: any) => {
+          this.visitDetailListDataSource = new MatTableDataSource<any>(res);
+          this.visitDetailListDataSource.paginator = this.paginator;
+        });
     }),
       (err) => {
         err = err.error.message

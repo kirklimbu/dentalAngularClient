@@ -1,6 +1,6 @@
 import { ActivatedRoute } from "@angular/router";
 import { DatePipe } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 
 import { Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -11,6 +11,7 @@ import { VisitService } from "../../services/visit.service";
 import { VisitMainFormComponent } from "../../shared/visit-main-form/visit-main-form.component";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { MatPaginator } from "@angular/material";
 
 @Component({
   selector: "app-main-visit",
@@ -24,6 +25,7 @@ export class MainVisitComponent implements OnInit {
   mode = "add";
 
   visitListDataSource$: Observable<any>;
+  visitListDataSource;
   displayedColumns: string[] = [
     "S.n",
     "customerId",
@@ -33,9 +35,10 @@ export class MainVisitComponent implements OnInit {
     "action",
   ];
   visitListTable: any[] = [];
-  customerListTableDataSource = new MatTableDataSource(this.visitListTable); //for pagenation
 
   customerVisitDetail;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   constructor(
     private visitService: VisitService,
     private spinner: NgxSpinnerService,
@@ -56,7 +59,7 @@ export class MainVisitComponent implements OnInit {
     this.route.queryParamMap.subscribe((params) => {
       this.customerId = +params.get("customerId");
 
-      this.visitListDataSource$ = this.visitService
+      /* this.visitListDataSource$ = this.visitService
         .getMainVisitList(this.customerId)
         .pipe(finalize(() => this.spinner.hide()))
         .pipe(
@@ -64,6 +67,14 @@ export class MainVisitComponent implements OnInit {
             this.customerVisitDetail = res;
           })
         );
+    }) */
+      this.visitService
+        .getMainVisitList(this.customerId)
+        .pipe(finalize(() => this.spinner.hide()))
+        .subscribe((res: any) => {
+          this.visitListDataSource = new MatTableDataSource<any>(res);
+          this.visitListDataSource.paginator = this.paginator;
+        });
     }),
       (err) => {
         err = err.error.message

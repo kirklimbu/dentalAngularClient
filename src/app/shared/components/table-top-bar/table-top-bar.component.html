@@ -36,63 +36,90 @@
 <!-- new table top bar items -->
 <mat-card-actions *ngIf="enableSearch">
   <div class="row top-bar-search">
-    <div class="col-md-4 col-sm-4" *ngIf="enableInput">
-      <div class="form-group">
-        <label for="exampleFormControlInput1">{{ inputName }}</label>
-        <input
-          type="number"
-          min="1"
-          class="form-control"
-          [placeholder]=""
-          [(ngModel)]="days"
-        />
+    <ng-container *ngIf="enableInput">
+      <div class="col-md-4 col-sm-4">
+        <div class="form-group">
+          <label for="exampleFormControlInput1">{{ inputName }}</label>
+          <input
+            type="number"
+            min="1"
+            class="form-control"
+            [placeholder]=""
+            [(ngModel)]="days"
+          />
+        </div>
       </div>
-    </div>
-    <div class="col mb-2" *ngIf="enableStatus">
-      <label>Select {{ optionType }}</label>
-      <select
-        class="custom-select"
-        id="inputGroupSelect03"
-        [(ngModel)]="status"
-      >
-        <option value="null" disabled selected>-- Please Select --</option>
-        <option selected *ngFor="let status of statuses" [value]="status.value">
-          {{ status.name }}
-        </option>
-      </select>
-    </div>
+    </ng-container>
+
+    <ng-container *ngIf="enableStatus">
+      <div class="col mb-2">
+        <label>Select {{ optionType }}</label>
+        <select
+          class="custom-select"
+          id="inputGroupSelect03"
+          [(ngModel)]="status"
+        >
+          <option value="null" disabled selected>-- Please Select --</option>
+          <option
+            selected
+            *ngFor="let status of statuses$ | async"
+            [value]="status.id"
+          >
+            {{ status.type }}
+          </option>
+        </select>
+      </div>
+    </ng-container>
+
     <!-- from date -->
-    <div class="col mb-2" *ngIf="enableFromDate">
-      <label>From Date</label>
-      <np-datepicker
-        class="form-group"
-        inputClass="form-control"
-        language="en"
-        [(ngModel)]="fromDate"
-        [dateFormatter]="fromDateFormatter"
-      ></np-datepicker>
-    </div>
+    <ng-container *ngIf="enableFromDate">
+      <div class="col mb-2">
+        <label>From Date</label>
+        <np-datepicker
+          class="form-group"
+          inputClass="form-control"
+          language="en"
+          [(ngModel)]="fromDate"
+          [dateFormatter]="fromDateFormatter"
+        ></np-datepicker>
+      </div>
+    </ng-container>
+
     <!-- from date end-->
 
     <!-- to date -->
-    <div class="col" *ngIf="enableToDate">
-      <label>To Date</label>
-      <np-datepicker
-        class="form-group"
-        inputClass="form-control"
-        language="en"
-        [(ngModel)]="toDate"
-        [dateFormatter]="toDateFormatter"
-      ></np-datepicker>
-    </div>
+    <ng-container *ngIf="enableToDate">
+      <div class="col">
+        <label>To Date</label>
+        <np-datepicker
+          class="form-group"
+          inputClass="form-control"
+          language="en"
+          [(ngModel)]="toDate"
+          [dateFormatter]="toDateFormatter"
+        ></np-datepicker>
+      </div>
+    </ng-container>
+
     <!-- to date end -->
-    <button
-      mat-icon-button
-      style="margin-top: 28px; margin-right: 4px"
-      (click)="onSearch()"
-    >
-      <mat-icon>search</mat-icon>
-    </button>
+    <ng-container *ngIf="!enableInput">
+      <button
+        mat-icon-button
+        style="margin-top: 28px; margin-right: 25px"
+        (click)="onSearch()"
+      >
+        <mat-icon>search</mat-icon>
+      </button>
+    </ng-container>
+    <ng-container *ngIf="enableInput">
+      <button
+        mat-icon-button
+        style="margin-top: 28px; margin-left: -550px"
+        (click)="onSearch()"
+      >
+        <mat-icon>search</mat-icon>
+      </button>
+    </ng-container>
   </div>
 </mat-card-actions>
 <!-- new table top bar items end -->

@@ -2,7 +2,7 @@ import { Router } from "@angular/router";
 import { Customer } from "src/app/core/models/customer";
 import { ToastrService } from "ngx-toastr";
 import { NgxSpinnerService } from "ngx-spinner";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatTableDataSource } from "@angular/material/table";
 
 import { ClientService } from "../../services/client.service";
@@ -12,7 +12,7 @@ import { FormatDate } from "src/app/core/constants/format-date";
 // project
 import { CustomJs } from "src/app/shared/customjs/custom.js";
 import { DateFormatter } from "angular-nepali-datepicker";
-import { MatDialog } from "@angular/material";
+import { MatDialog, MatPaginator } from "@angular/material";
 import { CustomerFormComponent } from "../../shared/customer-form/customer-form.component";
 
 @Component({
@@ -28,10 +28,9 @@ export class CustomerComponent implements OnInit {
   fromDate: any;
   fromDate2: any;
   toDate: any;
-  clientListTable: any[] = [];
   displayedColumns: string[] = [
     "S.n",
-    'id',
+    "id",
     "name",
     "address",
     "mobile",
@@ -39,8 +38,7 @@ export class CustomerComponent implements OnInit {
     "visitDate",
     "action",
   ];
-  customerListTableDataSource = new MatTableDataSource(this.clientListTable);
-
+  customerListTableDataSource
   /* displaying nepali date */
   fromDateFormatter: DateFormatter = (date) => {
     return this.formatDate.getFormatDate(date);
@@ -48,8 +46,8 @@ export class CustomerComponent implements OnInit {
   toDateFormatter: DateFormatter = (date) => {
     return this.formatDate.getFormatDate(date);
   };
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  clientListDataSource: Customer[];
   /* fake data end */
   constructor(
     private clientService: ClientService,
@@ -63,24 +61,35 @@ export class CustomerComponent implements OnInit {
     this.fetchClientList();
   }
   fetchClientList() {
-
-    this.spinner.show();
+    /* this.spinner.show();
     this.clientListDataSource$ = this.clientService
       .getCustomerList()
       .pipe(finalize(() => this.spinner.hide()))
       .pipe(
         tap((res) => {
-          this.clientListDataSource = res;
+          this.customerListTableDataSource = res;
         })
       );
     (err) => {
       this.toastr.error(err.message);
       this.spinner.hide();
-    };
+    }; */
+
+    this.spinner.show();
+    this.clientService
+      .getCustomerList()
+      .pipe(finalize(() => this.spinner.hide()))
+      .subscribe((res: any) => {
+        this.customerListTableDataSource = new MatTableDataSource<any>(res);
+        this.customerListTableDataSource.paginator = this.paginator;
+      }),
+      (err) => {
+        this.toastr.error(err.message);
+        this.spinner.hide();
+      };
   }
 
-  onSearch() {
-  }
+  onSearch() {}
 
   onAdd(mode?: string, customer?: Customer) {
     const dialogRef = this.dialog.open(CustomerFormComponent, {

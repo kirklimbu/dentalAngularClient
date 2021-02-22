@@ -19,10 +19,35 @@ export class SmsService {
       })
     );
   }
-  getCustomSmsList(visitTypeId: number, type?: string, nextDay?: number) {
+  getBirthdaySmsList(type: string) {
+    return this.http
+      .get(`${this.API_URL}auth/customer/sms/list?type=${type}`)
+      .pipe(
+        catchError((err) => {
+          return throwError(err);
+        })
+      );
+  }
+  getCustomSmsListAferXdays(type: string, nextDay: number) {
     return this.http
       .get(
-        `${this.API_URL}auth/customer/sms/list?visitTypeId=${visitTypeId}&type=${type}&nextDay=${nextDay}`
+        `${this.API_URL}auth/customer/sms/list?type=${type}&nextDay=${nextDay}`
+      )
+      .pipe(
+        catchError((err) => {
+          return throwError(err);
+        })
+      );
+  }
+  getSmsListByVisitType(
+    type: string,
+    id: number,
+    fromDate: string,
+    toDate: string
+  ) {
+    return this.http
+      .get(
+        `${this.API_URL}auth/customer/sms/list?type=${type}&visitTypeId=${id}&fromDate=${fromDate}&toDate=${toDate}`
       )
       .pipe(
         catchError((err) => {
