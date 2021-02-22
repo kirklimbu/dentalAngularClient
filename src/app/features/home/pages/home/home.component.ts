@@ -41,7 +41,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   chartData: any[] = [];
   chart2Data: any[] = [];
-  charts: string[] = ["Vertical Bar", "Pie Chart", "Advance Pie Chart"];
+  charts: string[] = ["Vertical Bar", "Pie Chart",
+  // "Advance Pie Chart"
+];
   // chartData$: Observable<any>;
   selectedChart: string;
 

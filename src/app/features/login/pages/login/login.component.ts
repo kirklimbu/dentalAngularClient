@@ -77,6 +77,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         .getLogin(this.f.userName.value, this.f.passWord.value)
         .subscribe(
           (res) => {
+            console.log(res);
+
             this.loading = false;
             this.loggedIn.next(true);
             this.router.navigate(["/dental/home"]);

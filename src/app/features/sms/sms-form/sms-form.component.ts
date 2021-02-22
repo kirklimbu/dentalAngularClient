@@ -105,6 +105,7 @@ export class SmsFormComponent implements OnInit {
 
   onSearch(e) {
     console.log(e);
+    this.spinner.show();
     if (this.smsType == "nextDay") {
       console.log("next day");
       let type = "nextXDay";
@@ -112,12 +113,15 @@ export class SmsFormComponent implements OnInit {
       let visitTypeId = null;
       this.smsService
         .getCustomSmsListAferXdays(type, nextDay)
+        .pipe(finalize(() => this.spinner.hide()))
         .subscribe((res: any) => {
           console.log(res);
           this.smsCustomerList = res;
         }),
         (err) => {
           this.toastr.error(err.message);
+          this.spinner.hide()
+
         };
     } else if (this.smsType == "visitType") {
       let visitTypeId = e.status;
@@ -125,20 +129,25 @@ export class SmsFormComponent implements OnInit {
       let toDate = e.toDate;
       this.smsService
         .getSmsListByVisitType(this.smsType, visitTypeId, fromDate, toDate)
+        .pipe(finalize(() => this.spinner.hide()))
         .subscribe((res: any) => {
           console.log(res);
           this.smsCustomerList = res;
         }),
         (err) => {
           this.toastr.error(err.message);
+          this.spinner.hide()
+
         };
     } else {
-      this.smsService.getBirthdaySmsList(this.smsType).subscribe((res: any) => {
+      this.smsService.getBirthdaySmsList(this.smsType)
+      .pipe(finalize(() => this.spinner.hide())).subscribe((res: any) => {
         console.log(res);
         this.smsCustomerList = res;
       }),
         (err) => {
           this.toastr.error(err.message);
+          this.spinner.hide()
         };
     }
   }
@@ -147,12 +156,12 @@ export class SmsFormComponent implements OnInit {
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    console.log(numSelected);
-    console.log(this.customerListTableDataSource);
+    // console.log(numSelected);
+    // console.log(this.customerListTableDataSource);
 
     const numRows = this.customerListTableDataSource.data.length;
-    console.log(numRows);
-    console.log(numSelected === numRows);
+    // console.log(numRows);
+    // console.log(numSelected === numRows);
     return numSelected === numRows;
   }
 
