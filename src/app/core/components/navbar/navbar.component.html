@@ -93,13 +93,10 @@
       <mat-icon>settings</mat-icon>
       <span>Account Settings</span>
     </button>
-    <button mat-menu-item disabled>
-      <mat-icon>voicemail</mat-icon>
-      <span>Check voice mail</span>
-    </button>
-    <button mat-menu-item>
+
+    <button mat-menu-item (click)="onLogout()">
       <mat-icon color="warn">power_settings_new</mat-icon>
-      <span class="logout" (click)="onLogout()">Logout</span>
+      <span class="logout" >Logout</span>
     </button>
   </mat-menu>
 </nav>

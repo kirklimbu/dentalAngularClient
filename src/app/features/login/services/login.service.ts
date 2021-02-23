@@ -17,6 +17,7 @@ export class LoginService {
   //props
   error: any;
   loading = false;
+  birthdays = [];
   constructor(private http: HttpClient, private router: Router) {}
 
   getLogin(userName, passWord): any {
@@ -42,12 +43,20 @@ export class LoginService {
       })
       .pipe(
         map((res) => {
+          console.log(res);
+
           let data: any = res;
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem("token", data.token);
           localStorage.setItem("orgName", data.organization.name);
           this.loggedIn.next(true);
           localStorage.setItem("loggedIn", "true");
+
+          data.birthdayList.forEach((element) => {
+            this.birthdays.push(element);
+            console.log(this.birthdays);
+
+          });
         })
       );
   }
@@ -60,5 +69,11 @@ export class LoginService {
     this.loggedIn.next(false);
     // this.userSubject.next(null);
     this.router.navigate(["/login"]);
+  }
+
+  get birthdayLists() {
+    console.log(this.birthdays);
+
+    return this.birthdays;
   }
 }

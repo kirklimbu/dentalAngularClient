@@ -268,3 +268,15 @@ mat-toolbar {
 .send-sms {
   float: right;
 }
+
+.mat-button:focus {
+  outline: none;
+}
+
+.mat-menu-item:focus {
+  outline: none;
+}
+
+.mat-icon-button:focus {
+  outline: none;
+}

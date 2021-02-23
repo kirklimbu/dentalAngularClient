@@ -1,3 +1,5 @@
+import { NextDayComponent } from "./../../../sms/message/pages/next-day/next-day.component";
+import { SmsFormComponent } from "./../../../sms/sms-form/sms-form.component";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
@@ -5,6 +7,8 @@ import { BehaviorSubject, Subscription } from "rxjs";
 import { first } from "rxjs/operators";
 import { User } from "src/app/core/models/user.model";
 import { LoginService } from "../../services/login.service";
+import Swal from "sweetalert2";
+import { MatDialog } from "@angular/material";
 
 @Component({
   selector: "app-login",
@@ -24,16 +28,19 @@ export class LoginComponent implements OnInit, OnDestroy {
     false
   );
 
+  birthdayList = [];
   subscriptions: Subscription[] = [];
 
   constructor(
     private fb: FormBuilder,
     private loginService: LoginService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
   ngOnInit(): void {
     this.routeChange();
     this.buildForm();
+    this.fetchBirthdayList();
   }
 
   routeChange() {
@@ -82,6 +89,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.loading = false;
             this.loggedIn.next(true);
             this.router.navigate(["/dental/home"]);
+            this.openBirthdayModal();
           },
           (err) => {
             err.status == 400
@@ -91,6 +99,27 @@ export class LoginComponent implements OnInit, OnDestroy {
           }
         );
     }
+  }
+
+  fetchBirthdayList() {
+    this.birthdayList = this.loginService.birthdayLists;
+  }
+
+  openBirthdayModal() {
+    const dialogRef = this.dialog.open(NextDayComponent, {
+      disableClose: true,
+      width: "450px",
+      height: "500px",
+      // backdropClass: 'backdropBackground',
+      data: {
+        birthdayList: this.birthdayList,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      // table refresh on cancel nagarne
+      //if response is not list -->  refreshing particular segment
+    });
   }
 
   ngOnDestroy() {
