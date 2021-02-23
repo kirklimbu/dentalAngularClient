@@ -43,7 +43,7 @@ export class SmsFormComponent implements OnInit {
     "mobile",
     // "visitType",
     "visitDate",
-    "action",
+    // "action",
   ];
 
   clientListDataSource: Customer[];
@@ -81,8 +81,9 @@ export class SmsFormComponent implements OnInit {
     this.route.queryParamMap.subscribe((params) => {
       console.log(params);
       this.smsType = params.get("smsType");
+      this.onSearch(this.smsType);
+
       if (this.smsType == "birthday") {
-        this.onSearch(this.smsType);
       }
     });
   }
@@ -104,12 +105,15 @@ export class SmsFormComponent implements OnInit {
   }
 
   onSearch(e) {
-    console.log(e);
+    // console.log(e);
     this.spinner.show();
     if (this.smsType == "nextDay") {
+      console.log("next day vitra");
+
+      this.smsCustomerList = [];
       console.log("next day");
       let type = "nextXDay";
-      let nextDay = e.days;
+      let nextDay = e.days || 0;
       let visitTypeId = null;
       this.smsService
         .getCustomSmsListAferXdays(type, nextDay)
@@ -120,34 +124,41 @@ export class SmsFormComponent implements OnInit {
         }),
         (err) => {
           this.toastr.error(err.message);
-          this.spinner.hide()
-
+          this.spinner.hide();
         };
     } else if (this.smsType == "visitType") {
-      let visitTypeId = e.status;
-      let fromDate = e.fromDate;
-      let toDate = e.toDate;
+      console.log("visti type vitra");
+/* start from here */
+      this.smsCustomerList = [];
+      let visitTypeId = e.status || 0;
+      let fromDate = e.fromDate || '';
+      let toDate = e.toDate || '';
       this.smsService
         .getSmsListByVisitType(this.smsType, visitTypeId, fromDate, toDate)
         .pipe(finalize(() => this.spinner.hide()))
         .subscribe((res: any) => {
-          console.log(res);
+          // console.log(res);
           this.smsCustomerList = res;
         }),
         (err) => {
           this.toastr.error(err.message);
-          this.spinner.hide()
-
+          this.spinner.hide();
         };
     } else {
-      this.smsService.getBirthdaySmsList(this.smsType)
-      .pipe(finalize(() => this.spinner.hide())).subscribe((res: any) => {
-        console.log(res);
-        this.smsCustomerList = res;
-      }),
+      console.log("birthday vitrra");
+
+      this.smsCustomerList = [];
+
+      this.smsService
+        .getBirthdaySmsList(this.smsType)
+        .pipe(finalize(() => this.spinner.hide()))
+        .subscribe((res: any) => {
+          // console.log(res);
+          this.smsCustomerList = res;
+        }),
         (err) => {
           this.toastr.error(err.message);
-          this.spinner.hide()
+          this.spinner.hide();
         };
     }
   }
@@ -172,13 +183,14 @@ export class SmsFormComponent implements OnInit {
           this.selection.select(row)
         );
   }
+
   logSelection() {
     this.selection.selected.forEach((s) => console.log(s.name));
   }
 
   sendSms() {
     /* SEND SELECTED CLEINT LIST TO MODAL */
-    let clientList = this.selection.selected.forEach((s) => s);
+    let clientList = this.selection.selected.forEach((s) => console.log(s));
 
     const dialogRef = this.dialog.open(MessageComponent, {
       disableClose: true,

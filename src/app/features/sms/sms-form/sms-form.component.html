@@ -66,6 +66,7 @@
               (click)="$event.stopPropagation()"
               (change)="$event ? selection.toggle(row) : null"
               [checked]="selection.isSelected(row)"
+              (click)="logSelection()"
             ></mat-checkbox>
           </td>
         </ng-container>
@@ -101,12 +102,12 @@
         </ng-container>
 
         <ng-container matColumnDef="visitDate">
-          <th mat-header-cell *matHeaderCellDef>Last Visited Date</th>
+          <th mat-header-cell *matHeaderCellDef>Visited Date B.S</th>
           <td mat-cell *matCellDef="let element">{{ element.visitDateBs }}</td>
         </ng-container>
 
         <!-- Action Column -->
-        <ng-container matColumnDef="action" align="end">
+        <!--  <ng-container matColumnDef="action" align="end">
           <th mat-header-cell *matHeaderCellDef style="padding-right: 0">
             Action
           </th>
@@ -117,7 +118,7 @@
               [enableViewDetails]="false"
             ></app-table-action-buttons>
           </td>
-        </ng-container>
+        </ng-container> -->
 
         <!-- Symbol Column -->
         <tr
