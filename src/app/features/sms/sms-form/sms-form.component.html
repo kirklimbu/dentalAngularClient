@@ -21,17 +21,7 @@
           (search)="onSearch($event)"
         ></app-table-top-bar>
       </ng-container>
-      <!-- <ng-container *ngIf="smsType === 'birthday'">
-        <app-table-top-bar
-          [enableFromDate]="false"
-          [enableToDate]="false"
-          [enableInput]="false"
-          [optionType]="smsType"
-          [enableAdd]="false"
-          [enableSearch]="true"
-          (search)="onSearch($event)"
-        ></app-table-top-bar>
-      </ng-container> -->
+
       <ng-container *ngIf="smsType === 'nextDay'">
         <app-table-top-bar
           [type]="type"
@@ -106,21 +96,6 @@
           <td mat-cell *matCellDef="let element">{{ element.visitDateBs }}</td>
         </ng-container>
 
-        <!-- Action Column -->
-        <!--  <ng-container matColumnDef="action" align="end">
-          <th mat-header-cell *matHeaderCellDef style="padding-right: 0">
-            Action
-          </th>
-          <td mat-cell *matCellDef="let row; let i = index">
-            <app-table-action-buttons
-              [enableDelete]="false"
-              [enableEdit]="false"
-              [enableViewDetails]="false"
-            ></app-table-action-buttons>
-          </td>
-        </ng-container> -->
-
-        <!-- Symbol Column -->
         <tr
           mat-header-row
           *matHeaderRowDef="displayedColumns; sticky: true"
@@ -137,7 +112,12 @@
     </div>
     <div class="row mt-2">
       <div class="col-md-12 col-sm-12 send-sms">
-        <button mat-raised-button align="end" (click)="sendSms()">
+        <button
+          mat-raised-button
+          align="end"
+          [disabled]="this.selection.selected.length == 0"
+          (click)="sendSms()"
+        >
           Send SMS
         </button>
       </div>

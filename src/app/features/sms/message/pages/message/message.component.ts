@@ -44,7 +44,9 @@ export class MessageComponent implements OnInit {
     });
   }
   onSave() {
-    this.dialogRef.close(this.messageForm.value);
+    this.messageForm.valid
+      ? this.dialogRef.close(this.messageForm.value)
+      :  this.dialogRef.close('Message not selected.');
   }
   onCancel() {
     this.dialogRef.close("cancel");

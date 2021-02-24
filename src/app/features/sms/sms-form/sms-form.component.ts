@@ -55,7 +55,7 @@ export class SmsFormComponent implements OnInit {
 
   fromDate: any;
   toDate: any;
-  customerListTableDataSource;
+  customerListTableDataSource; // for pagination or select all
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
@@ -76,10 +76,9 @@ export class SmsFormComponent implements OnInit {
     this.route.queryParamMap.subscribe((params) => {
       console.log(params);
       this.smsType = params.get("smsType");
-      
+      this.onSearch(this.smsType);
 
       if (this.smsType == "birthday") {
-        this.onSearch(this.smsType);
       }
     });
   }
@@ -93,10 +92,9 @@ export class SmsFormComponent implements OnInit {
       console.log("next day vitra");
 
       this.customerListTableDataSource = [];
-      console.log("next day");
+      console.log(this.customerListTableDataSource);
       let type = "nextXDay";
       let nextDay = e.days || 0;
-      let visitTypeId = null;
       this.smsService
         .getCustomSmsListAferXdays(type, nextDay)
         .pipe(finalize(() => this.spinner.hide()))
@@ -112,6 +110,8 @@ export class SmsFormComponent implements OnInit {
     } else if (this.smsType == "visitType") {
       console.log("visti type vitra");
       this.customerListTableDataSource = [];
+      console.log(this.customerListTableDataSource);
+
       let visitTypeId = e.status || 0;
       let fromDate = e.fromDate || "";
       let toDate = e.toDate || "";
@@ -131,6 +131,7 @@ export class SmsFormComponent implements OnInit {
       console.log("birthday vitrra");
 
       this.customerListTableDataSource = [];
+      console.log(this.customerListTableDataSource);
 
       this.smsService
         .getBirthdaySmsList(this.smsType)
@@ -163,16 +164,17 @@ export class SmsFormComponent implements OnInit {
   selectAllClients() {
     this.isAllSelected()
       ? this.selection.clear()
-      : this.customerListTableDataSource.data.forEach((row) =>
+      : this.customerListTableDataSource?.data.forEach((row) =>
           this.selection.select(row)
         );
   }
 
- /*  logSelection() {
+  /*  logSelection() {
     this.selection.selected.forEach((s) => console.log(s.name));
   } */
 
   sendSms() {
+    /* YA XA ERROR--- DESELECT GAREKO LIST PANI SEND HUDAIXA START FROM HRERDFADFADF */
     this.selection.selected.forEach((s) => this.selectedClients.push(s.id));
     console.log(this.selectedClients);
 
