@@ -38,7 +38,7 @@ export class CustomerComponent implements OnInit {
     "visitDate",
     "action",
   ];
-  customerListTableDataSource
+  customerListTableDataSource;
   /* displaying nepali date */
   fromDateFormatter: DateFormatter = (date) => {
     return this.formatDate.getFormatDate(date);
@@ -61,20 +61,6 @@ export class CustomerComponent implements OnInit {
     this.fetchClientList();
   }
   fetchClientList() {
-    /* this.spinner.show();
-    this.clientListDataSource$ = this.clientService
-      .getCustomerList()
-      .pipe(finalize(() => this.spinner.hide()))
-      .pipe(
-        tap((res) => {
-          this.customerListTableDataSource = res;
-        })
-      );
-    (err) => {
-      this.toastr.error(err.message);
-      this.spinner.hide();
-    }; */
-
     this.spinner.show();
     this.clientService
       .getCustomerList()

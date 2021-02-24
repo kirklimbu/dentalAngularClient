@@ -2,7 +2,7 @@ import { Customer } from "./../../../../../core/models/customer";
 import { SmsService } from "./../../../service/sms.service";
 import { DatePipe } from "@angular/common";
 import { Component, Inject, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -33,13 +33,13 @@ export class MessageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.modalData.clientList
+    this.modalData.clientList;
     this.buildMessageForm();
   }
 
   buildMessageForm() {
     this.messageForm = this.fb.group({
-      message: [],
+      message: ["", Validators.required],
       clientList: [this.modalData.clientList],
     });
   }

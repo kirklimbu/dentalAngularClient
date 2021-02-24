@@ -52,10 +52,11 @@
   </div>
   <form>
     <div class="example-container mat-elevation-z8">
-      <table mat-table [dataSource]="smsCustomerList" class="mb-0">
+      <table mat-table [dataSource]="customerListTableDataSource" class="mb-0">
         <ng-container matColumnDef="checked">
           <th mat-header-cell *matHeaderCellDef>
             <mat-checkbox
+              [disabled]="customerListTableDataSource?.length == 0"
               [checked]="selection.hasValue() && isAllSelected()"
               [indeterminate]="selection.hasValue() && !isAllSelected()"
               (change)="$event ? selectAllClients() : null"
@@ -66,7 +67,6 @@
               (click)="$event.stopPropagation()"
               (change)="$event ? selection.toggle(row) : null"
               [checked]="selection.isSelected(row)"
-              (click)="logSelection()"
             ></mat-checkbox>
           </td>
         </ng-container>

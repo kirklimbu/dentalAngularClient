@@ -27,12 +27,9 @@ import { SelectionModel } from "@angular/cdk/collections";
 export class SmsFormComponent implements OnInit {
   /* props */
   smsForm: FormGroup;
-  clientListDataSource$: Observable<any>;
   formatDate = new FormData();
   customDate = new CustomJs();
-  fromDate: any;
-  fromDate2: any;
-  toDate: any;
+
   clientListTable: any[] = [];
   displayedColumns: string[] = [
     "checked",
@@ -46,7 +43,6 @@ export class SmsFormComponent implements OnInit {
     // "action",
   ];
 
-  clientListDataSource: Customer[];
   selectedClients = [];
   selectAll = false;
   selection = new SelectionModel<any>(true, []);
@@ -57,9 +53,9 @@ export class SmsFormComponent implements OnInit {
   placeholder = "Enter days";
   inputName = "Days";
 
-  // @ViewChild("selectAll") private selectAll: MatOption;
-  smsCustomerList: Customer[];
-  customerListTableDataSource = new MatTableDataSource();
+  fromDate: any;
+  toDate: any;
+  customerListTableDataSource;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
@@ -72,7 +68,6 @@ export class SmsFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.fetchDefaultSmsList();
     this.fetchQueryParm();
   }
 
@@ -81,28 +76,15 @@ export class SmsFormComponent implements OnInit {
     this.route.queryParamMap.subscribe((params) => {
       console.log(params);
       this.smsType = params.get("smsType");
-      this.onSearch(this.smsType);
+      
 
       if (this.smsType == "birthday") {
+        this.onSearch(this.smsType);
       }
     });
   }
 
-  fetchDefaultSmsList() {
-    this.spinner.show();
-    this.smsService
-      .getDefaultSmsList()
-      .pipe(finalize(() => this.spinner.hide()))
-      .subscribe((res: any) => {
-        console.log(res);
-        this.customerListTableDataSource = new MatTableDataSource<any>(res);
-        this.customerListTableDataSource.paginator = this.paginator;
-      }),
-      (err) => {
-        this.toastr.error(err.message);
-        this.spinner.hide();
-      };
-  }
+  onFilter() {}
 
   onSearch(e) {
     // console.log(e);
@@ -110,7 +92,7 @@ export class SmsFormComponent implements OnInit {
     if (this.smsType == "nextDay") {
       console.log("next day vitra");
 
-      this.smsCustomerList = [];
+      this.customerListTableDataSource = [];
       console.log("next day");
       let type = "nextXDay";
       let nextDay = e.days || 0;
@@ -120,7 +102,8 @@ export class SmsFormComponent implements OnInit {
         .pipe(finalize(() => this.spinner.hide()))
         .subscribe((res: any) => {
           console.log(res);
-          this.smsCustomerList = res;
+          this.customerListTableDataSource = new MatTableDataSource<any>(res);
+          this.customerListTableDataSource.paginator = this.paginator;
         }),
         (err) => {
           this.toastr.error(err.message);
@@ -128,17 +111,17 @@ export class SmsFormComponent implements OnInit {
         };
     } else if (this.smsType == "visitType") {
       console.log("visti type vitra");
-/* start from here */
-      this.smsCustomerList = [];
+      this.customerListTableDataSource = [];
       let visitTypeId = e.status || 0;
-      let fromDate = e.fromDate || '';
-      let toDate = e.toDate || '';
+      let fromDate = e.fromDate || "";
+      let toDate = e.toDate || "";
       this.smsService
         .getSmsListByVisitType(this.smsType, visitTypeId, fromDate, toDate)
         .pipe(finalize(() => this.spinner.hide()))
         .subscribe((res: any) => {
           // console.log(res);
-          this.smsCustomerList = res;
+          this.customerListTableDataSource = new MatTableDataSource<any>(res);
+          this.customerListTableDataSource.paginator = this.paginator;
         }),
         (err) => {
           this.toastr.error(err.message);
@@ -147,14 +130,15 @@ export class SmsFormComponent implements OnInit {
     } else {
       console.log("birthday vitrra");
 
-      this.smsCustomerList = [];
+      this.customerListTableDataSource = [];
 
       this.smsService
         .getBirthdaySmsList(this.smsType)
         .pipe(finalize(() => this.spinner.hide()))
         .subscribe((res: any) => {
           // console.log(res);
-          this.smsCustomerList = res;
+          this.customerListTableDataSource = new MatTableDataSource<any>(res);
+          this.customerListTableDataSource.paginator = this.paginator;
         }),
         (err) => {
           this.toastr.error(err.message);
@@ -170,7 +154,7 @@ export class SmsFormComponent implements OnInit {
     // console.log(numSelected);
     // console.log(this.customerListTableDataSource);
 
-    const numRows = this.customerListTableDataSource.data.length;
+    const numRows = this.customerListTableDataSource?.data?.length;
     // console.log(numRows);
     // console.log(numSelected === numRows);
     return numSelected === numRows;
@@ -184,20 +168,20 @@ export class SmsFormComponent implements OnInit {
         );
   }
 
-  logSelection() {
+ /*  logSelection() {
     this.selection.selected.forEach((s) => console.log(s.name));
-  }
+  } */
 
   sendSms() {
-    /* SEND SELECTED CLEINT LIST TO MODAL */
-    let clientList = this.selection.selected.forEach((s) => console.log(s));
+    this.selection.selected.forEach((s) => this.selectedClients.push(s.id));
+    console.log(this.selectedClients);
 
     const dialogRef = this.dialog.open(MessageComponent, {
       disableClose: true,
       width: "600px",
       data: {
         // mode: mode,
-        clientList: clientList,
+        clientList: this.selectedClients,
       },
     });
 

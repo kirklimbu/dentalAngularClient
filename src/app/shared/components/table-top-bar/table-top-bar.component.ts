@@ -156,11 +156,5 @@ export class TableTopBarComponent implements OnInit {
 
   fetchVisitType() {
     this.statuses$ = this.sharedService.getVisitType();
-    console.log(this.statuses$);
-    /* this.sharedService.getVisitType()
-    .subscribe((res) => {
-      this.statuses = res;
-    }); */
-    console.log(this.statuses);
   }
 }

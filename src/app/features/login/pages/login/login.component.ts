@@ -7,7 +7,6 @@ import { BehaviorSubject, Subscription } from "rxjs";
 import { first } from "rxjs/operators";
 import { User } from "src/app/core/models/user.model";
 import { LoginService } from "../../services/login.service";
-import Swal from "sweetalert2";
 import { MatDialog } from "@angular/material";
 
 @Component({
