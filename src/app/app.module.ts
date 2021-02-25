@@ -27,7 +27,6 @@ import { HttpTokenInterceptorService } from "./core/http-interceptor/http-token/
     NgxPrintModule,
     NgbModule,
     BreadcrumbModule,
-
     JwtModule.forRoot({
       config: {
         // ...

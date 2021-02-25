@@ -4,10 +4,9 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { Component, Inject, OnInit } from "@angular/core";
 import { DatePipe } from "@angular/common";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
-import { Router, ActivatedRoute } from "@angular/router";
+import {  ActivatedRoute } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from "ngx-toastr";
-import { VisitDetailService } from "../../../visit-detail/services/visit-detail.service";
 import { VisitDetailFormComponent } from "../../../visit-detail/shared/visit-detail-form/visit-detail-form.component";
 import { finalize } from "rxjs/operators";
 
@@ -30,7 +29,6 @@ export class MainDepositFormComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private mainDepositService: MainDepositService,
     private toastr: ToastrService,
-    private router: Router,
     private route: ActivatedRoute,
     public datepipe: DatePipe,
     public dialogRef: MatDialogRef<VisitDetailFormComponent>,

@@ -10,9 +10,17 @@ import { NpDatepickerModule } from "angular-nepali-datepicker";
 import { BreadcrumbModule } from "xng-breadcrumb";
 import { MessageComponent } from "./message/pages/message/message.component";
 import { NextDayComponent } from "./message/pages/next-day/next-day.component";
+import { BirthdayComponent } from "./message/pages/birthday/birthday.component";
+import { VisitTypeComponent } from './message/pages/visit-type/visit-type.component';
 
 @NgModule({
-  declarations: [SmsFormComponent, MessageComponent, NextDayComponent],
+  declarations: [
+    SmsFormComponent,
+    MessageComponent,
+    NextDayComponent,
+    BirthdayComponent,
+    VisitTypeComponent,
+  ],
   imports: [
     CommonModule,
     SmsRoutingModule,

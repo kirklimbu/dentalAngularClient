@@ -1,21 +1,24 @@
-import { MatDialog, MatPaginator, MatTableDataSource } from "@angular/material";
-import { Component, OnInit, ViewChild } from "@angular/core";
 import { SelectionModel } from "@angular/cdk/collections";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MatDialog, MatPaginator, MatTableDataSource } from "@angular/material";
+import { Router, ActivatedRoute } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from "ngx-toastr";
+import { Subscription } from "rxjs";
 import { finalize } from "rxjs/operators";
+import { CustomJs } from "src/app/shared/customjs/custom.js";
 import { SmsService } from "../../../service/sms.service";
 import { MessageComponent } from "../message/message.component";
 
 @Component({
-  selector: "app-next-day",
-  templateUrl: "./next-day.component.html",
-  styleUrls: ["./next-day.component.scss"],
+  selector: "app-birthday",
+  templateUrl: "./birthday.component.html",
+  styleUrls: ["./birthday.component.scss"],
 })
-export class NextDayComponent implements OnInit {
+export class BirthdayComponent implements OnInit {
   /* props */
 
-  clientListTable: any[] = [];
   displayedColumns: string[] = [
     "checked",
     "S.n",
@@ -28,15 +31,12 @@ export class NextDayComponent implements OnInit {
     // "action",
   ];
 
-  /* for multi checkbox */
+  /* multiple checkbox */
   selection = new SelectionModel<any>(true, []);
-
-  type = "number";
-  placeholder = "Enter days";
-  inputName = "Days";
 
   customerListTableDataSource; // for pagination or select all
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  subscriptions: Subscription[] = [];
 
   constructor(
     private smsService: SmsService,
@@ -45,27 +45,15 @@ export class NextDayComponent implements OnInit {
     private dialog: MatDialog
   ) {}
 
-  ngOnInit() {}
-
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.customerListTableDataSource?.data?.length;
-    return numSelected === numRows;
+  ngOnInit() {
+    this.fetchBirthdayList();
   }
 
-  selectAllClients() {
-    this.isAllSelected()
-      ? this.selection.clear()
-      : this.customerListTableDataSource?.data.forEach((row) =>
-          this.selection.select(row)
-        );
-  }
-
-  onSearch(e) {
-    this.spinner.show();
+  fetchBirthdayList() {
     this.customerListTableDataSource = [];
+
     this.smsService
-      .getCustomSmsListAferXdays("nextXDay", e.days)
+      .getBirthdaySmsList("birthday")
       .pipe(finalize(() => this.spinner.hide()))
       .subscribe((res: any) => {
         this.customerListTableDataSource = new MatTableDataSource<any>(res);
@@ -77,6 +65,22 @@ export class NextDayComponent implements OnInit {
       };
   }
 
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+
+    const numRows = this.customerListTableDataSource?.data?.length;
+
+    return numSelected === numRows;
+  }
+
+  selectAllClients() {
+    this.isAllSelected()
+      ? this.selection.clear()
+      : this.customerListTableDataSource?.data.forEach((row) =>
+          this.selection.select(row)
+        );
+  }
+
   sendSms() {
     let selectedClients = [];
     this.selection.selected.forEach((s) => selectedClients.push(s.id));
@@ -85,6 +89,7 @@ export class NextDayComponent implements OnInit {
       disableClose: true,
       width: "600px",
       data: {
+        // mode: mode,
         clientList: selectedClients,
       },
     });
@@ -96,5 +101,9 @@ export class NextDayComponent implements OnInit {
         // this.fetchClientList();
       }
     });
+  }
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }

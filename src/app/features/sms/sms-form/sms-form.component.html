@@ -46,7 +46,7 @@
         <ng-container matColumnDef="checked">
           <th mat-header-cell *matHeaderCellDef>
             <mat-checkbox
-              [disabled]="customerListTableDataSource?.length == 0"
+              [disabled]="this.selection.selected.length == 0"
               [checked]="selection.hasValue() && isAllSelected()"
               [indeterminate]="selection.hasValue() && !isAllSelected()"
               (change)="$event ? selectAllClients() : null"

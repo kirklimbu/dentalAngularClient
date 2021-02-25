@@ -10,7 +10,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from "ngx-toastr";
-import { CustomerFormComponent } from "src/app/features/customer/shared/customer-form/customer-form.component";
 import { VisitDetailService } from "../../services/visit-detail.service";
 import { finalize, tap } from "rxjs/operators";
 import { Subscription } from "rxjs";
@@ -48,7 +47,6 @@ export class VisitDetailFormComponent implements OnInit, OnDestroy {
     private spinner: NgxSpinnerService,
     private visitDetailService: VisitDetailService,
     private toastr: ToastrService,
-    private router: Router,
     private route: ActivatedRoute,
     public datepipe: DatePipe,
     public dialogRef: MatDialogRef<VisitDetailFormComponent>,
@@ -65,7 +63,6 @@ export class VisitDetailFormComponent implements OnInit, OnDestroy {
     this.buildVisitDetailForm();
   }
 
-  /* test end */
 
   fetchQueryParmValues() {
     /* for add */
@@ -187,9 +184,7 @@ export class VisitDetailFormComponent implements OnInit, OnDestroy {
   }
 
   onSave() {
-    console.log(this.visitDetailForm.value);
     this.spinner.show();
-    console.log("detail form ma spinner called ");
 
     if (this.isItToday !== true) {
       let visitDateBs = this.customDate.getStringFromNepaliFunction(
@@ -225,8 +220,6 @@ export class VisitDetailFormComponent implements OnInit, OnDestroy {
   }
 
   onDayCheck(e) {
-    console.log(e);
-
     this.isItToday = e.checked;
   }
   /* comparing the dropdown values & setting the selected value in edit form */

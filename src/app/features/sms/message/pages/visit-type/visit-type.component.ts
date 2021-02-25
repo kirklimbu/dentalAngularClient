@@ -1,21 +1,20 @@
-import { MatDialog, MatPaginator, MatTableDataSource } from "@angular/material";
-import { Component, OnInit, ViewChild } from "@angular/core";
 import { SelectionModel } from "@angular/cdk/collections";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatPaginator, MatDialog, MatTableDataSource } from "@angular/material";
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from "ngx-toastr";
-import { finalize } from "rxjs/operators";
 import { SmsService } from "../../../service/sms.service";
 import { MessageComponent } from "../message/message.component";
+import { finalize } from "rxjs/operators";
 
 @Component({
-  selector: "app-next-day",
-  templateUrl: "./next-day.component.html",
-  styleUrls: ["./next-day.component.scss"],
+  selector: "app-visit-type",
+  templateUrl: "./visit-type.component.html",
+  styleUrls: ["./visit-type.component.scss"],
 })
-export class NextDayComponent implements OnInit {
+export class VisitTypeComponent implements OnInit {
   /* props */
 
-  clientListTable: any[] = [];
   displayedColumns: string[] = [
     "checked",
     "S.n",
@@ -31,10 +30,6 @@ export class NextDayComponent implements OnInit {
   /* for multi checkbox */
   selection = new SelectionModel<any>(true, []);
 
-  type = "number";
-  placeholder = "Enter days";
-  inputName = "Days";
-
   customerListTableDataSource; // for pagination or select all
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -46,6 +41,26 @@ export class NextDayComponent implements OnInit {
   ) {}
 
   ngOnInit() {}
+
+  onSearch(e) {
+    this.spinner.show();
+    this.customerListTableDataSource = [];
+
+    let visitTypeId = e.status || 0;
+    let fromDate = e.fromDate || "";
+    let toDate = e.toDate || "";
+    this.smsService
+      .getSmsListByVisitType("visitType", visitTypeId, fromDate, toDate)
+      .pipe(finalize(() => this.spinner.hide()))
+      .subscribe((res: any) => {
+        this.customerListTableDataSource = new MatTableDataSource<any>(res);
+        this.customerListTableDataSource.paginator = this.paginator;
+      }),
+      (err) => {
+        this.toastr.error(err.message);
+        this.spinner.hide();
+      };
+  }
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -60,21 +75,14 @@ export class NextDayComponent implements OnInit {
           this.selection.select(row)
         );
   }
-
-  onSearch(e) {
-    this.spinner.show();
-    this.customerListTableDataSource = [];
-    this.smsService
-      .getCustomSmsListAferXdays("nextXDay", e.days)
-      .pipe(finalize(() => this.spinner.hide()))
-      .subscribe((res: any) => {
-        this.customerListTableDataSource = new MatTableDataSource<any>(res);
-        this.customerListTableDataSource.paginator = this.paginator;
-      }),
-      (err) => {
-        this.toastr.error(err.message);
-        this.spinner.hide();
-      };
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row: any): string {
+    if (!row) {
+      return `${this.isAllSelected() ? "select" : "deselect"} all`;
+    }
+    return `${this.selection.isSelected(row) ? "deselect" : "select"} row ${
+      row.UserId + 1
+    }`;
   }
 
   sendSms() {

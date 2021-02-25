@@ -5,7 +5,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from "ngx-toastr";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { finalize, tap } from "rxjs/operators";
 import { VisitService } from "../../services/visit.service";
 import { VisitMainFormComponent } from "../../shared/visit-main-form/visit-main-form.component";
@@ -26,6 +26,7 @@ export class MainVisitComponent implements OnInit {
 
   visitListDataSource$: Observable<any>;
   visitListDataSource;
+  subscriptions: Subscription[] = [];
   displayedColumns: string[] = [
     "S.n",
     "customerId",
@@ -115,4 +116,8 @@ export class MainVisitComponent implements OnInit {
   }
 
   onSearch() {}
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
 }

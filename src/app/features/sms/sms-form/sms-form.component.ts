@@ -1,22 +1,12 @@
 import { MessageComponent } from "./../message/pages/message/message.component";
-import { PopupModalComponent } from "./../../../shared/components/popup-modal/popup-modal.component";
 import { SmsService } from "./../service/sms.service";
-import { CustomJs } from "src/app/shared/customjs/custom.js";
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import {
-  MatDialog,
-  MatOption,
-  MatPaginator,
-  MatTableDataSource,
-} from "@angular/material";
-import { DateFormatter } from "angular-nepali-datepicker";
-import { Observable } from "rxjs";
-import { Customer } from "src/app/core/models/customer";
+import { MatDialog, MatPaginator, MatTableDataSource } from "@angular/material";
+
 import { NgxSpinnerService } from "ngx-spinner";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
-import { finalize, tap } from "rxjs/operators";
+import { finalize } from "rxjs/operators";
 import { SelectionModel } from "@angular/cdk/collections";
 
 @Component({
@@ -26,10 +16,6 @@ import { SelectionModel } from "@angular/cdk/collections";
 })
 export class SmsFormComponent implements OnInit {
   /* props */
-  smsForm: FormGroup;
-  formatDate = new FormData();
-  customDate = new CustomJs();
-
   clientListTable: any[] = [];
   displayedColumns: string[] = [
     "checked",
@@ -46,6 +32,9 @@ export class SmsFormComponent implements OnInit {
   selectedClients = [];
   selectAll = false;
   selection = new SelectionModel<any>(true, []);
+  birthdaySmsList = [];
+  nextDaySmsList = [];
+  visitYtypeSmsList = [];
 
   smsType: string;
   status = "Visit Type";
@@ -53,8 +42,6 @@ export class SmsFormComponent implements OnInit {
   placeholder = "Enter days";
   inputName = "Days";
 
-  fromDate: any;
-  toDate: any;
   customerListTableDataSource; // for pagination or select all
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -62,13 +49,12 @@ export class SmsFormComponent implements OnInit {
     private smsService: SmsService,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
-    private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog
   ) {}
 
   ngOnInit() {
-    this.fetchQueryParm();
+    // this.fetchQueryParm();
   }
 
   fetchQueryParm() {
@@ -83,14 +69,9 @@ export class SmsFormComponent implements OnInit {
     });
   }
 
-  onFilter() {}
-
   onSearch(e) {
-    // console.log(e);
     this.spinner.show();
     if (this.smsType == "nextDay") {
-      console.log("next day vitra");
-
       this.customerListTableDataSource = [];
       console.log(this.customerListTableDataSource);
       let type = "nextXDay";
@@ -108,10 +89,7 @@ export class SmsFormComponent implements OnInit {
           this.spinner.hide();
         };
     } else if (this.smsType == "visitType") {
-      console.log("visti type vitra");
       this.customerListTableDataSource = [];
-      console.log(this.customerListTableDataSource);
-
       let visitTypeId = e.status || 0;
       let fromDate = e.fromDate || "";
       let toDate = e.toDate || "";
@@ -119,7 +97,6 @@ export class SmsFormComponent implements OnInit {
         .getSmsListByVisitType(this.smsType, visitTypeId, fromDate, toDate)
         .pipe(finalize(() => this.spinner.hide()))
         .subscribe((res: any) => {
-          // console.log(res);
           this.customerListTableDataSource = new MatTableDataSource<any>(res);
           this.customerListTableDataSource.paginator = this.paginator;
         }),
@@ -128,16 +105,11 @@ export class SmsFormComponent implements OnInit {
           this.spinner.hide();
         };
     } else {
-      console.log("birthday vitrra");
-
       this.customerListTableDataSource = [];
-      console.log(this.customerListTableDataSource);
-
       this.smsService
         .getBirthdaySmsList(this.smsType)
         .pipe(finalize(() => this.spinner.hide()))
         .subscribe((res: any) => {
-          // console.log(res);
           this.customerListTableDataSource = new MatTableDataSource<any>(res);
           this.customerListTableDataSource.paginator = this.paginator;
         }),
@@ -152,12 +124,7 @@ export class SmsFormComponent implements OnInit {
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    // console.log(numSelected);
-    // console.log(this.customerListTableDataSource);
-
     const numRows = this.customerListTableDataSource?.data?.length;
-    // console.log(numRows);
-    // console.log(numSelected === numRows);
     return numSelected === numRows;
   }
 
@@ -168,22 +135,25 @@ export class SmsFormComponent implements OnInit {
           this.selection.select(row)
         );
   }
-
-  /*  logSelection() {
-    this.selection.selected.forEach((s) => console.log(s.name));
-  } */
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row: any): string {
+    if (!row) {
+      return `${this.isAllSelected() ? "select" : "deselect"} all`;
+    }
+    return `${this.selection.isSelected(row) ? "deselect" : "select"} row ${
+      row.UserId + 1
+    }`;
+  }
 
   sendSms() {
-    /* YA XA ERROR--- DESELECT GAREKO LIST PANI SEND HUDAIXA START FROM HRERDFADFADF */
     this.selection.selected.forEach((s) => this.selectedClients.push(s.id));
-    console.log(this.selectedClients);
+    let selectedClients = this.selection.selected;
 
     const dialogRef = this.dialog.open(MessageComponent, {
       disableClose: true,
       width: "600px",
       data: {
-        // mode: mode,
-        clientList: this.selectedClients,
+        clientList: selectedClients,
       },
     });
 
@@ -196,9 +166,5 @@ export class SmsFormComponent implements OnInit {
         // this.fetchClientList();
       }
     });
-  }
-
-  onSave() {
-    console.log("save clicek");
   }
 }

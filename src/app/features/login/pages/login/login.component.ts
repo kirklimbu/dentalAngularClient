@@ -1,13 +1,12 @@
 import { NextDayComponent } from "./../../../sms/message/pages/next-day/next-day.component";
-import { SmsFormComponent } from "./../../../sms/sms-form/sms-form.component";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router } from "@angular/router";
 import { BehaviorSubject, Subscription } from "rxjs";
-import { first } from "rxjs/operators";
 import { User } from "src/app/core/models/user.model";
 import { LoginService } from "../../services/login.service";
 import { MatDialog } from "@angular/material";
+import { TodayBirthdaylistComponent } from "src/app/features/login/pages/today-birthdaylist/today-birthdaylist.component";
 
 @Component({
   selector: "app-login",
@@ -105,7 +104,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   openBirthdayModal() {
-    const dialogRef = this.dialog.open(NextDayComponent, {
+    const dialogRef = this.dialog.open(TodayBirthdaylistComponent, {
       disableClose: true,
       width: "450px",
       height: "500px",
@@ -116,8 +115,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      // table refresh on cancel nagarne
-      //if response is not list -->  refreshing particular segment
+     
     });
   }
 

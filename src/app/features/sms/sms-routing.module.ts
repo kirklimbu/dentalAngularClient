@@ -2,6 +2,8 @@ import { NextDayComponent } from "./message/pages/next-day/next-day.component";
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { SmsFormComponent } from "./sms-form/sms-form.component";
+import { BirthdayComponent } from "./message/pages/birthday/birthday.component";
+import { VisitTypeComponent } from "./message/pages/visit-type/visit-type.component";
 
 const routes: Routes = [
   {
@@ -9,8 +11,16 @@ const routes: Routes = [
     component: SmsFormComponent,
   },
   {
-    path: "next-day",
+    path: "nextDay",
     component: NextDayComponent,
+  },
+  {
+    path: "birthday",
+    component: BirthdayComponent,
+  },
+  {
+    path: "visitType",
+    component: VisitTypeComponent,
   },
 ];
 

@@ -24,6 +24,8 @@ export class VisitDetailComponent implements OnInit {
   /* props */
   visitDetailListDataSource$: Observable<any>;
   visitDetailListDataSource;
+  subscriptions: Subscription[] = [];
+
   displayedColumns: string[] = [
     "S.n",
     "customerId",
@@ -116,8 +118,7 @@ export class VisitDetailComponent implements OnInit {
     });
   }
 
-  /* ngOnDestroy() {
-    // unsubscribe to ensure no memory leaks
-    this.subscription.unsubscribe();
-} */
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
 }

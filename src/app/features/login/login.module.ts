@@ -7,9 +7,10 @@ import { LoginRoutingModule } from "./login-routing.module";
 import { LoginComponent } from "./pages/login/login.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { SharedModule } from "src/app/shared/shared.module";
+import { TodayBirthdaylistComponent } from "./pages/today-birthdaylist/today-birthdaylist.component";
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, TodayBirthdaylistComponent],
   imports: [
     CommonModule,
     LoginRoutingModule,
@@ -19,4 +20,5 @@ import { SharedModule } from "src/app/shared/shared.module";
     CoreModule,
   ],
 })
+
 export class LoginModule {}

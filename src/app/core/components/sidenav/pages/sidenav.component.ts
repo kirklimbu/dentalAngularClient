@@ -33,7 +33,7 @@ export class SidenavComponent implements OnInit {
   }
 
   navigateTo(smsType: string) {
-    this.router.navigate(["/dental/sms"], {
+    this.router.navigate(["/dental/sms/birthday"], {
       queryParams: { smsType: smsType },
     });
   }

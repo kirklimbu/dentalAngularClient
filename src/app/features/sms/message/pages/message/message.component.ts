@@ -1,12 +1,7 @@
-import { Customer } from "./../../../../../core/models/customer";
-import { SmsService } from "./../../../service/sms.service";
 import { DatePipe } from "@angular/common";
 import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
-import { Router } from "@angular/router";
-import { NgxSpinnerService } from "ngx-spinner";
-import { ToastrService } from "ngx-toastr";
 import { CustomerFormComponent } from "src/app/features/customer/shared/customer-form/customer-form.component";
 
 @Component({
@@ -20,13 +15,8 @@ export class MessageComponent implements OnInit {
   loading = false;
 
   messageType: string = "default";
-  clientList: Customer[] = [];
   constructor(
     private fb: FormBuilder,
-    private smsService: SmsService,
-    private spinner: NgxSpinnerService,
-    private toastr: ToastrService,
-    private router: Router,
     public datepipe: DatePipe,
     public dialogRef: MatDialogRef<CustomerFormComponent>,
     @Inject(MAT_DIALOG_DATA) private modalData: any
@@ -44,9 +34,10 @@ export class MessageComponent implements OnInit {
     });
   }
   onSave() {
+    console.log("msg " + JSON.stringify(this.messageForm.value));
     this.messageForm.valid
       ? this.dialogRef.close(this.messageForm.value)
-      :  this.dialogRef.close('Message not selected.');
+      : this.dialogRef.close("Message not selected.");
   }
   onCancel() {
     this.dialogRef.close("cancel");

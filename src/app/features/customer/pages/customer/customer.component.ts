@@ -6,8 +6,8 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatTableDataSource } from "@angular/material/table";
 
 import { ClientService } from "../../services/client.service";
-import { Observable } from "rxjs";
-import { finalize, tap } from "rxjs/operators";
+import {  Subscription } from "rxjs";
+import { finalize } from "rxjs/operators";
 import { FormatDate } from "src/app/core/constants/format-date";
 // project
 import { CustomJs } from "src/app/shared/customjs/custom.js";
@@ -22,12 +22,11 @@ import { CustomerFormComponent } from "../../shared/customer-form/customer-form.
 })
 export class CustomerComponent implements OnInit {
   /* props */
-  clientListDataSource$: Observable<any>;
   formatDate = new FormatDate();
   customDate = new CustomJs();
   fromDate: any;
-  fromDate2: any;
   toDate: any;
+  subscriptions: Subscription[] = [];
   displayedColumns: string[] = [
     "S.n",
     "id",
@@ -88,8 +87,6 @@ export class CustomerComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      // table refresh on cancel nagarne
-      //if response is not list -->  refreshing particular segment
       if (result !== "cancel") {
         this.fetchClientList();
       }
@@ -100,5 +97,8 @@ export class CustomerComponent implements OnInit {
     this.router.navigate(["/dental/customer/visits"], {
       queryParams: { customerId: customer.id },
     });
+  }
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }
