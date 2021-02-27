@@ -65,10 +65,13 @@
                 <mat-form-field class="=full-width">
                   <input
                     matInput
+                    required
+                    numberOnly
+                    maxLength='10'
                     type="number"
                     placeholder=" Mobile "
                     formControlName="mobile"
-                    required
+                    
                   />
                   <mat-hint align="end">Enter Mobile Number </mat-hint>
                   <!--<mat-error *ngIf="hasError('mobile', 'required')">Address is required</mat-error>
@@ -107,7 +110,7 @@
           <div class="row">
             <!-- first-col -->
             <!-- dob -->
-            <div class="col-md-5 nep-date-picker">
+            <div class="col-md-6 nep-date-picker">
               <app-form-group>
                 <mat-label class="text-muted">D.O.B</mat-label>
                 <np-datepicker
@@ -125,27 +128,11 @@
             </div>
             <!-- dob end -->
             <!-- first-col end -->
-            <!-- test -->
-            <!-- today -->
-            <div class="col-md-2 nep-date-picker isToday-checkbox">
-              <app-form-group>
-                <!-- checkbox -->
-                <mat-checkbox
-                  [style.margin]
-                  class="example-margin small"
-                  formControlName="today"
-                  [(ngModel)]="isItToday"
-                  (change)="onDayCheck($event)"
-                  >Today</mat-checkbox
-                >
-                <!-- checkbox end -->
-              </app-form-group>
-            </div>
-            <!-- today end -->
+
             <!-- test end -->
 
             <!-- second-col -->
-            <div class="col-md-5 nep-date-picker" *ngIf="!isItToday">
+            <div class="col-md-6 nep-date-picker" *ngIf="!isItToday">
               <app-form-group>
                 <mat-label class="text-muted">Reg Date</mat-label>
                 <np-datepicker
@@ -162,8 +149,50 @@
               </app-form-group>
             </div>
             <!-- second-col end -->
+
+            <!-- today end -->
           </div>
           <!-- third-row end -->
+
+          <div class="row">
+            <!-- today -->
+            <ng-container>
+              <div class="col-md-6 nep-date-picker isToday-checkbox">
+                <app-form-group>
+                  <!-- checkbox -->
+                  <mat-checkbox
+                    [style.margin]
+                    class="example-margin small"
+                    formControlName="today"
+                    [(ngModel)]="isItToday"
+                    (change)="onDayCheck($event)"
+                    >Today</mat-checkbox
+                  >
+                  <!-- checkbox end -->
+                </app-form-group>
+                <small class="text-muted"
+                  >Check if registration date is today.</small
+                >
+              </div>
+            </ng-container>
+
+            <!-- send sms -->
+            <div class="col-md-6 nep-date-picker isToday-checkbox">
+              <app-form-group>
+                <!-- checkbox -->
+                <mat-checkbox
+                  [style.margin]
+                  class="example-margin small"
+                  [(ngModel)]="sendSMS"
+                  [ngModelOptions]="{standalone: true}"
+                  >SMS</mat-checkbox
+                >
+                <!-- checkbox end -->
+              </app-form-group>
+              <small class="text-muted">Check to send SMS.</small>
+            </div>
+            <!-- send sms end -->
+          </div>
         </mat-card-content>
 
         <div class="row">

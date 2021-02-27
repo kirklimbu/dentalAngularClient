@@ -1,10 +1,9 @@
 import { SharedServiceService } from "./../../serviecs/shared-service.service";
 import { FormatDate } from "./../../../core/constants/format-date";
 import { CustomJs } from "src/app/shared/customjs/custom.js";
-import { NgxSpinnerService } from "ngx-spinner";
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { DateFormatter, NepaliDate } from "angular-nepali-datepicker";
-import { from, Observable } from "rxjs";
+import { DateFormatter } from "angular-nepali-datepicker";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-table-top-bar",
@@ -15,7 +14,6 @@ export class TableTopBarComponent implements OnInit {
   /* props */
 
   statuses$: Observable<any>;
-  statuses;
   isSearchShowing = false;
   customDate = new CustomJs();
   formatDate = new FormatDate();
@@ -58,12 +56,12 @@ export class TableTopBarComponent implements OnInit {
   toDate: any;
 
   @Input()
-  status: string;
+  status: string='';
 
   @Input()
   optionType: string = "";
 
-  keyword: string;
+  // keyword: string;
 
   @Output()
   add: EventEmitter<void> = new EventEmitter();
@@ -76,13 +74,13 @@ export class TableTopBarComponent implements OnInit {
     fromDate?: any;
     toDate?: any;
   }>();
+  
 
-  constructor(
-    private spinner: NgxSpinnerService,
-    private sharedService: SharedServiceService
-  ) {}
+  constructor(private sharedService: SharedServiceService) {}
 
   ngOnInit(): void {
+    this.resetStatus();
+
     this.fetchVisitType();
     this.getCurrentDate();
     this.getDateAfter();
@@ -100,7 +98,6 @@ export class TableTopBarComponent implements OnInit {
   }
 
   onSearch() {
-    console.log(this.status);
     if (this.status) {
       this.fromDate = this.convertDateToString(this.fromDate);
       this.toDate = this.convertDateToString(this.toDate);
@@ -141,20 +138,10 @@ export class TableTopBarComponent implements OnInit {
     return (this.toDate = this.convetStringToDate(toDate));
   }
 
-  fetchDefaultList() {
-    this.spinner.show();
-    const status = "P";
-
-    let toDate: NepaliDate = this.customDate.getCurrentDateBS();
-    toDate = this.customDate.getDatePickerObject(toDate); // converting to object to display in Datepicker
-    this.toDate = toDate; // assigning to Datepicker
-
-    let fromDate: NepaliDate = this.customDate.getBeforeAfterMonthDateBS(-1);
-    fromDate = this.customDate.getNepaliFunctionDateObject(fromDate);
-    this.fromDate = fromDate;
-  }
-
   fetchVisitType() {
     this.statuses$ = this.sharedService.getVisitType();
+  }
+  resetStatus() {
+    this.status = "";
   }
 }

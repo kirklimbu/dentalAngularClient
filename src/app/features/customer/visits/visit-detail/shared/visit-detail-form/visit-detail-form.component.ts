@@ -1,6 +1,6 @@
 import { ItemList } from "./../../../../../../core/models/item-list.model";
 import { CustomJs } from "src/app/shared/customjs/custom.js";
-import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
+import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { VisitDetail } from "./../../../../../../core/models/visit-detail.model";
 import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
 import { DateFormatter } from "angular-nepali-datepicker";
@@ -62,7 +62,6 @@ export class VisitDetailFormComponent implements OnInit, OnDestroy {
       : this.fetchVisitDetailForm();
     this.buildVisitDetailForm();
   }
-
 
   fetchQueryParmValues() {
     /* for add */
@@ -127,9 +126,9 @@ export class VisitDetailFormComponent implements OnInit, OnDestroy {
   buildVisitDetailForm() {
     if (this.mode === "add") {
       this.visitDetailForm = this.fb.group({
-        visitMainId: [this.visitDetail.visitMainId],
+        visitMainId: [this.visitDetail.visitMainId, [Validators.required]],
         visitDateBs: [this.visitDetail.visitDateBs],
-        doctor: [this.visitDetail.doctor],
+        doctor: [this.visitDetail.doctor, [Validators.required]],
         visitAfterDay: [this.visitDetail.visitAfterDay],
         today: [this.visitDetail.today],
         itemList: this.fb.array([this.buildItemListForm()]),
@@ -184,16 +183,19 @@ export class VisitDetailFormComponent implements OnInit, OnDestroy {
   }
 
   onSave() {
-    this.spinner.show();
-
     if (this.isItToday !== true) {
+      /* empty date huda error faliraxa catch it */
       let visitDateBs = this.customDate.getStringFromNepaliFunction(
         this.visitDate
       );
       this.visitDetailForm.controls["visitDateBs"].setValue(visitDateBs);
+    } else {
+      this.visitDetailForm.controls["visitDateBs"].reset();
     }
+    console.log(this.visitDetailForm.value, this.isItToday);
 
     if (this.visitDetailForm.valid) {
+      this.spinner.show();
       this.loading = true;
       this.visitDetailService
         .saveVisitMainForm(this.visitDetailForm.value)
@@ -215,6 +217,8 @@ export class VisitDetailFormComponent implements OnInit, OnDestroy {
         );
     } else {
       this.spinner.hide();
+      this.toastr.error("Please add all fields.");
+
       return;
     }
   }

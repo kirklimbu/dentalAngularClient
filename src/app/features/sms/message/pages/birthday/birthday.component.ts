@@ -50,6 +50,7 @@ export class BirthdayComponent implements OnInit {
   }
 
   fetchBirthdayList() {
+    this.spinner.show();
     this.customerListTableDataSource = [];
 
     this.smsService
@@ -67,9 +68,7 @@ export class BirthdayComponent implements OnInit {
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-
     const numRows = this.customerListTableDataSource?.data?.length;
-
     return numSelected === numRows;
   }
 
@@ -79,6 +78,9 @@ export class BirthdayComponent implements OnInit {
       : this.customerListTableDataSource?.data.forEach((row) =>
           this.selection.select(row)
         );
+  }
+  clearSelectedClientsList() {
+    this.selection.clear();
   }
 
   sendSms() {
@@ -98,7 +100,11 @@ export class BirthdayComponent implements OnInit {
       console.log(result);
 
       if (result !== "cancel") {
-        // this.fetchClientList();
+        this.customerListTableDataSource = [];
+        this.clearSelectedClientsList();
+        this.fetchBirthdayList();
+        this.toastr.success('SMS sent successfully.')
+
       }
     });
   }

@@ -61,6 +61,10 @@ export class NextDayComponent implements OnInit {
         );
   }
 
+  clearSelectedClientsList() {
+    this.selection.clear();
+  }
+
   onSearch(e) {
     this.spinner.show();
     this.customerListTableDataSource = [];
@@ -93,7 +97,9 @@ export class NextDayComponent implements OnInit {
       console.log(result);
 
       if (result !== "cancel") {
-        // this.fetchClientList();
+        this.customerListTableDataSource = [];
+        this.clearSelectedClientsList();
+        this.toastr.success("SMS sent successfully."); // message may change
       }
     });
   }

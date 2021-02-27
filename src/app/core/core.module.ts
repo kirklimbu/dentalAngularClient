@@ -10,6 +10,7 @@ import { OnreturnDirective } from "./directives/onreturn.directive";
 import { ConnectorDirective } from "./directives/connector.directive";
 import { ToastrModule, ToastrService } from "ngx-toastr";
 import { NgxChartsModule } from "@swimlane/ngx-charts";
+import { OnlynumbersDirective } from './directives/onlynumbers.directive';
 
 const DECLARATIONS: any[] = [
   NavbarComponent,
@@ -18,7 +19,7 @@ const DECLARATIONS: any[] = [
   ConnectorDirective,
 ];
 @NgModule({
-  declarations: [...DECLARATIONS],
+  declarations: [...DECLARATIONS, OnlynumbersDirective],
   imports: [
     CommonModule,
     CoreRoutingModule,

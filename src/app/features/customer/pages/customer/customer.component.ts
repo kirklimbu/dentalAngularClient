@@ -59,6 +59,7 @@ export class CustomerComponent implements OnInit {
   ngOnInit() {
     this.fetchClientList();
   }
+  
   fetchClientList() {
     this.spinner.show();
     this.clientService
@@ -101,4 +102,6 @@ export class CustomerComponent implements OnInit {
   ngOnDestroy() {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
+
 }
+

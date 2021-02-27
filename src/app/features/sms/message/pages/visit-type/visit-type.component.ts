@@ -6,6 +6,7 @@ import { ToastrService } from "ngx-toastr";
 import { SmsService } from "../../../service/sms.service";
 import { MessageComponent } from "../message/message.component";
 import { finalize } from "rxjs/operators";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-visit-type",
@@ -14,7 +15,8 @@ import { finalize } from "rxjs/operators";
 })
 export class VisitTypeComponent implements OnInit {
   /* props */
-
+  optionType = "Visit Type";
+  status = "";
   displayedColumns: string[] = [
     "checked",
     "S.n",
@@ -29,6 +31,7 @@ export class VisitTypeComponent implements OnInit {
 
   /* for multi checkbox */
   selection = new SelectionModel<any>(true, []);
+  selectedClients = [];
 
   customerListTableDataSource; // for pagination or select all
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -37,7 +40,8 @@ export class VisitTypeComponent implements OnInit {
     private smsService: SmsService,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {}
 
   ngOnInit() {}
@@ -75,6 +79,10 @@ export class VisitTypeComponent implements OnInit {
           this.selection.select(row)
         );
   }
+
+  clearSelectedClientsList() {
+    this.selection.clear();
+  }
   /** The label for the checkbox on the passed row */
   checkboxLabel(row: any): string {
     if (!row) {
@@ -86,14 +94,14 @@ export class VisitTypeComponent implements OnInit {
   }
 
   sendSms() {
-    let selectedClients = [];
-    this.selection.selected.forEach((s) => selectedClients.push(s.id));
+    // let selectedClients = [];
+    this.selection.selected.forEach((s) => this.selectedClients.push(s.id));
 
     const dialogRef = this.dialog.open(MessageComponent, {
       disableClose: true,
       width: "600px",
       data: {
-        clientList: selectedClients,
+        clientList: this.selectedClients,
       },
     });
 
@@ -101,8 +109,22 @@ export class VisitTypeComponent implements OnInit {
       console.log(result);
 
       if (result !== "cancel") {
-        // this.fetchClientList();
+        console.log("sent msg");
+
+        this.customerListTableDataSource = [];
+        this.clearSelectedClientsList();
+        this.reloadPage();
+        this.toastr.success('SMS sent successfully.') //message may change
+      } else {
+        console.log("sent not msg");
       }
     });
+  }
+
+  private reloadPage() {
+    let currentUrl = this.router.url;
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = "reload";
+    this.router.navigate([currentUrl]);
   }
 }

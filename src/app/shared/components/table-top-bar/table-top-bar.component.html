@@ -59,11 +59,11 @@
           id="inputGroupSelect03"
           [(ngModel)]="status"
         >
-          <option value="null" disabled selected>-- Please Select --</option>
+          <option class="dropdown-item" disabled selected value="undefined" >-- Please Select --</option>
           <option
-            selected
+          class="dropdown-item"
             *ngFor="let status of statuses$ | async"
-            [value]="status.id"
+            [ngValue]="status.id"
           >
             {{ status.type }}
           </option>

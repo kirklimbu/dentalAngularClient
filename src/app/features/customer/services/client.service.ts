@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
+import { Customer } from "src/app/core/models/customer";
 import { environment } from "src/environments/environment";
 
 @Injectable({
@@ -35,9 +36,10 @@ export class ClientService {
       })
     );
   }
-  createCustomer(customer) {
+  createCustomer(customer:Customer, sms: boolean) {
+    console.log(sms);
     return this.http
-      .post(`${this.API_URL}auth/customer/save`, { ...customer })
+      .post(`${this.API_URL}auth/customer/save?sendSMS=${sms}`, { ...customer })
       .pipe(
         catchError((err) => {
           return throwError(err);

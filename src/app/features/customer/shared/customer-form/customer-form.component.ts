@@ -29,6 +29,7 @@ export class CustomerFormComponent implements OnInit, OnDestroy {
   customerId: number;
 
   isItToday: boolean;
+  sendSMS = false;
   loading: boolean;
   hideRegDate = false;
   formatDate = new FormatDate();
@@ -48,7 +49,6 @@ export class CustomerFormComponent implements OnInit, OnDestroy {
     private clientService: ClientService,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
-    private router: Router,
     public datepipe: DatePipe,
     public dialogRef: MatDialogRef<CustomerFormComponent>,
     @Inject(MAT_DIALOG_DATA) private modalData: any
@@ -99,12 +99,13 @@ export class CustomerFormComponent implements OnInit, OnDestroy {
     if (this.mode === "add") {
       this.customerForm = this.formBuilder.group({
         name: [this.client.name],
-        mobile: [this.client.mobile],
+        mobile: [this.client.mobile, [Validators.pattern("^[0-9]{10}$")]],
         address: [this.client.address],
         dob: [this.client.dob],
         today: [this.client.today],
+        // sendSMS: [this.client.sendSMS],
         regDateBs: [this.client.regDateBs],
-        email: [this.client.email],
+        email: [this.client.email, [Validators.email]],
         /*  visitType: [this.client.visitType],
         visitDateBs: [this.client.visitDateBs], */
       });
@@ -116,6 +117,7 @@ export class CustomerFormComponent implements OnInit, OnDestroy {
         address: [this.client.address],
         dob: [this.client.dob],
         today: [this.client.today],
+        // sendSMS: [this.client.sendSMS],
 
         regDateBs: [this.client.regDateBs],
         email: [this.client.email],
@@ -129,8 +131,7 @@ export class CustomerFormComponent implements OnInit, OnDestroy {
   }
 
   onSave() {
-    this.spinner.show();
-
+    console.log(this.customerForm.value);
     if (this.dob !== undefined) {
       let dob = this.customDate.getStringFromDatePicker(this.dob);
       this.customerForm.controls["dob"].setValue(dob);
@@ -139,12 +140,16 @@ export class CustomerFormComponent implements OnInit, OnDestroy {
     if (this.isItToday !== true) {
       let regDate = this.customDate.getStringFromDatePicker(this.regDate);
       this.customerForm.controls["regDateBs"].setValue(regDate);
+    } else {
+      this.customerForm.controls["regDateBs"].reset();
     }
+    console.log(this.customerForm.value);
 
     if (this.customerForm.valid) {
+      this.spinner.show();
       this.loading = true;
       this.clientService
-        .createCustomer(this.customerForm.value)
+        .createCustomer(this.customerForm.value, this.sendSMS)
         .pipe(finalize(() => this.spinner.hide()))
         .subscribe(
           (res: any) => {
