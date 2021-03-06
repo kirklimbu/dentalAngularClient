@@ -118,6 +118,9 @@ mat-icon .power_settings_new:hover {
 .mat-table {
   width: 100%;
   padding-right: 0;
+  .td{
+   padding: 1rem; 
+  }
 }
 
 .top-bar-search {

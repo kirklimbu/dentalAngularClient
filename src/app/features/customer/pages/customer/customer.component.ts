@@ -34,6 +34,7 @@ export class CustomerComponent implements OnInit {
     "address",
     "mobile",
     // "visitType",
+    "due",
     "visitDate",
     "action",
   ];
@@ -78,6 +79,7 @@ export class CustomerComponent implements OnInit {
   onSearch() {}
 
   onAdd(mode?: string, customer?: Customer) {
+    // customform add api call garda error aayo vane customerform page nakholne
     const dialogRef = this.dialog.open(CustomerFormComponent, {
       disableClose: true,
       // width: "450px",

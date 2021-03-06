@@ -29,10 +29,11 @@ export class MainVisitComponent implements OnInit {
   subscriptions: Subscription[] = [];
   displayedColumns: string[] = [
     "S.n",
-    "customerId",
+    // "customerId",
     // "totalCost",
     // "remBal",
     "visitType",
+    'due',
     "action",
   ];
   visitListTable: any[] = [];

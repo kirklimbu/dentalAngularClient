@@ -25,15 +25,21 @@
         <td mat-cell *matCellDef="let element; index as i">
           {{ i + 1 }}.
         </td> </ng-container
-      ><ng-container matColumnDef="customerId">
+      ><!-- <ng-container matColumnDef="customerId">
         <th mat-header-cell *matHeaderCellDef>Customer Id</th>
         <td mat-cell *matCellDef="let element">
           {{ element.customerId }}
         </td> </ng-container
-      ><ng-container matColumnDef="visitType">
+      > -->
+      <ng-container matColumnDef="visitType">
         <th mat-header-cell *matHeaderCellDef>Visit Type</th>
         <td mat-cell *matCellDef="let element">
           {{ element.name }}
+        </td>
+      </ng-container><ng-container matColumnDef="due">
+        <th mat-header-cell *matHeaderCellDef>Due</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.due }}
         </td>
       </ng-container>
 

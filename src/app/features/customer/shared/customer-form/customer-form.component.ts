@@ -65,9 +65,15 @@ export class CustomerFormComponent implements OnInit, OnDestroy {
     this.clientService
       .getCustomerForm()
       .pipe(finalize(() => this.spinner.hide()))
-      .subscribe((res: Customer) => {
-        this.isItToday = res.today;
-      });
+      .subscribe(
+        (res: Customer) => {
+          this.isItToday = res.today;
+        },
+        (err) => {          
+          this.toastr.error(err.message);
+          this.onCancel()
+        }
+      );
   }
 
   fetchCustomerDetails() {
