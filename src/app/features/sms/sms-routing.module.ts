@@ -13,14 +13,29 @@ const routes: Routes = [
   {
     path: "nextDay",
     component: NextDayComponent,
+    data:{
+      breadcrumb:{
+        label:'Next-Day'
+      }
+    }
   },
   {
     path: "birthday",
     component: BirthdayComponent,
+    data:{
+      breadcrumb:{
+        label:'Birthday'
+      }
+    }
   },
   {
     path: "visitType",
     component: VisitTypeComponent,
+    data:{
+      breadcrumb:{
+        label:'Visit-Type'
+      }
+    }
     
   },
 ];

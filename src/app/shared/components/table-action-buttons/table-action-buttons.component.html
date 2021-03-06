@@ -1,7 +1,7 @@
 <div class="d-flex align-items-center row">
   <button
     mat-button
-    color="warn"
+    style="color: #F78888"
     *ngIf="enableEdit"
     ngbTooltip="Edit"
     (click)="onEdit()"
@@ -30,7 +30,7 @@
   </button>
   <button
     mat-button
-    color="primary"
+    style="color: #5da2d5;"
     *ngIf="enableViewDetails"
     ngbTooltip="{{ isEmpty ? 'Add Details' : 'Show Details' }}"
     (click)="onVerifyDetails()"

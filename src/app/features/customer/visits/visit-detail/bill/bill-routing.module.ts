@@ -7,7 +7,7 @@ const routes: Routes = [
     path: "",
     component: InvoiceComponent,
     data:{
-      breadcrumb: { label: "Print Bill" },
+      breadcrumb: { label: "Print Invoice" },
 
     }
   },

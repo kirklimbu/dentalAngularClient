@@ -56,7 +56,7 @@ export class TableTopBarComponent implements OnInit {
   toDate: any;
 
   @Input()
-  status: string='';
+  status: string = "";
 
   @Input()
   optionType: string = "";
@@ -74,7 +74,6 @@ export class TableTopBarComponent implements OnInit {
     fromDate?: any;
     toDate?: any;
   }>();
-  
 
   constructor(private sharedService: SharedServiceService) {}
 
@@ -98,13 +97,10 @@ export class TableTopBarComponent implements OnInit {
   }
 
   onSearch() {
-    console.log(this.status)
+    console.log(this.status);
     if (this.status) {
       this.fromDate = this.convertDateToString(this.fromDate);
       this.toDate = this.convertDateToString(this.toDate);
-    } else {
-      this.fromDate = "";
-      this.toDate = "";
     }
 
     this.search.emit({

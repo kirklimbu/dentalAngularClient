@@ -59,9 +59,11 @@
           id="inputGroupSelect03"
           [(ngModel)]="status"
         >
-          <option class="dropdown-item" disabled selected value="undefined" >-- Please Select --</option>
+          <option class="dropdown-item" disabled selected value="undefined">
+            -- Please Select --
+          </option>
           <option
-          class="dropdown-item"
+            class="dropdown-item"
             *ngFor="let status of statuses$ | async"
             [ngValue]="status.id"
           >
@@ -105,6 +107,7 @@
     <ng-container *ngIf="!enableInput">
       <button
         mat-icon-button
+        title="Click to Search"
         style="margin-top: 28px; margin-right: 25px"
         (click)="onSearch()"
       >
@@ -113,8 +116,9 @@
     </ng-container>
     <ng-container *ngIf="enableInput">
       <button
+        title="Click to Search"
         mat-icon-button
-        style="margin-top: 30px; margin-left: -500px"
+        style="margin-top: 30px; margin-left: -400px"
         (click)="onSearch()"
       >
         <mat-icon>search</mat-icon>

@@ -46,24 +46,35 @@ export class VisitTypeComponent implements OnInit {
 
   ngOnInit() {}
 
-  onSearch(e) {
+  onSearch(e:any) {
     this.spinner.show();
     this.customerListTableDataSource = [];
 
-    let visitTypeId = e.status || 0;
-    let fromDate = e.fromDate || "";
-    let toDate = e.toDate || "";
-    this.smsService
-      .getSmsListByVisitType("visitType", visitTypeId, fromDate, toDate)
-      .pipe(finalize(() => this.spinner.hide()))
-      .subscribe((res: any) => {
-        this.customerListTableDataSource = new MatTableDataSource<any>(res);
-        this.customerListTableDataSource.paginator = this.paginator;
-      },(err) => {
-        this.toastr.error(' Please select Visit Type.');
-        this.spinner.hide();
-      })
-      
+    let visitTypeId = e.status | 0;
+    let fromDate = e.fromDate;
+    let toDate = e.toDate;
+
+    console.log(visitTypeId, fromDate, toDate);
+
+    // call only if all values are suplied
+    if (visitTypeId > 0) {
+      this.smsService
+        .getSmsListByVisitType("visitType", visitTypeId, fromDate, toDate)
+        .pipe(finalize(() => this.spinner.hide()))
+        .subscribe(
+          (res: any) => {
+            this.customerListTableDataSource = new MatTableDataSource<any>(res);
+            this.customerListTableDataSource.paginator = this.paginator;
+          },
+          (err) => {
+            this.toastr.error(" Please select Visit Type.");
+            this.spinner.hide();
+          }
+        );
+    } else {
+      this.toastr.error(" Please select Visit Type.");
+      this.spinner.hide();
+    }
   }
 
   isAllSelected() {
@@ -114,7 +125,7 @@ export class VisitTypeComponent implements OnInit {
         this.customerListTableDataSource = [];
         this.clearSelectedClientsList();
         this.reloadPage();
-        this.toastr.success('SMS sent successfully.') //message may change
+        this.toastr.success("SMS sent successfully."); //message may change
       } else {
         console.log("sent not msg");
       }

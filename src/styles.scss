@@ -52,12 +52,15 @@ body {
 .content-wrapper {
   padding: 30px;
   height: auto;
-
 }
 
 .sidenav {
   background: rgb(224, 228, 230);
-  // background: #d4f2a4;
+  // background: #a8d0e6;
+  // background: #def2f1;
+  // background: #90ccf4;
+
+  // background: #5085A5
   grid-column: 1 / 2;
   padding: 1rem 0 0.5rem 0;
   margin: 0.2rem 0.25rem 5rem 0.25rem;
@@ -81,7 +84,8 @@ body {
 
 .main-content {
   // background: rgb(221, 212, 209);
-  background: #fff;
+  // background: #feffff;
+  background: #ececec;
   // background: #75b5dd;
   grid-column: 2 / 4;
   min-height: 100vh;
@@ -89,20 +93,28 @@ body {
 
 mat-icon {
   padding: 0 2.5rem 0 0;
+  // color: #2a8bf7
 }
 
 .sidenav-items a:hover {
-  // color: rgb(4, 129, 212);
-  // color: #caf4c2;
-  // color: #0469a7
-  // color: #28b0de;
-  color: #2a8bf7
+  mat-icon {
+    padding: 0 2.5rem 0 0;
+    color: #f78888;
+  }
+}
+
+.sidenav-items {
+  mat-icon {
+    padding: 0 2.5rem 0 0;
+    // color: #2a8bf7;
+    color: #90ccf4;
+  }
+  
 }
 
 .sidenav-items a:active {
   background-color: #69f0ae;
 }
-
 .logout:hover {
   border-bottom: red;
   color: red;
@@ -110,7 +122,7 @@ mat-icon {
 
 mat-icon .sort:hover {
   // color: #2a8bf7;
-  color: red
+  color: red;
 }
 
 mat-icon .power_settings_new:hover {
@@ -121,8 +133,8 @@ mat-icon .power_settings_new:hover {
 .mat-table {
   width: 100%;
   padding-right: 0;
-  .td{
-   padding: 1rem; 
+  .td {
+    padding: 1rem;
   }
 }
 
@@ -154,10 +166,7 @@ mat-toolbar {
   display: grid;
   place-items: center;
   height: auto;
-
-
 }
-
 
 .client-card {
   padding: 2rem;
@@ -175,7 +184,6 @@ mat-toolbar {
   width: 85%;
 }
 
-
 .divider {
   margin-top: 0;
   margin-bottom: 2rem;
@@ -184,7 +192,7 @@ mat-toolbar {
 .save-cancel-buttons {
   display: grid;
   place-items: center;
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 .isToday-checkbox {
@@ -195,7 +203,7 @@ mat-toolbar {
 
 /* breadcrumb */
 .xng-breadcrumb-trail {
-  margin-top: .5rem
+  margin-top: 0.5rem;
 }
 
 /* popup/modal table */
@@ -225,7 +233,6 @@ mat-toolbar {
 
 /* print section */
 .print-button-container {
-
   float: right;
 }
 
@@ -246,7 +253,6 @@ mat-toolbar {
   display: grid;
   place-items: center;
   // font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-
 }
 
 .page-not-found-img {
@@ -255,7 +261,6 @@ mat-toolbar {
 }
 
 .page-not-found-header {
-
   margin: 6rem 0 1rem 0;
   font-size: 5rem;
   color: coral;
@@ -268,7 +273,7 @@ mat-toolbar {
   display: grid;
   place-items: center;
   margin-top: 10rem;
-  font-family: Ubuntu !important
+  font-family: Ubuntu !important;
 }
 
 .send-sms {

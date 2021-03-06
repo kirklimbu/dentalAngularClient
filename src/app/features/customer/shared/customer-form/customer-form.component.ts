@@ -108,7 +108,7 @@ export class CustomerFormComponent implements OnInit, OnDestroy {
       this.customerForm = this.formBuilder.group({
         customerId: [],
         name: [this.client.name],
-        mobile: [this.client.mobile, [Validators.pattern("^[0-9]{10}$")]],
+        mobile: [this.client.mobile, [Validators.pattern("[9][0-9]{9}$")]],
         address: [this.client.address],
         dob: [this.client.dob],
         today: [this.client.today],

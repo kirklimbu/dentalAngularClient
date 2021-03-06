@@ -12,7 +12,7 @@ const routes: Routes = [
     path: "invoice",
     loadChildren: () => import("./bill/bill.module").then((m) => m.BillModule),
     data: {
-      breadcrumb: { label: "Visits" },
+      breadcrumb: { label: "Invoice" },
 
       // allowedRoles: [UserRoleType.ROLE_ALL],
     },
