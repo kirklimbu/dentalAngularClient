@@ -29,7 +29,7 @@ export class MainVisitComponent implements OnInit {
   visitListDataSource;
   subscriptions: Subscription[] = [];
   displayedColumns: string[] = [
-    "S.n",
+    "Sn",
     // "customerId",
     // "totalCost",
     // "remBal",
@@ -41,6 +41,7 @@ export class MainVisitComponent implements OnInit {
 
   customerVisitDetail;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+
 
   constructor(
     private visitService: VisitService,

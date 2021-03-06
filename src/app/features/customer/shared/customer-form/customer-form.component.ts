@@ -31,7 +31,7 @@ export class CustomerFormComponent implements OnInit, OnDestroy {
   isItToday: boolean;
   sendSMS = false;
   loading: boolean;
-  enableSaveForm=false;
+  enableSaveForm = false;
   hideRegDate = false;
   formatDate = new FormatDate();
   customDate = new CustomJs();
@@ -87,6 +87,7 @@ export class CustomerFormComponent implements OnInit, OnDestroy {
         (res: any) => {
           this.mode = "edit";
           this.client = res;
+          console.log(this.client.dob);
           this.dob = this.customDate.getDatePickerObject(this.client.dob);
           this.regDate = this.customDate.getDatePickerObject(
             this.client.regDateBs
@@ -140,18 +141,21 @@ export class CustomerFormComponent implements OnInit, OnDestroy {
 
   onSave() {
     console.log(this.customerForm.value.dob);
-    
+
     console.log(this.customerForm.value);
 
     if (this.customerForm.valid) {
       if (this.dob !== undefined) {
         let dob = this.customDate.getStringFromDatePicker(this.dob);
         this.customerForm.controls["dob"].setValue(dob);
+        this.dob = this.convetStringToDate(dob);
       }
-  
+
       if (this.isItToday !== true) {
         let regDate = this.customDate.getStringFromDatePicker(this.regDate);
         this.customerForm.controls["regDateBs"].setValue(regDate);
+        this.regDate = this.convetStringToDate(regDate);
+
       } else {
         this.customerForm.controls["regDateBs"].reset();
       }
@@ -177,6 +181,10 @@ export class CustomerFormComponent implements OnInit, OnDestroy {
       this.spinner.hide();
       return;
     }
+  }
+
+  convetStringToDate(date) {
+    return this.customDate.getDatePickerObject(date);
   }
 
   onDayCheck(e) {

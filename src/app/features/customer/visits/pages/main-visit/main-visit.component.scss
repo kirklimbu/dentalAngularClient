@@ -1,0 +1,20 @@
+:host ::ng-deep .mat-column-Sn {
+    width: 15%;
+    // max-width: 250px;
+  }:host ::ng-deep .mat-column-visitType {
+    width: 40%;
+    // max-width: 250px;
+  }
+  
+  :host ::ng-deep .mat-column-due {
+    width: 15%;
+    // max-width: 250px;
+    padding: 0 .5rem 0 1rem;
+    margin: .5rem;
+  }
+  
+  :host ::ng-deep .mat-column-action {
+    width: 25%;
+    // max-width: 250px;
+    padding-left: .5rem;
+  }
