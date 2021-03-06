@@ -6,7 +6,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatTableDataSource } from "@angular/material/table";
 
 import { ClientService } from "../../services/client.service";
-import {  Subscription } from "rxjs";
+import { Subscription } from "rxjs";
 import { finalize } from "rxjs/operators";
 import { FormatDate } from "src/app/core/constants/format-date";
 // project
@@ -60,20 +60,24 @@ export class CustomerComponent implements OnInit {
   ngOnInit() {
     this.fetchClientList();
   }
-  
+
   fetchClientList() {
     this.spinner.show();
     this.clientService
       .getCustomerList()
       .pipe(finalize(() => this.spinner.hide()))
-      .subscribe((res: any) => {
-        this.customerListTableDataSource = new MatTableDataSource<any>(res);
-        this.customerListTableDataSource.paginator = this.paginator;
-      }),
-      (err) => {
-        this.toastr.error(err.message);
+      .subscribe(
+        (res: any) => {
+          this.customerListTableDataSource = new MatTableDataSource<any>(res);
+          this.customerListTableDataSource.paginator = this.paginator;
+        },
+        (err) => {
+          err.error.message === err.error.message
+          ? this.toastr.error(err.error.message)
+          : this.toastr.error("Error fetching Customer list.");
         this.spinner.hide();
-      };
+        }
+      );
   }
 
   onSearch() {}
@@ -97,13 +101,12 @@ export class CustomerComponent implements OnInit {
   }
 
   onViewDetails(customer: Customer) {
+    let customerName = customer.name;
     this.router.navigate(["/dental/customer/visits"], {
-      queryParams: { customerId: customer.id },
+      queryParams: { customerId: customer.id, customerName: customerName },
     });
   }
   ngOnDestroy() {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
-
 }
-

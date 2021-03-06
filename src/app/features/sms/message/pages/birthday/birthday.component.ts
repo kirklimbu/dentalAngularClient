@@ -56,14 +56,16 @@ export class BirthdayComponent implements OnInit {
     this.smsService
       .getBirthdaySmsList("birthday")
       .pipe(finalize(() => this.spinner.hide()))
-      .subscribe((res: any) => {
-        this.customerListTableDataSource = new MatTableDataSource<any>(res);
-        this.customerListTableDataSource.paginator = this.paginator;
-      }),
-      (err) => {
-        this.toastr.error(err.message);
-        this.spinner.hide();
-      };
+      .subscribe(
+        (res: any) => {
+          this.customerListTableDataSource = new MatTableDataSource<any>(res);
+          this.customerListTableDataSource.paginator = this.paginator;
+        },
+        (err) => {
+          this.toastr.error('Empty Birthday list. ');
+          this.spinner.hide();
+        }
+      );
   }
 
   isAllSelected() {
@@ -103,8 +105,7 @@ export class BirthdayComponent implements OnInit {
         this.customerListTableDataSource = [];
         this.clearSelectedClientsList();
         this.fetchBirthdayList();
-        this.toastr.success('SMS sent successfully.')
-
+        this.toastr.success("SMS sent successfully.");
       }
     });
   }

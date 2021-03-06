@@ -98,6 +98,7 @@ export class TableTopBarComponent implements OnInit {
   }
 
   onSearch() {
+    console.log(this.status)
     if (this.status) {
       this.fromDate = this.convertDateToString(this.fromDate);
       this.toDate = this.convertDateToString(this.toDate);

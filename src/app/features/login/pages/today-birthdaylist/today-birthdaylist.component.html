@@ -16,19 +16,18 @@
 </table>
  -->
 
- <mat-list role="list">
-    <div mat-subheader>
-      <u
-        ><em><h5>Today's Birthday List:</h5></em></u
-      >
-    </div>
-  
-    <mat-list-item role="listitem" *ngFor="let item of dataSource; index as i"
-      >{{ i + 1 }}. {{ item.name | titlecase }}</mat-list-item
+<mat-list role="list">
+  <div mat-subheader>
+    <u
+      ><em><h5>Today's Birthday List:</h5></em></u
     >
-    <hr />
-    <button class="mt-2 mb-2" mat-button color="primary"  (click)="onClose()">
-      Close
-    </button>
-  </mat-list>
-  
+  </div>
+
+  <mat-list-item role="listitem" *ngFor="let item of dataSource; index as i"
+    >{{ i + 1 }}. {{ item.name | titlecase }}</mat-list-item
+  >
+  <hr />
+</mat-list>
+<button class="mt-2 mb-2" mat-button color="primary" (click)="onClose()">
+  Close
+</button>

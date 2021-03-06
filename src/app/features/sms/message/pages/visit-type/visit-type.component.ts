@@ -59,11 +59,11 @@ export class VisitTypeComponent implements OnInit {
       .subscribe((res: any) => {
         this.customerListTableDataSource = new MatTableDataSource<any>(res);
         this.customerListTableDataSource.paginator = this.paginator;
-      }),
-      (err) => {
-        this.toastr.error(err.message);
+      },(err) => {
+        this.toastr.error(' Please select Visit Type.');
         this.spinner.hide();
-      };
+      })
+      
   }
 
   isAllSelected() {

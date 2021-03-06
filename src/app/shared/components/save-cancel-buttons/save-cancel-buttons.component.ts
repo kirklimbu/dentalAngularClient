@@ -12,6 +12,8 @@ export class SaveCancelButtonsComponent implements OnInit {
   @Input()
   isSaveLoading = false;
   @Input()
+  isDisabled = true;
+  @Input()
   isCancelLoading = false;
   @Output()
   save: EventEmitter<void> = new EventEmitter();

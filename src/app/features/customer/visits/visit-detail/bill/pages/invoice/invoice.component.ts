@@ -1,7 +1,4 @@
-import { PopupModalComponent } from "./../../../../shared/components/popup-modal/popup-modal.component";
-import { InvoiceService } from "./../../services/invoice.service";
 import { NgxSpinnerService } from "ngx-spinner";
-import { FormatDate } from "./../../../../core/constants/format-date";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MatDialog, MatTableDataSource } from "@angular/material";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -9,6 +6,9 @@ import { Customer } from "src/app/core/models/customer";
 import { finalize, map, tap } from "rxjs/operators";
 import { ToastrService } from "ngx-toastr";
 import { observable, Observable, Subscription } from "rxjs";
+import { FormatDate } from "src/app/core/constants/format-date";
+import { PopupModalComponent } from "src/app/shared/components/popup-modal/popup-modal.component";
+import { InvoiceService } from "../../services/invoice.service";
 
 @Component({
   selector: "app-invoice",
@@ -46,7 +46,6 @@ export class InvoiceComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,

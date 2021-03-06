@@ -71,14 +71,16 @@ export class NextDayComponent implements OnInit {
     this.smsService
       .getCustomSmsListAferXdays("nextXDay", e.days)
       .pipe(finalize(() => this.spinner.hide()))
-      .subscribe((res: any) => {
-        this.customerListTableDataSource = new MatTableDataSource<any>(res);
-        this.customerListTableDataSource.paginator = this.paginator;
-      }),
-      (err) => {
-        this.toastr.error(err.message);
-        this.spinner.hide();
-      };
+      .subscribe(
+        (res: any) => {
+          this.customerListTableDataSource = new MatTableDataSource<any>(res);
+          this.customerListTableDataSource.paginator = this.paginator;
+        },
+        (err) => {
+          this.toastr.error("Days missing. ");
+          this.spinner.hide();
+        }
+      );
   }
 
   sendSms() {

@@ -21,6 +21,7 @@ import { MatPaginator } from "@angular/material";
 export class MainVisitComponent implements OnInit {
   /* props */
   customerId: number;
+  customerName: string;
   visitMainId: number;
   mode = "add";
 
@@ -33,7 +34,7 @@ export class MainVisitComponent implements OnInit {
     // "totalCost",
     // "remBal",
     "visitType",
-    'due',
+    "due",
     "action",
   ];
   visitListTable: any[] = [];
@@ -58,40 +59,38 @@ export class MainVisitComponent implements OnInit {
 
   fetchMainVisitList() {
     this.spinner.show();
-    this.route.queryParamMap.subscribe((params) => {
-      this.customerId = +params.get("customerId");
+    this.route.queryParamMap.subscribe(
+      (params) => {
+        this.customerId = +params.get("customerId");
+        this.customerName = params.get("customerName");
 
-      /* this.visitListDataSource$ = this.visitService
-        .getMainVisitList(this.customerId)
-        .pipe(finalize(() => this.spinner.hide()))
-        .pipe(
-          tap((res) => {
-            this.customerVisitDetail = res;
-          })
-        );
-    }) */
-      this.visitService
-        .getMainVisitList(this.customerId)
-        .pipe(finalize(() => this.spinner.hide()))
-        .subscribe((res: any) => {
-          this.visitListDataSource = new MatTableDataSource<any>(res);
-          this.visitListDataSource.paginator = this.paginator;
-        });
-    }),
+        this.visitService
+          .getMainVisitList(this.customerId)
+          .pipe(finalize(() => this.spinner.hide()))
+          .subscribe((res: any) => {
+            this.visitListDataSource = new MatTableDataSource<any>(res);
+            this.visitListDataSource.paginator = this.paginator;
+          });
+      },
       (err) => {
         err = err.error.message
           ? this.toastr.error(err.error.message)
-          : this.toastr.error("Error fetching param value.");
+          : this.toastr.error("Error fetching Visit list.");
         this.spinner.hide();
-      };
+      }
+    );
   }
 
   onViewDetails(visit) {
     console.log(visit);
-    let type = "visit";
+    let type = visit.name;
     let id = visit.id;
     this.router.navigate(["/dental/customer/visits/detail"], {
-      queryParams: { type: type, visitMainId: id },
+      queryParams: {
+        customerName: this.customerName,
+        type: type,
+        visitMainId: id,
+      },
     });
   }
 

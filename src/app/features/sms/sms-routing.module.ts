@@ -21,6 +21,7 @@ const routes: Routes = [
   {
     path: "visitType",
     component: VisitTypeComponent,
+    
   },
 ];
 

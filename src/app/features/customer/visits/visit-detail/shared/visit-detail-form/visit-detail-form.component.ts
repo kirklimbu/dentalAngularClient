@@ -183,18 +183,18 @@ export class VisitDetailFormComponent implements OnInit, OnDestroy {
   }
 
   onSave() {
-    if (this.isItToday !== true) {
-      /* empty date huda error faliraxa catch it */
-      let visitDateBs = this.customDate.getStringFromNepaliFunction(
-        this.visitDate
-      );
-      this.visitDetailForm.controls["visitDateBs"].setValue(visitDateBs);
-    } else {
-      this.visitDetailForm.controls["visitDateBs"].reset();
-    }
     console.log(this.visitDetailForm.value, this.isItToday);
 
     if (this.visitDetailForm.valid) {
+      if (this.isItToday !== true) {
+        /* empty date huda error faliraxa catch it */
+        let visitDateBs = this.customDate.getStringFromNepaliFunction(
+          this.visitDate
+        );
+        this.visitDetailForm.controls["visitDateBs"].setValue(visitDateBs);
+      } else {
+        this.visitDetailForm.controls["visitDateBs"].reset();
+      }
       this.spinner.show();
       this.loading = true;
       this.visitDetailService

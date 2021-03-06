@@ -15,6 +15,7 @@ const routes: Routes = [
         (m) => m.DashboardModule
       ),
     canActivate: [AuthGuardService],
+    data: { breadcrumb: { label: "Dental", disable: true } },
   },
 
   {

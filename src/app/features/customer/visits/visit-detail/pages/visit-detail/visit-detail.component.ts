@@ -28,7 +28,7 @@ export class VisitDetailComponent implements OnInit {
 
   displayedColumns: string[] = [
     "S.n",
-    "customerId",
+    // "customerId",
     "visitDateBs",
     "doctor",
     "nextVisitDateBs",
@@ -64,37 +64,29 @@ export class VisitDetailComponent implements OnInit {
     this.spinner.show();
     this.route.queryParamMap.subscribe((params) => {
       this.visitMainId = +params.get("visitMainId");
-      // this.visitType = params.get("type");
       let type = "pay";
 
-      /* this.visitDetailListDataSource$ = this.visitDetailService
-        .getVisitDetailList(type, this.visitMainId)
-        .pipe(finalize(() => this.spinner.hide()))
-        .pipe(
-          tap((res) => {
-            this.customerVisitDetail = res;
-          })
-        );
-    }) */
       this.visitDetailService
         .getVisitDetailList(type, this.visitMainId)
         .pipe(finalize(() => this.spinner.hide()))
-        .subscribe((res: any) => {
-          this.visitDetailListDataSource = new MatTableDataSource<any>(res);
-          this.visitDetailListDataSource.paginator = this.paginator;
-        });
-    }),
-      (err) => {
-        err = err.error.message
-          ? this.toastr.error(err.error.message)
-          : this.toastr.error("Error fetching param value.");
-        this.spinner.hide();
-      };
+        .subscribe(
+          (res: any) => {
+            this.visitDetailListDataSource = new MatTableDataSource<any>(res);
+            this.visitDetailListDataSource.paginator = this.paginator;
+          },
+          (err) => {
+            err = err.error.message
+              ? this.toastr.error(err.error.message)
+              : this.toastr.error("Error fetching Visit Detail list.");
+            this.spinner.hide();
+          }
+        );
+    });
   }
   onSearch() {}
 
   onPrint(visit) {
-    this.router.navigate(["/dental/invoice"], {
+    this.router.navigate(["/dental/customer/invoice"], {
       queryParams: { visitMainId: this.visitMainId, visitDetailId: visit.id },
     });
   }

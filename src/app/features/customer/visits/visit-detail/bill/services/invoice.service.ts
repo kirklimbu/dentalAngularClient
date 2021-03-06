@@ -11,6 +11,7 @@ export class InvoiceService {
   /* props */
   API_URL = environment.apiUrl;
   constructor(private http: HttpClient) {}
+  
   searchInvoices(status: any, fromDate: any, toDate: any) {
     console.log(status + " " + fromDate + " " + toDate);
 

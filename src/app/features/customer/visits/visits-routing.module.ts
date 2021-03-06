@@ -14,11 +14,13 @@ const routes: Routes = [
         (m) => m.VisitDetailModule
       ),
     data: {
+      breadcrumb: { label: "Visit-detail" },
+
       // allowedRoles: [UserRoleType.ROLE_ALL],
     },
     // canActivate: [UserRoleGuardService],
   },
-  {
+ /*  {
     path: "deposit",
     loadChildren: () =>
       import("./main-deposit/main-deposit.module").then(
@@ -28,7 +30,7 @@ const routes: Routes = [
       // allowedRoles: [UserRoleType.ROLE_ALL],
     },
     // canActivate: [UserRoleGuardService],
-  },
+  }, */
 ];
 
 @NgModule({

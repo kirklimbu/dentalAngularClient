@@ -27,10 +27,11 @@ export class CustomerFormComponent implements OnInit, OnDestroy {
   regDate: string;
   mode = "add";
   customerId: number;
-
+  formSubmitted = false;
   isItToday: boolean;
   sendSMS = false;
   loading: boolean;
+  enableSaveForm=false;
   hideRegDate = false;
   formatDate = new FormatDate();
   customDate = new CustomJs();
@@ -69,9 +70,9 @@ export class CustomerFormComponent implements OnInit, OnDestroy {
         (res: Customer) => {
           this.isItToday = res.today;
         },
-        (err) => {          
+        (err) => {
           this.toastr.error(err.message);
-          this.onCancel()
+          this.onCancel();
         }
       );
   }
@@ -104,6 +105,7 @@ export class CustomerFormComponent implements OnInit, OnDestroy {
   buildCustomerForm() {
     if (this.mode === "add") {
       this.customerForm = this.formBuilder.group({
+        customerId: [],
         name: [this.client.name],
         mobile: [this.client.mobile, [Validators.pattern("^[0-9]{10}$")]],
         address: [this.client.address],
@@ -137,21 +139,22 @@ export class CustomerFormComponent implements OnInit, OnDestroy {
   }
 
   onSave() {
-    console.log(this.customerForm.value);
-    if (this.dob !== undefined) {
-      let dob = this.customDate.getStringFromDatePicker(this.dob);
-      this.customerForm.controls["dob"].setValue(dob);
-    }
-
-    if (this.isItToday !== true) {
-      let regDate = this.customDate.getStringFromDatePicker(this.regDate);
-      this.customerForm.controls["regDateBs"].setValue(regDate);
-    } else {
-      this.customerForm.controls["regDateBs"].reset();
-    }
+    console.log(this.customerForm.value.dob);
+    
     console.log(this.customerForm.value);
 
     if (this.customerForm.valid) {
+      if (this.dob !== undefined) {
+        let dob = this.customDate.getStringFromDatePicker(this.dob);
+        this.customerForm.controls["dob"].setValue(dob);
+      }
+  
+      if (this.isItToday !== true) {
+        let regDate = this.customDate.getStringFromDatePicker(this.regDate);
+        this.customerForm.controls["regDateBs"].setValue(regDate);
+      } else {
+        this.customerForm.controls["regDateBs"].reset();
+      }
       this.spinner.show();
       this.loading = true;
       this.clientService

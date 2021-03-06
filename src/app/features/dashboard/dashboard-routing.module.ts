@@ -14,6 +14,8 @@ const routes: Routes = [
         loadChildren: () =>
           import("./../home/home.module").then((m) => m.HomeModule),
         data: {
+          breadcrumb: { label: "Dashboard" },
+
           // allowedRoles: [UserRoleType.ROLE_ALL],
         },
         // canActivate: [UserRoleGuardService],
@@ -23,6 +25,7 @@ const routes: Routes = [
         loadChildren: () =>
           import("../customer/customer.module").then((m) => m.CustomerModule),
         data: {
+          breadcrumb: { label: "Customer" },
           // allowedRoles: [UserRoleType.ROLE_ALL],
         },
         // canActivate: [UserRoleGuardService],
@@ -33,19 +36,12 @@ const routes: Routes = [
         loadChildren: () =>
           import("./../sms/sms.module").then((m) => m.SmsModule),
         data: {
+          breadcrumb: { label: "SMS", disable: true },
           // allowedRoles: [UserRoleType.ROLE_ALL],
         },
         // canActivate: [UserRoleGuardService],
       },
-      {
-        path: "invoice",
-        loadChildren: () =>
-          import("./../invoice/invoice.module").then((m) => m.InvoiceModule),
-        data: {
-          // allowedRoles: [UserRoleType.ROLE_ALL],
-        },
-        // canActivate: [UserRoleGuardService],
-      },
+     
       {
         path: "404",
         loadChildren: () =>

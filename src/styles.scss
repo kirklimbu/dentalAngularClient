@@ -39,7 +39,9 @@ body {
 
 /* Navbar */
 .navbar {
-  background: #fff;
+  // background: #fff;
+  background: rgb(221, 212, 209);
+
   border-bottom: 1px solid rgba(0, 0, 0, 0.1); //shadow
   padding: 0 30px;
   padding: 2rem;
@@ -78,7 +80,8 @@ body {
 }
 
 .main-content {
-  background: rgb(221, 212, 209);
+  // background: rgb(221, 212, 209);
+  background: #fff;
   // background: #75b5dd;
   grid-column: 2 / 4;
   min-height: 100vh;

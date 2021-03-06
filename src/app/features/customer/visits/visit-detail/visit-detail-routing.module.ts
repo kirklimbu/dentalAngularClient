@@ -1,5 +1,4 @@
 import { VisitTabContainerComponent } from "./../visit-tab-container/visit-tab-container.component";
-import { VisitDetailComponent } from "./pages/visit-detail/visit-detail.component";
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
@@ -7,9 +6,17 @@ const routes: Routes = [
   {
     path: "",
     component: VisitTabContainerComponent,
-    children: [
+    children: [],
+  },
+  {
+    path: "invoice",
+    loadChildren: () => import("./bill/bill.module").then((m) => m.BillModule),
+    data: {
+      breadcrumb: { label: "Visits" },
 
-    ],
+      // allowedRoles: [UserRoleType.ROLE_ALL],
+    },
+    // canActivate: [UserRoleGuardService],
   },
 ];
 

@@ -13,7 +13,7 @@
   </button>
   <span class="navbar-brand" style="font-family: 'URW Gothic'">
     <!--      <img src="assets/images/logo.png" style="width: 80px;height: 80px">-->
-    {{ title | titlecase }} |
+    {{ title | titlecase }} | {{ customerName | titlecase }} | {{ visitType }}
   </span>
   <button
     class="navbar-toggler m-auto"
@@ -96,7 +96,7 @@
 
     <button mat-menu-item (click)="onLogout()">
       <mat-icon color="warn">power_settings_new</mat-icon>
-      <span class="logout" >Logout</span>
+      <span class="logout">Logout</span>
     </button>
   </mat-menu>
 </nav>

@@ -15,6 +15,27 @@
         </mat-card-title>
         <hr />
         <mat-card-content>
+          <div class="row">
+            <!-- first-col -->
+            <div class="col">
+              <app-form-group [required]="true">
+                <mat-form-field class="=full-width">
+                  <input
+                    matInput
+                    type="text"
+                    placeholder=" Customer Id"
+                    formControlName="customerId"
+                    id="name"
+                    required
+                  />
+                  <mat-hint align="end">Enter Customer Id</mat-hint>
+                  <!-- <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+                     <mat-error *ngIf="hasError('name', 'maxlength')">You have more than 60 characters</mat-error>-->
+                </mat-form-field>
+              </app-form-group>
+            </div>
+            <!-- first-col end -->
+          </div>
           <!-- first-row -->
           <div class="row">
             <!-- first-col -->
@@ -67,11 +88,10 @@
                     matInput
                     required
                     numberOnly
-                    maxLength='10'
+                    maxLength="10"
                     type="number"
                     placeholder=" Mobile "
                     formControlName="mobile"
-                    
                   />
                   <mat-hint align="end">Enter Mobile Number </mat-hint>
                   <!--<mat-error *ngIf="hasError('mobile', 'required')">Address is required</mat-error>
@@ -184,7 +204,7 @@
                   [style.margin]
                   class="example-margin small"
                   [(ngModel)]="sendSMS"
-                  [ngModelOptions]="{standalone: true}"
+                  [ngModelOptions]="{ standalone: true }"
                   >SMS</mat-checkbox
                 >
                 <!-- checkbox end -->

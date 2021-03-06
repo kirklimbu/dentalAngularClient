@@ -46,4 +46,30 @@ export class ClientService {
         })
       );
   }
+  // bill apis
+  searchInvoices(status: any, fromDate: any, toDate: any) {
+    console.log(status + " " + fromDate + " " + toDate);
+
+    return this.http
+      .get(
+        `${this.API_URL}auth/letter/verify/list?status=${status}&fromDate=${fromDate}&toDate=${toDate}`
+      )
+      .pipe(
+        catchError((err) => {
+          return throwError(err);
+        })
+      );
+  }
+
+  getInvoiceDetails(visitDetailId?: number, visitMainId?: number) {
+    return this.http
+      .get(
+        `${this.API_URL}auth/customer/visit/detail/form?visitDetailId=${visitDetailId}&visitMainId=${visitMainId}`
+      )
+      .pipe(
+        catchError((err) => {
+          return throwError(err);
+        })
+      );
+  }
 }
