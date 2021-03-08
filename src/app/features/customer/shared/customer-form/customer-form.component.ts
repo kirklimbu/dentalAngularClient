@@ -155,7 +155,6 @@ export class CustomerFormComponent implements OnInit, OnDestroy {
         let regDate = this.customDate.getStringFromDatePicker(this.regDate);
         this.customerForm.controls["regDateBs"].setValue(regDate);
         this.regDate = this.convetStringToDate(regDate);
-
       } else {
         this.customerForm.controls["regDateBs"].reset();
       }
@@ -179,6 +178,7 @@ export class CustomerFormComponent implements OnInit, OnDestroy {
         );
     } else {
       this.spinner.hide();
+      this.toastr.error("Please fill all fields before submitting the form.");
       return;
     }
   }

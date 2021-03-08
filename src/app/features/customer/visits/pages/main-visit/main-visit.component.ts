@@ -31,9 +31,10 @@ export class MainVisitComponent implements OnInit {
   displayedColumns: string[] = [
     "Sn",
     // "customerId",
-    // "totalCost",
-    // "remBal",
+    
     "visitType",
+    "totalCost",
+    "remBal",
     "due",
     "action",
   ];

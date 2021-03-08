@@ -61,7 +61,7 @@
             <div class="row">
               <!-- doctor -->
               <div class="col-md-6">
-                <app-form-group [required]="true">
+                <app-form-group [required]="false">
                   <mat-form-field>
                     <input
                       matInput
@@ -70,7 +70,7 @@
                       formControlName="doctor"
                       id="lname"
                       fxlayoutalign="column"
-                      required
+                      
                     />
                     <!-- <mat-hint align="end">Enter Doctor Name</mat-hint> -->
                     <!--  <mat-error *ngIf="hasError('wardNum', 'required')"

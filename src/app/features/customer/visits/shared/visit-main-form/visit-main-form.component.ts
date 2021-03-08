@@ -36,6 +36,7 @@ export class VisitMainFormComponent implements OnInit, OnDestroy {
     public dialogRef: MatDialogRef<VisitMainFormComponent>,
     @Inject(MAT_DIALOG_DATA) private modalData: any
   ) {}
+  
 
   ngOnInit(): void {
     this.mode = this.modalData.mode; // for add

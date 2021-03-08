@@ -128,7 +128,7 @@ export class VisitDetailFormComponent implements OnInit, OnDestroy {
       this.visitDetailForm = this.fb.group({
         visitMainId: [this.visitDetail.visitMainId, [Validators.required]],
         visitDateBs: [this.visitDetail.visitDateBs],
-        doctor: [this.visitDetail.doctor, [Validators.required]],
+        doctor: [this.visitDetail.doctor],
         visitAfterDay: [this.visitDetail.visitAfterDay],
         today: [this.visitDetail.today],
         itemList: this.fb.array([this.buildItemListForm()]),
@@ -217,8 +217,7 @@ export class VisitDetailFormComponent implements OnInit, OnDestroy {
         );
     } else {
       this.spinner.hide();
-      this.toastr.error("Please add all fields.");
-
+      this.toastr.error("Please fill all fields before submitting the form.");
       return;
     }
   }
@@ -229,6 +228,10 @@ export class VisitDetailFormComponent implements OnInit, OnDestroy {
   /* comparing the dropdown values & setting the selected value in edit form */
   compareFn(optionOne: any, optionTwo: any): boolean {
     return optionOne?.id === optionTwo?.id;
+  }
+
+  convetStringToDate(date) {
+    return this.customDate.getDatePickerObject(date);
   }
 
   ngOnDestroy() {
