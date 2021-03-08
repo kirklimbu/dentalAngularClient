@@ -7,7 +7,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from "ngx-toastr";
 import { ActivatedRoute, Router } from "@angular/router";
 import { finalize } from "rxjs/operators";
-import { Observable, Subscription } from "rxjs";
+import { Subscription } from "rxjs";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 
 @Component({
@@ -36,11 +36,9 @@ export class VisitMainFormComponent implements OnInit, OnDestroy {
     public dialogRef: MatDialogRef<VisitMainFormComponent>,
     @Inject(MAT_DIALOG_DATA) private modalData: any
   ) {}
-  
 
   ngOnInit(): void {
     this.mode = this.modalData.mode; // for add
-
     this.mode === "add" ? this.fetchParamFromUrl() : this.fetchMainVisitForm();
     this.buildVisitMainForm();
   }

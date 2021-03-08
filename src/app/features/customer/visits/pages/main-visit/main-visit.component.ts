@@ -30,8 +30,7 @@ export class MainVisitComponent implements OnInit {
   subscriptions: Subscription[] = [];
   displayedColumns: string[] = [
     "Sn",
-    // "customerId",
-    
+    // "customerId",    
     "visitType",
     "totalCost",
     "remBal",

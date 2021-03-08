@@ -39,7 +39,7 @@ export class VisitDetailFormComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   visitDateFormatter: DateFormatter = (date) => {
-    return this.formatDate.getFormatDate(date);
+    return `${date.year} / ${date.month + 1} / ${date.day} `;
   };
 
   constructor(
@@ -188,10 +188,11 @@ export class VisitDetailFormComponent implements OnInit, OnDestroy {
     if (this.visitDetailForm.valid) {
       if (this.isItToday !== true) {
         /* empty date huda error faliraxa catch it */
-        let visitDateBs = this.customDate.getStringFromNepaliFunction(
+        let visitDateBs = this.customDate.getStringFromDatePicker(
           this.visitDate
         );
         this.visitDetailForm.controls["visitDateBs"].setValue(visitDateBs);
+        this.visitDate = this.convetStringToDate(visitDateBs);
       } else {
         this.visitDetailForm.controls["visitDateBs"].reset();
       }
