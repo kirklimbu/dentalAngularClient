@@ -129,6 +129,7 @@ export class VisitDetailFormComponent implements OnInit, OnDestroy {
         visitMainId: [this.visitDetail.visitMainId, [Validators.required]],
         visitDateBs: [this.visitDetail.visitDateBs],
         doctor: [this.visitDetail.doctor],
+        traAmt : [this.visitDetail.traAmt ],
         visitAfterDay: [this.visitDetail.visitAfterDay],
         today: [this.visitDetail.today],
         itemList: this.fb.array([this.buildItemListForm()]),

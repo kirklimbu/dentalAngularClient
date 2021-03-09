@@ -4,8 +4,9 @@ export class VisitDetail {
   visitDetailId?: number;
   customerId?: number;
   visitMainId: number;
-  amount?: number;
+  // amount?: number;
   visitAfterDay: number;
+  traAmt : number;
 
   doctor: string;
   nextVisitDateBs?: string;

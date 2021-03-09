@@ -84,7 +84,7 @@
               </div>
               <!-- doctor end -->
               <!-- visitAfter  -->
-              <div class="col-md-6">
+              <div class="col-md-6 mt-2">
                 <app-form-group>
                   <mat-form-field>
                     <input
@@ -109,6 +109,32 @@
               <!-- visitAfter  enf-->
             </div>
             <!-- second row end -->
+            <!-- third row -->
+            <div class="row">`
+              <div class="col-md-6">
+                <app-form-group>
+                  <mat-form-field>
+                    <input
+                      matInput
+                      type="number"
+                      placeholder=" Transaction Amount"
+                      formControlName="traAmt"
+                      id="traAmt"
+                      fxlayoutalign="column"
+                      min="0"
+                    />
+                    <!-- <mat-hint align="end">Enter Next visit </mat-hint> -->
+                    <!--  <mat-error *ngIf="hasError('wardNum', 'required')"
+                    >Last Name is required</mat-error
+                  >
+                  <mat-error *ngIf="hasError('wardNum', 'maxlength')"
+                    >Enter last name</mat-error
+                  > -->
+                  </mat-form-field>
+                </app-form-group>
+              </div>
+            </div>
+            <!-- third row end-->
             <!-- table row -->
             <div class="row">
               <div class="col">
