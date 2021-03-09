@@ -129,7 +129,7 @@ export class VisitDetailFormComponent implements OnInit, OnDestroy {
         visitMainId: [this.visitDetail.visitMainId, [Validators.required]],
         visitDateBs: [this.visitDetail.visitDateBs],
         doctor: [this.visitDetail.doctor],
-        traAmt : [this.visitDetail.traAmt ],
+        traAmt: [this.visitDetail.traAmt],
         visitAfterDay: [this.visitDetail.visitAfterDay],
         today: [this.visitDetail.today],
         itemList: this.fb.array([this.buildItemListForm()]),
@@ -139,6 +139,8 @@ export class VisitDetailFormComponent implements OnInit, OnDestroy {
         visitDetailId: [this.visitDetail.visitDetailId],
         visitMainId: [this.visitDetail.visitMainId],
         visitDateBs: [this.visitDetail.visitDateBs],
+        traAmt: [this.visitDetail.traAmt],
+
         doctor: [this.visitDetail.doctor],
         today: [this.visitDetail.today],
         visitAfterDay: [this.visitDetail.visitAfterDay],
