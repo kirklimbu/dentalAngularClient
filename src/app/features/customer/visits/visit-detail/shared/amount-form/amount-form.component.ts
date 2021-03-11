@@ -58,7 +58,7 @@ export class AmountFormComponent implements OnInit {
   buildamountForm() {
     if (this.mode === "add") {
       this.amountForm = this.fb.group({
-        visitMainId: [this.modalData.visitMainId],
+        visitMainId: [this.payment.visitMainId],
         payType: [this.payment.payType],
         traAmt: [this.payment.traAmt],
         date: [this.payment.date],
