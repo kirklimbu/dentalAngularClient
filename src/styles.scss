@@ -150,10 +150,16 @@ mat-toolbar {
 }
 
 .top-bar-add {
-  display: grid;
+ /*  display: grid;
   place-items: end;
   margin-bottom: 0.25rem;
-  float: right;
+  float: right; */
+
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  width: 380px;
+  margin: 0 auto 1rem auto;
 }
 
 .full-width {

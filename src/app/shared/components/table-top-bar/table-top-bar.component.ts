@@ -33,6 +33,8 @@ export class TableTopBarComponent implements OnInit {
 
   @Input()
   enableAdd = true;
+  @Input()
+  enableAdd2 = false;
 
   @Input()
   enableStatus = true;
@@ -64,7 +66,8 @@ export class TableTopBarComponent implements OnInit {
   // keyword: string;
 
   @Output()
-  add: EventEmitter<void> = new EventEmitter();
+  add: EventEmitter<void> = new EventEmitter(); @Output()
+  add2: EventEmitter<void> = new EventEmitter();
 
   @Output()
   search = new EventEmitter<{
@@ -94,6 +97,9 @@ export class TableTopBarComponent implements OnInit {
 
   onAdd() {
     this.add.emit();
+  }
+  onAdd2() {
+    this.add2.emit();
   }
 
   onSearch() {

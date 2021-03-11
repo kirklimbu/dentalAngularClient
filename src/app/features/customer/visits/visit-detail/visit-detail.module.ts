@@ -11,10 +11,11 @@ import { MaterialModule } from "src/app/shared/material-lib/material/material.mo
 import { SharedModule } from "src/app/shared/shared.module";
 import { BreadcrumbModule } from "xng-breadcrumb";
 import { NpDatepickerModule } from "angular-nepali-datepicker";
+import { AmountFormComponent } from './shared/amount-form/amount-form.component';
 
 const DECLARATIONS = [VisitDetailComponent, VisitDetailFormComponent];
 @NgModule({
-  declarations: [...DECLARATIONS],
+  declarations: [...DECLARATIONS, AmountFormComponent],
   imports: [
     CommonModule,
     VisitDetailRoutingModule,

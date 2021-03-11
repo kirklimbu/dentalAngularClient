@@ -26,7 +26,7 @@ export class VisitDetailService {
   }
 
   getVisitDetailFormValues(visitMainId?: number) {
-    console.log('service called '+visitMainId);
+    console.log("service called " + visitMainId);
 
     return this.http
       .get(
@@ -49,11 +49,46 @@ export class VisitDetailService {
         })
       );
   }
+
   saveVisitMainForm(mainForm) {
     console.log(mainForm);
 
     return this.http
       .post(`${this.API_URL}auth/customer/visit/detail/save`, { ...mainForm })
+      .pipe(
+        catchError((err) => {
+          return throwError(err);
+        })
+      );
+  }
+  // api mialune
+  getPaymentFormValues(visitDetailId?: number, visitMainId?: number) {
+    return this.http
+      .get(
+        `${this.API_URL}auth/customer/visit/detail/form?visitDetailId=${visitDetailId}&visitMainId=${visitMainId}`
+      )
+      .pipe(
+        catchError((err) => {
+          return throwError(err);
+        })
+      );
+  }
+  getAmountFormValuesForEdit(visitMainId: number, visitDetailId?: number) {
+    return this.http
+      .get(
+        `${this.API_URL}auth/customer/payment/form?visitMainId=${visitMainId}&visitDetailId=${visitDetailId}`
+      )
+      .pipe(
+        catchError((err) => {
+          return throwError(err);
+        })
+      );
+  }
+  saveAmountForm(mainForm) {
+    console.log(mainForm);
+
+    return this.http
+      .post(`${this.API_URL}auth/customer/payment/save `, { ...mainForm })
       .pipe(
         catchError((err) => {
           return throwError(err);

@@ -8,6 +8,15 @@
       align="end"
       (click)="onAdd()"
     >
+      <mat-icon>add</mat-icon></button
+    ><button
+      *ngIf="enableAdd2"
+      mat-icon-button
+      ngbTooltip="Add Payment"
+      color="info"
+      align="end"
+      (click)="onAdd2()"
+    >
       <mat-icon>add</mat-icon>
     </button>
   </div>

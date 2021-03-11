@@ -6,21 +6,22 @@
       <app-table-top-bar
         [enableSearch]="false"
         [enableAdd]="true"
+        [enableAdd2]="true"
         (search)="onSearch()"
         (add)="onAdd('add')"
+        (add2)="onAddAmount('add')"
       ></app-table-top-bar>
       <!-- table top bar items end -->
     </div>
   </div>
+
   <div class="example-container mat-elevation-z8">
     <table mat-table [dataSource]="visitDetailListDataSource" class="mb-0">
       <!--First Name Column -->
       <ng-container matColumnDef="S.n">
         <th mat-header-cell *matHeaderCellDef>S.n</th>
-        <td mat-cell *matCellDef="let element; index as i">
-          {{ i + 1 }}.
-        </td> </ng-container
-      >
+        <td mat-cell *matCellDef="let element; index as i">{{ i + 1 }}.</td>
+      </ng-container>
       <!-- <ng-container matColumnDef="customerId">
         <th mat-header-cell *matHeaderCellDef>Customer Id</th>
         <td mat-cell *matCellDef="let element">

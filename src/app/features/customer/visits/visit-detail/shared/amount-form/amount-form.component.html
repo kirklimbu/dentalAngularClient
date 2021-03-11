@@ -1,0 +1,91 @@
+<!-- add/edit modal -->
+
+<div class="content-wrapper">
+  <!-- <mat-card> -->
+  <form [formGroup]="amountForm" autocomplete="off">
+    <mat-card-title align="center">
+      <h3 class="form-title">Payment Form</h3>
+      <!--  <button mat-icon-button class="add-visit">
+              <mat-icon>add</mat-icon>
+            </button> -->
+    </mat-card-title>
+    <hr />
+    <mat-card-content>
+      <!-- second-row -->
+      <div class="row">
+        <!-- first col -->
+        <div class="col mb-5 mt-4">
+          <app-form-group [required]="true">
+            <mat-form-field appearance="fill" class="modal-mat-select">
+              <mat-label>Pay Type</mat-label>
+              <mat-select
+                style="padding: 0"
+                formControlName="payType"
+                [compareWith]="compareFn"
+              >
+                <mat-option
+                  *ngFor="let visit of payment.payTypeList"
+                  [value]="visit"
+                >
+                  {{ visit.type }}
+                </mat-option>
+              </mat-select>
+              <!-- <mat-hint align="end">Enter e-mail Address</mat-hint> -->
+            </mat-form-field>
+          </app-form-group>
+          <div class="row">
+            <div class="col mb-5 mt-4">
+              <app-form-group>
+                <mat-form-field>
+                  <input
+                    matInput
+                    type="number"
+                    min="0"
+                    placeholder="Transaction amount"
+                    formControlName="traAmt"
+                    fxlayoutalign="column"
+                  />
+                  <mat-hint align="end">Enter Transaction amount.</mat-hint>
+                </mat-form-field>
+              </app-form-group>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <app-form-group>
+                <mat-label class="text-muted">Date</mat-label>
+                <np-datepicker
+                  class="form-group"
+                  inputClass="form-control"
+                  language="en"
+                  [(ngModel)]="dateOfTransaction"
+                  formControlName="date"
+                  [dateFormatter]="dobDateFormatter"
+                ></np-datepicker>
+                <blockquote class="text-muted small text-left">
+                  Select Date of transaction.
+                </blockquote>
+              </app-form-group>
+            </div>
+          </div>
+        </div>
+        <!-- first col end -->
+      </div>
+      <!-- second-row end -->
+    </mat-card-content>
+
+    <div class="row">
+      <div class="col card-actions">
+        <mat-card-actions>
+          <app-save-cancel-buttons
+            [isSaveLoading]="loading"
+            (save)="onSave()"
+            (cancel)="onCancel()"
+          ></app-save-cancel-buttons>
+        </mat-card-actions>
+      </div>
+    </div>
+  </form>
+  <!-- </mat-card> -->
+  <!-- <hr /> -->
+</div>

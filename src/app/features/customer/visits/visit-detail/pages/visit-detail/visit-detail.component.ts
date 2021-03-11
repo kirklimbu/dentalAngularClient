@@ -14,6 +14,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from "ngx-toastr";
 import { finalize, tap } from "rxjs/operators";
 import { VisitMainFormComponent } from "../../../shared/visit-main-form/visit-main-form.component";
+import { AmountFormComponent } from "../../shared/amount-form/amount-form.component";
 
 @Component({
   selector: "app-visit-detail",
@@ -57,11 +58,15 @@ export class VisitDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
     this.fetchVisitDetailList();
+
   }
 
   fetchVisitDetailList() {
     this.spinner.show();
+    // this.visitMainId = +this.route.snapshot.queryParamMap.get("visitMainId");
+
     this.route.queryParamMap.subscribe((params) => {
       this.visitMainId = +params.get("visitMainId");
       let type = "pay";
@@ -100,6 +105,24 @@ export class VisitDetailComponent implements OnInit {
       data: {
         mode: mode,
         visitDetails: visitDetail,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result !== "cancel") {
+        this.fetchVisitDetailList();
+      }
+    });
+  }
+  onAddAmount(mode: string, visitDetail?: any) {
+    /* START BY CODE REFACTORING FROM HERE */
+    const dialogRef = this.dialog.open(AmountFormComponent, {
+      disableClose: true,
+      // width: "450px",
+
+      data: {
+        mode: mode,
+        visitMainId: this.visitMainId,
       },
     });
 
