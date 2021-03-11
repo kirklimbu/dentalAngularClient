@@ -23,10 +23,7 @@
                 formControlName="payType"
                 [compareWith]="compareFn"
               >
-                <mat-option
-                  *ngFor="let visit of payment.payTypeList"
-                  [value]="visit"
-                >
+                <mat-option *ngFor="let visit of payTypeLists" [value]="visit">
                   {{ visit.type }}
                 </mat-option>
               </mat-select>

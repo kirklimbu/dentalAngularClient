@@ -27,6 +27,7 @@ export class AmountFormComponent implements OnInit {
   amountForm: FormGroup;
   mode = "add";
   customerId: number;
+  payTypeLists = [];
   // visitMainId: number;
 
   loading: boolean = false;
@@ -109,22 +110,24 @@ export class AmountFormComponent implements OnInit {
     let visitDetailId = null;
 
     this.visitDetailService
-      .getAmountFormValuesForEdit(this.modalData.visitMainId, visitDetailId)
+      .getAmountFormValuesForEdit(this.modalData.visitMainId)
       .pipe(finalize(() => this.spinner.hide()))
       .subscribe((res: any) => {
-        this.payment = res;
+        this.payment = res.form;
+        this.payTypeLists = res.payTypeList;
         this.buildamountForm();
       }),
       (err) => {
         err = err.error.message
-          ? this.toastr.error(err.error.message)
+          // ? this.toastr.error(err.error.message)
+          ? this.toastr.error("Payment saved successfully.")
           : this.toastr.error("Error fetching  visit main form values.");
         this.spinner.hide();
       };
   }
-  get paymentDetails() {
-    return this.payment;
-  }
+  /*  get payTypeList() {
+    return payTypeList
+  } */
   onCancel() {
     this.dialogRef.close("cancel");
   }

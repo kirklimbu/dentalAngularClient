@@ -76,7 +76,7 @@ export class VisitDetailService {
   getAmountFormValuesForEdit(visitMainId: number, visitDetailId?: number) {
     return this.http
       .get(
-        `${this.API_URL}auth/customer/payment/form?visitMainId=${visitMainId}&visitDetailId=${visitDetailId}`
+        `${this.API_URL}auth/customer/payment/form?visitMainId=${visitMainId}`
       )
       .pipe(
         catchError((err) => {
