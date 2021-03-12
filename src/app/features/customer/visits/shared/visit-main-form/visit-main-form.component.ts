@@ -61,6 +61,8 @@ export class VisitMainFormComponent implements OnInit, OnDestroy {
       });
     }
   }
+  // total cost vane ko if a client does payment in installment(contract-basis eg: 12 months treatment)
+  // client chai regular (1 day visit), totalCost ma 0 pathune
 
   fetchParamFromUrl() {
     this.spinner.show();

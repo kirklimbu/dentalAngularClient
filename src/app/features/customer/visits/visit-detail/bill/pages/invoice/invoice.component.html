@@ -37,6 +37,8 @@
       </div>
       <!-- company name end -->
       <!-- Invoice To -->
+      <span style="float: right; margin:2rem 10rem 2rem 0"> Date: {{ billDate }} </span>
+
       <div class="row align-items-center">
         <div class="col-md-6">
           <div class="invoice-address">
@@ -67,16 +69,17 @@
           </thead> -->
 
               <tbody>
+                <!--  <tr>
+                  <th style="float: right">Date of Issue:</th>
+                  <td style="float: right">
+                    {{ billDate }}
+                  </td>
+                </tr> -->
                 <tr>
                   <th>Id</th>
                   <td>{{ clientDetails?.clientId }}</td>
                 </tr>
-                <tr>
-                  <th>Date of Issue:</th>
-                  <td>
-                    {{ clientDetails?.visitDateBs }}
-                  </td>
-                </tr>
+
                 <tr>
                   <th>Billed to:</th>
                   <td>{{ clientDetails?.name }}</td>

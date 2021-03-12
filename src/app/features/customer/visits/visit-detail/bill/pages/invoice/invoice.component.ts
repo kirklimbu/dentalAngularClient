@@ -37,6 +37,7 @@ export class InvoiceComponent implements OnInit, OnDestroy {
   visitDetailId: number;
   visitMainId: number;
   totalAmount: number;
+  billDate: string;
 
   orgDetail = {
     organization: "Aama Dental Care Clinic Pvt Ltd",
@@ -81,6 +82,7 @@ export class InvoiceComponent implements OnInit, OnDestroy {
         console.log("PRIT LIST" + JSON.stringify(res));
         this.clientDetails = res.customer;
         this.invoiceDetails = res;
+        this.billDate = res.date;
         let amountList = res.itemList.map((f: any) => f.amount);
         this.calculateTotalAmount(amountList);
       }),
