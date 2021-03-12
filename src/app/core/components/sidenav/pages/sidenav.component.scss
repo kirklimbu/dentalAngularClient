@@ -4,3 +4,18 @@
   padding: 0;
 }
 
+// test
+mat-sidenav:not(.mat-drawer-opened) {
+  transform: translate3d(0, 0, 0) !important;
+  visibility: visible !important;
+  width: 60px !important;
+  overflow: hidden;
+}
+
+mat-sidenav:not(.mat-drawer-opened) div.leftNav div.navProfile img {
+  width: 40px; margin: 16px 0 0px 0;
+}
+mat-sidenav:not(.mat-drawer-opened) .navTitle,
+mat-sidenav:not(.mat-drawer-opened) .profileTitle {
+  display: none;
+}

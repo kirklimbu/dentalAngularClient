@@ -66,31 +66,30 @@
             </tr>
           </thead> -->
 
-                <tbody  >
-                  <tr >
-                    <th >Invoce num:</th>
-                    <td>123</td>
-                  </tr>
-                  <tr>
-                    <th>Date of Issue:</th>
-                    <td>
-                      {{ clientDetails?.visitDateBs }}
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>Billed to:</th>
-                    <td>{{ clientDetails?.name }}</td>
-                  </tr>
-                  <tr>
-                    <th>Address:</th>
-                    <td>{{ clientDetails?.address }}</td>
-                  </tr>
-                  <tr>
-                    <th>Mobile:</th>
-                    <td>{{ clientDetails?.mobile }}</td>
-                  </tr>
-                </tbody>
-
+              <tbody>
+                <tr>
+                  <th>Id</th>
+                  <td>{{ clientDetails?.clientId }}</td>
+                </tr>
+                <tr>
+                  <th>Date of Issue:</th>
+                  <td>
+                    {{ clientDetails?.visitDateBs }}
+                  </td>
+                </tr>
+                <tr>
+                  <th>Billed to:</th>
+                  <td>{{ clientDetails?.name }}</td>
+                </tr>
+                <tr>
+                  <th>Address:</th>
+                  <td>{{ clientDetails?.address }}</td>
+                </tr>
+                <tr>
+                  <th>Mobile:</th>
+                  <td>{{ clientDetails?.mobile }}</td>
+                </tr>
+              </tbody>
             </table>
             <!-- customer details table end-->
           </div>
@@ -118,7 +117,7 @@
         <tfoot>
           <tr>
             <td class="text-right mr-4">Total:</td>
-            <td class="text-left">{{totalAmount}}</td>
+            <td class="text-left">{{ totalAmount }}</td>
           </tr>
         </tfoot>
       </table>

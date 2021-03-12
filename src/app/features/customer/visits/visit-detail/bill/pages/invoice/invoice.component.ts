@@ -19,7 +19,7 @@ export class InvoiceComponent implements OnInit, OnDestroy {
   /* props */
   invoiceDetails$: Observable<any>;
   invoiceDetails: any;
-  clientDetails: any;
+  clientDetails: Customer;
   amountList: number[] = [];
 
   formatDate = new FormatDate();
@@ -75,12 +75,13 @@ export class InvoiceComponent implements OnInit, OnDestroy {
     this.spinner.show();
     this.fetchQueryParmValues();
     this.invoiceService
-      .getInvoiceDetails(this.visitDetailId, this.visitMainId)
+      .getInvoiceDetails(this.visitDetailId)
       .pipe(finalize(() => this.spinner.hide()))
       .subscribe((res: any) => {
+        console.log("PRIT LIST" + JSON.stringify(res));
         this.clientDetails = res.customer;
-        this.invoiceDetails = res.form;
-        let amountList = res.form.itemList.map((f: any) => f.amount);
+        this.invoiceDetails = res;
+        let amountList = res.itemList.map((f: any) => f.amount);
         this.calculateTotalAmount(amountList);
       }),
       (err) => {

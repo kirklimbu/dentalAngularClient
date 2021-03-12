@@ -2,6 +2,7 @@ import { VisitType } from "./visit-type.model";
 
 export class Customer {
   id: number;
+  clientId: number;
   today: boolean;
   sendSMS: boolean;
   name: string;

@@ -140,10 +140,6 @@ export class CustomerFormComponent implements OnInit, OnDestroy {
   }
 
   onSave() {
-    console.log(this.customerForm.value.dob);
-
-    console.log(this.customerForm.value);
-
     if (this.customerForm.valid) {
       if (this.dob !== undefined) {
         let dob = this.customDate.getStringFromDatePicker(this.dob);
@@ -159,8 +155,11 @@ export class CustomerFormComponent implements OnInit, OnDestroy {
         this.customerForm.controls["regDateBs"].reset();
       }
       this.spinner.show();
+      console.log(this.customerForm.value);
+
       this.loading = true;
       this.clientService
+
         .createCustomer(this.customerForm.value, this.sendSMS)
         .pipe(finalize(() => this.spinner.hide()))
         .subscribe(
