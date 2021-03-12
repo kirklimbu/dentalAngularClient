@@ -37,7 +37,7 @@ export class ClientService {
     );
   }
   createCustomer(customer:Customer, sms: boolean) {
-    console.log(sms);
+    console.log(customer);
     return this.http
       .post(`${this.API_URL}auth/customer/save?sendSMS=${sms}`, { ...customer })
       .pipe(

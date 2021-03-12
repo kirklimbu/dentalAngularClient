@@ -5,6 +5,7 @@
 }
 
 // test
+/* 
 mat-sidenav:not(.mat-drawer-opened) {
   transform: translate3d(0, 0, 0) !important;
   visibility: visible !important;
@@ -18,4 +19,27 @@ mat-sidenav:not(.mat-drawer-opened) div.leftNav div.navProfile img {
 mat-sidenav:not(.mat-drawer-opened) .navTitle,
 mat-sidenav:not(.mat-drawer-opened) .profileTitle {
   display: none;
+} */
+
+.example-container {
+  width: 500px;
+  height: 300px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-container {
+  margin: 0 5px;
+}
+
+.nav-container {
+  justify-content: flex-end;
+  display: flex;
+  width: 100%;
 }

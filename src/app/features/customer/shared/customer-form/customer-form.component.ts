@@ -106,7 +106,7 @@ export class CustomerFormComponent implements OnInit, OnDestroy {
   buildCustomerForm() {
     if (this.mode === "add") {
       this.customerForm = this.formBuilder.group({
-        customerId: [],
+        clientId: [this.client.clientId],
         name: [this.client.name],
         mobile: [this.client.mobile, [Validators.pattern("[9][0-9]{9}$")]],
         address: [this.client.address],
@@ -121,6 +121,7 @@ export class CustomerFormComponent implements OnInit, OnDestroy {
     } else {
       this.customerForm = this.formBuilder.group({
         id: [this.client.id],
+        clientId: [this.client.clientId],
         name: [this.client.name],
         mobile: [this.client.mobile],
         address: [this.client.address],
