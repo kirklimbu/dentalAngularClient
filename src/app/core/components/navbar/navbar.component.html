@@ -7,11 +7,12 @@
     (click)="sidenav.toggle()"
     class="rightSidenav_toggle"
   >
-    <mat-icon (click)="onChangeIcon()" style="color: #0040ff">{{
+  <!-- #0040ff" -->
+    <mat-icon (click)="onChangeIcon()" style="color: #0469a7">{{
       toggleActive ? "menu" : "sort"
     }}</mat-icon>
   </button>
-  <span class="navbar-brand" style="font-family: 'URW Gothic';color: #0040ff">
+  <span class="navbar-brand" style="font-family: 'URW Gothic';color: #0469a7">
     <!--      <img src="assets/images/logo.png" style="width: 80px;height: 80px">-->
     {{ title | titlecase }} | {{ customerName | titlecase }} | {{ visitType | titlecase}}
   </span>

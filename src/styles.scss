@@ -107,7 +107,8 @@ mat-icon {
   mat-icon {
     padding: 0 2.5rem 0 0;
     // color: #2a8bf7;
-    color: #0040ff;
+    // color: #0040ff;
+    color: #0469a7;
   }
 }
 
@@ -116,11 +117,6 @@ mat-icon {
 }
 .logout:hover {
   border-bottom: red;
-  color: red;
-}
-
-mat-icon .sort:hover {
-  // color: #2a8bf7;
   color: red;
 }
 
@@ -313,7 +309,8 @@ mat-toolbar {
 }
 
 @media print {
-  .table-bordered, .table-borderless{
+  .table-bordered,
+  .table-borderless {
     font-size: 1.4rem;
   }
 }

@@ -36,7 +36,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   xAxisLabel2 = "";
   barPadding = 1;
   colorScheme = {
-    domain: ["#777", "#fca402", "#35a7e0", "#4c49d8", "#fa1000", "#2cb713"],
+    // domain: ["#777", "#fca402", "#35a7e0", "#4c49d8", "#fa1000", "#2cb713"],
+    domain: ["#7dce94", "#e62739", "#6ed3cf", "#f2b1d8", "#ffdc6a", "#2cb713"],
   };
 
   chartData: any[] = [];

@@ -57,4 +57,16 @@ export class VisitService {
         })
       );
   }
+  closeMainVisit(visiMainId) {
+    console.log(visiMainId);
+    return this.http
+      .post(
+        `${this.API_URL}auth/customer/visit/main/close?visitMainId=${visiMainId}`,null
+      )
+      .pipe(
+        catchError((err) => {
+          return throwError(err);
+        })
+      );
+  }
 }

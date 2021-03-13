@@ -117,6 +117,18 @@ export class MainVisitComponent implements OnInit {
 
   onClose(data) {
     console.log(data);
+    // trigger a modal
+    this.visitService
+      .closeMainVisit(data.id)
+      .pipe(finalize(() => this.spinner.hide()))
+      .subscribe(
+        (res: any) => {
+          console.log(res);
+        },
+        (err) => {
+          this.toastr.error(err.message);
+        }
+      );
   }
 
   onSearch() {}
