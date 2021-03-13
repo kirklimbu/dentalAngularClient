@@ -232,6 +232,17 @@ mat-toolbar {
   text-align: right;
 }
 
+.signature-container {
+  border: 1px solid #DCDCDC	;
+  width: 25rem;
+  height: 10rem;
+  margin: 3rem 0 0 6rem;
+  .signature {
+    margin: .5rem 0 0 0.5rem;
+    font-size: 1rem;
+  }
+}
+
 /* print section */
 .print-button-container {
   float: right;

@@ -12,7 +12,7 @@
       ngbTooltip="Print invoice"
       (click)="onPrintStatusCheck()"
     >
-      <mat-icon>print</mat-icon>
+      <mat-icon> print</mat-icon>
     </button>
   </div>
   <!-- print button end -->
@@ -73,7 +73,7 @@
       </div>
 
       <!-- items description table  -->
-      <table class="table invoice-table table-bordered table-sm ">
+      <table class="table invoice-table table-bordered table-sm">
         <thead>
           <tr>
             <th>Description</th>
@@ -92,14 +92,17 @@
         </tbody>
         <tfoot>
           <tr>
-            <td class="text-right mr-4 "><b>
-              Total : 
-            </b></td>
+            <td class="text-right mr-4"><b> Total : </b></td>
             <td class="text-left">{{ totalAmount }}</td>
           </tr>
         </tfoot>
       </table>
       <!-- items description table end  -->
+    </div>
+    <div class="col-md-7">
+      <div class="signature-container">
+        <div class="signature">Signature:</div>
+      </div>
     </div>
   </div>
 </div>
