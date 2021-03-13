@@ -12,6 +12,7 @@ import { VisitMainFormComponent } from "../../shared/visit-main-form/visit-main-
 import { MatTableDataSource } from "@angular/material/table";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "app-main-visit",
@@ -117,18 +118,33 @@ export class MainVisitComponent implements OnInit {
 
   onClose(data) {
     console.log(data);
-    // trigger a modal
-    this.visitService
-      .closeMainVisit(data.id)
-      .pipe(finalize(() => this.spinner.hide()))
-      .subscribe(
-        (res: any) => {
-          console.log(res);
-        },
-        (err) => {
-          this.toastr.error(err.message);
-        }
-      );
+    // ask before closing the treatment
+    Swal.fire({
+      title: "Are you sure you want to end this treatment?",
+      text: "You won't be able to revert this!",
+      // type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      console.log(result);
+      if (result.isConfirmed == true) {
+        this.visitService
+          .closeMainVisit(data.id)
+          .pipe(finalize(() => this.spinner.hide()))
+          .subscribe(
+            (res: any) => {
+              console.log(res);
+              this.toastr.success(res.message);
+              this.fetchMainVisitList();
+            },
+            (err) => {
+              this.toastr.error(err.message);
+            }
+          );
+      }
+    });
   }
 
   onSearch() {}
