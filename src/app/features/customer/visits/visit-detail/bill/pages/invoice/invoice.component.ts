@@ -129,7 +129,7 @@ export class InvoiceComponent implements OnInit, OnDestroy {
     /* test end */
   }
 
-  onPrintStatusCheck() {
+ /*  onPrintStatusCheck() {
     const dialogRef = this.dialog.open(PopupModalComponent, {
       disableClose: true,
       width: "450px",
@@ -142,7 +142,7 @@ export class InvoiceComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe((result) => {
       result === "yes" ? this.savePrint() : null;
     });
-  }
+  } */
   savePrint() {}
 
   calculateTotalAmount(amount: number[]) {

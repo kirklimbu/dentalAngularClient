@@ -235,8 +235,8 @@ mat-toolbar {
 .signature-container {
   border: 1px solid #DCDCDC	;
   width: 25rem;
-  height: 10rem;
-  margin: 3rem 0 0 6rem;
+  height: 7rem;
+  margin: 1rem 0 0 6rem;
   .signature {
     margin: .5rem 0 0 0.5rem;
     font-size: 1rem;
@@ -247,6 +247,7 @@ mat-toolbar {
 .print-button-container {
   float: right;
 }
+
 
 .invoice-table {
   .table-bordered > tbody > tr > td {

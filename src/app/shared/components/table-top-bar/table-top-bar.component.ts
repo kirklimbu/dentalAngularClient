@@ -88,6 +88,7 @@ export class TableTopBarComponent implements OnInit {
     this.getDateAfter();
   }
 
+  
   fromDateFormatter: DateFormatter = (date) => {
     return `${date.year} / ${date.month + 1} / ${date.day} `;
   };
