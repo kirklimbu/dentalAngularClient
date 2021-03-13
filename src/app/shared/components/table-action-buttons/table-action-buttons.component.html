@@ -37,4 +37,13 @@
   >
     <mat-icon>visibility</mat-icon>
   </button>
+  <button
+    mat-button
+    style="color: #275dff"
+    *ngIf="enableClose"
+    ngbTooltip="Close"
+    (click)="onClose()"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
 </div>

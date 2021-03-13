@@ -25,7 +25,7 @@
         <td mat-cell *matCellDef="let element; index as i">{{ i + 1 }}.</td>
       </ng-container>
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>Customer Id</th>
+        <th mat-header-cell *matHeaderCellDef>Client Id</th>
         <td mat-cell *matCellDef="let element">
           {{ element?.clientId }}
         </td>
@@ -50,6 +50,18 @@
           {{ element.address | titlecase }}
         </td>
       </ng-container>
+      <ng-container matColumnDef="remBal">
+        <th mat-header-cell *matHeaderCellDef>Remaining Balance</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [ngStyle]="{
+            'background-color': element.remBal > 0 ? '#90ee90' : ''
+          }"
+        >
+          {{ element.remBal | number }}
+        </td> </ng-container
+      >
       <ng-container matColumnDef="due">
         <th mat-header-cell *matHeaderCellDef>Due</th>
         <ng-container *matCellDef="let element">

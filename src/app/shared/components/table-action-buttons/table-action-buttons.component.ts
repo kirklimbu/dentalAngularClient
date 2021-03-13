@@ -12,6 +12,9 @@ export class TableActionButtonsComponent implements OnInit {
   enableEdit = true;
 
   @Input()
+  enableClose = false;
+
+  @Input()
   enableDelete = false;
 
   @Input()
@@ -25,6 +28,9 @@ export class TableActionButtonsComponent implements OnInit {
 
   @Output()
   edit: EventEmitter<void> = new EventEmitter();
+
+  @Output()
+  close: EventEmitter<void> = new EventEmitter();
 
   @Output()
   delete: EventEmitter<void> = new EventEmitter();
@@ -41,6 +47,9 @@ export class TableActionButtonsComponent implements OnInit {
 
   onEdit() {
     this.edit.emit();
+  }
+  onClose() {
+    this.close.emit();
   }
   onDelete() {
     this.delete.emit();

@@ -70,10 +70,13 @@
           <app-table-action-buttons
             [enableDelete]="false"
             [enableEdit]="true"
+            [enableClose]="row.totalCost>0"
             [enableViewDetails]="true"
             (viewDetails)="onViewDetails(row)"
             (edit)="onAdd('edit', row)"
+            (close)="onClose(row)"
           ></app-table-action-buttons>
+          <!-- <button *ngIf="row.totalCost>0">Close</button> -->
         </td>
       </ng-container>
 

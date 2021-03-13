@@ -8,7 +8,7 @@
       <!-- <mat-card class="client-card"> UNCOMMENT IF IT IS NOT MODAL-->
       <form [formGroup]="customerForm" autocomplete="off">
         <mat-card-title align="center">
-          <h3 class="form-title">Customer {{ mode | titlecase }} Form</h3>
+          <h3 class="form-title">Client {{ mode | titlecase }} Form</h3>
           <!--  <button mat-icon-button class="add-visit">
             <mat-icon>add</mat-icon>
           </button> -->
@@ -23,12 +23,12 @@
                   <input
                     matInput
                     type="text"
-                    placeholder=" Customer Id"
+                    placeholder=" Client Id"
                     formControlName="clientId"
                     id="name"
                     required
                   />
-                  <mat-hint align="end">Enter Customer Id</mat-hint>
+                  <mat-hint align="end">Enter Client Id</mat-hint>
                   <!-- <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
                      <mat-error *ngIf="hasError('name', 'maxlength')">You have more than 60 characters</mat-error>-->
                 </mat-form-field>

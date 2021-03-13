@@ -21,11 +21,11 @@ const routes: Routes = [
         // canActivate: [UserRoleGuardService],
       },
       {
-        path: "customer",
+        path: "client",
         loadChildren: () =>
           import("../customer/customer.module").then((m) => m.CustomerModule),
         data: {
-          breadcrumb: { label: "Customer" },
+          breadcrumb: { label: "Client" },
           // allowedRoles: [UserRoleType.ROLE_ALL],
         },
         // canActivate: [UserRoleGuardService],

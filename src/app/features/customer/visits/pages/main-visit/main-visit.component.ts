@@ -30,7 +30,7 @@ export class MainVisitComponent implements OnInit {
   subscriptions: Subscription[] = [];
   displayedColumns: string[] = [
     "Sn",
-    // "customerId",    
+    // "customerId",
     "visitType",
     "totalCost",
     "remBal",
@@ -41,7 +41,6 @@ export class MainVisitComponent implements OnInit {
 
   customerVisitDetail;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
 
   constructor(
     private visitService: VisitService,
@@ -86,7 +85,7 @@ export class MainVisitComponent implements OnInit {
     console.log(visit);
     let type = visit.name;
     let id = visit.id;
-    this.router.navigate(["/dental/customer/visits/detail"], {
+    this.router.navigate(["/dental/client/visits/detail"], {
       queryParams: {
         customerName: this.customerName,
         type: type,
@@ -114,6 +113,10 @@ export class MainVisitComponent implements OnInit {
         this.fetchMainVisitList();
       }
     });
+  }
+
+  onClose(data) {
+    console.log(data);
   }
 
   onSearch() {}

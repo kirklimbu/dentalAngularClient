@@ -34,6 +34,7 @@ export class CustomerComponent implements OnInit {
     "address",
     "mobile",
     // "visitType",
+    "remBal",
     "due",
     "visitDate",
     "action",
@@ -102,7 +103,7 @@ export class CustomerComponent implements OnInit {
 
   onViewDetails(customer: Customer) {
     let customerName = customer.name;
-    this.router.navigate(["/dental/customer/visits"], {
+    this.router.navigate(["/dental/client/visits"], {
       queryParams: { customerId: customer.id, customerName: customerName },
     });
   }
