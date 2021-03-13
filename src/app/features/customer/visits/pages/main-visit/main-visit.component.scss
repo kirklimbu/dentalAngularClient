@@ -11,7 +11,7 @@
     // max-width: 250px;
     padding-left: .5rem;
   } */
-:host ::ng-deep .mat-column-due {
+:host ::ng-deep .mat-column-due,.mat-column-remBal {
   width: 15%;
   // max-width: 250px;
   padding: 0 0.5rem 0 1rem;

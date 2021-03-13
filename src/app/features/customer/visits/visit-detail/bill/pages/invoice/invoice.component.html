@@ -7,7 +7,6 @@
       [useExistingCss]="true"
       type="button"
       mat-icon-button
-      color="warn"
       printSectionId="print-section"
       ngxPrint
       ngbTooltip="Print invoice"
@@ -37,44 +36,18 @@
       </div>
       <!-- company name end -->
       <!-- Invoice To -->
-      <span style="float: right; margin:2rem 10rem 2rem 0"> Date: {{ billDate }} </span>
+      <span style="float: right; margin: 2rem 10rem 2rem 0">
+        Date: {{ billDate }}
+      </span>
 
       <div class="row align-items-center">
         <div class="col-md-6">
           <div class="invoice-address">
             <h2>INVOICE</h2>
-            <!-- invoice details table -->
-            <!--  <table class="table table-borderless table-sm">
-          <thead>
-            <tr>
-              <th>Invoice num</th>
-              <th>Date of issue</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{{ invoice.invoiceNum }}</td>
-              <td>{{ invoice.dateOfIssue }}</td>
-            </tr>
-          </tbody>
-        </table> -->
-            <!-- invoice details table -->
+
             <!-- customer details table -->
             <table class="table table-borderless table-sm">
-              <!--  <thead>
-            <tr>
-              <th scope="row">Invoice num</th>
-              <th scope="rwo">Date of issue</th>
-            </tr>
-          </thead> -->
-
               <tbody>
-                <!--  <tr>
-                  <th style="float: right">Date of Issue:</th>
-                  <td style="float: right">
-                    {{ billDate }}
-                  </td>
-                </tr> -->
                 <tr>
                   <th>Id</th>
                   <td>{{ clientDetails?.clientId }}</td>
@@ -100,7 +73,7 @@
       </div>
 
       <!-- items description table  -->
-      <table class="table invoice-table table-bordered table-sm">
+      <table class="table invoice-table table-bordered table-sm ">
         <thead>
           <tr>
             <th>Description</th>
@@ -112,14 +85,14 @@
         <tbody>
           <ng-container invoiceDetails$ | async>
             <tr *ngFor="let item of invoiceDetails?.itemList">
-              <td>{{ item.visitType.type }}</td>
-              <td>{{ item.amount }}</td>
+              <td style="border: none">{{ item.visitType.type }}</td>
+              <td style="border: none">{{ item.amount }}</td>
             </tr>
           </ng-container>
         </tbody>
         <tfoot>
           <tr>
-            <td class="text-right mr-4">Total:</td>
+            <td class="text-right mr-4 ">Total:</td>
             <td class="text-left">{{ totalAmount }}</td>
           </tr>
         </tfoot>

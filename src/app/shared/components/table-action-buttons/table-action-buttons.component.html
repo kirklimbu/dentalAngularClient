@@ -1,7 +1,7 @@
 <div class="d-flex align-items-center row">
   <button
     mat-button
-    style="color: #F78888"
+    style="color: #dd5337"
     *ngIf="enableEdit"
     ngbTooltip="Edit"
     (click)="onEdit()"
@@ -18,7 +18,7 @@
   >
     <mat-icon>delete_outline</mat-icon>
   </button>
-  
+
   <button
     mat-button
     color="basic"
@@ -30,7 +30,7 @@
   </button>
   <button
     mat-button
-    style="color: #5da2d5;"
+    style="color: #275dff"
     *ngIf="enableViewDetails"
     ngbTooltip="{{ isEmpty ? 'Add Details' : 'Show Details' }}"
     (click)="onVerifyDetails()"

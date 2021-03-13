@@ -99,7 +99,7 @@ mat-icon {
 .sidenav-items a:hover {
   mat-icon {
     padding: 0 2.5rem 0 0;
-    color: #f78888;
+    color: #ebf0ff;
   }
 }
 
@@ -107,9 +107,8 @@ mat-icon {
   mat-icon {
     padding: 0 2.5rem 0 0;
     // color: #2a8bf7;
-    color: #90ccf4;
+    color: #0040ff;
   }
-  
 }
 
 .sidenav-items a:active {
@@ -150,7 +149,7 @@ mat-toolbar {
 }
 
 .top-bar-add {
- /*  display: grid;
+  /*  display: grid;
   place-items: end;
   margin-bottom: 0.25rem;
   float: right; */
@@ -243,7 +242,11 @@ mat-toolbar {
 }
 
 .invoice-table {
-  margin: 2rem 0 0 0;
+  .table-bordered > tbody > tr > td {
+    align-items: center;
+    border: 0 !important;
+    font-size: 10-12pt;
+  }
 }
 
 .invoice-address {
@@ -296,4 +299,21 @@ mat-toolbar {
 
 .mat-icon-button:focus {
   outline: none;
+}
+
+@media print {
+  /* .table-bordered>thead>tr>th,
+  .table-bordered>tbody>tr>th,
+  .table-bordered>tfoot>tr>th,
+  .table-bordered>thead>tr>td, 
+  .table-bordered>tfoot>tr>td */
+  .table-bordered > tbody > tr > td {
+    border: 0 !important;
+  }
+}
+
+@media print {
+  .table-bordered, .table-borderless{
+    font-size: 1.4rem;
+  }
 }
