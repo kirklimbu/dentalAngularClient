@@ -1,4 +1,4 @@
-<div class="d-flex row">
+<div class="row">
   <div class="col top-bar-add">
     <button
       *ngIf="enableAdd"
@@ -13,33 +13,15 @@
       *ngIf="enableAdd2"
       mat-icon-button
       ngbTooltip="Add Payment"
-     style="color: #4ee44e;"
+      style="color: #4ee44e"
       align="end"
       (click)="onAdd2()"
     >
-    <mat-icon> attach_money </mat-icon>
+      <mat-icon> attach_money </mat-icon>
     </button>
   </div>
 
   <!-- /add button -->
-
-  <!-- search -->
-  <!-- <div *ngIf="enableSearch" class="d-flex ml-auto mb-2 mr-1">
-    <div
-      class="mr-1 search__container"
-      [class.search__container--expanded]="isSearchShowing"
-    >
-      <input type="text" class="form-control" placeholder="Search.." />
-    </div>
-    <button
-      class="btn rounded-circle bg-blue text-white"
-      (click)="isSearchShowing = !isSearchShowing"
-    >
-      <i class="fas fa-search"></i>
-    </button>
-  </div> -->
-
-  <!--/ search  -->
 </div>
 
 <!-- new table top bar items -->
@@ -68,7 +50,7 @@
           id="inputGroupSelect03"
           [(ngModel)]="status"
         >
-          <option class="dropdown-item" disabled selected value="undefined">
+          <option class="dropdown-item" disabled selected value="null">
             -- Please Select --
           </option>
           <option

@@ -36,7 +36,7 @@
       <!-- company name end -->
       <!-- Invoice To -->
       <span style="float: right; margin: 2rem 10rem 2rem 0">
-        Date: {{ billDate }}
+        Date: {{ billDate   }}
       </span>
 
       <div class="row align-items-center">
@@ -54,11 +54,11 @@
 
                 <tr>
                   <th>Billed to:</th>
-                  <td>{{ clientDetails?.name }}</td>
+                  <td>{{ clientDetails?.name | titlecase }}</td>
                 </tr>
                 <tr>
                   <th>Address:</th>
-                  <td>{{ clientDetails?.address }}</td>
+                  <td>{{ clientDetails?.address | titlecase }}</td>
                 </tr>
                 <tr>
                   <th>Mobile:</th>

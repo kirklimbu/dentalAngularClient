@@ -7,16 +7,18 @@
     (click)="sidenav.toggle()"
     class="rightSidenav_toggle"
   >
-  <!-- #0040ff" -->
+    <!-- #0040ff" -->
     <mat-icon (click)="onChangeIcon()" style="color: #0469a7">{{
       toggleActive ? "menu" : "sort"
     }}</mat-icon>
   </button>
-  <span class="navbar-brand" style="font-family: 'URW Gothic';color: #0469a7">
+  <span class="navbar-brand" style="font-family: 'URW Gothic'; color: #0469a7">
     <!--      <img src="assets/images/logo.png" style="width: 80px;height: 80px">-->
-    {{ title | titlecase }} | {{ customerName | titlecase }} | {{ visitType | titlecase}}
+    {{ title | titlecase }} | {{ customerName | titlecase }} |
+    {{ visitType | titlecase }}
   </span>
-  <button
+  <!-- for mobile view  -->
+  <!-- <button
     class="navbar-toggler m-auto"
     type="button"
     data-toggle="collapse"
@@ -26,57 +28,14 @@
     aria-label="Toggle navigation"
   >
     <span class="navbar-toggler-icon"></span>
-  </button>
+  </button> -->
   <mat-divider class="mat-divider-vertical m-auto"></mat-divider>
   <div
     class="collapse navbar-collapse"
     id="navbarTogglerDemo02"
     style="font-family: Cantarell"
   >
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <!-- <li class="nav-item">
-        <a
-          class="nav-item nav-link"
-          routerLinkActive="is-active"
-          [routerLink]="['/dental/dashboard']"
-          >Home</a
-        >
-      </li> -->
-      <!--  <li class="nav-item">
-        <a
-          class="nav-item nav-link"
-          routerLinkActive="is-active"
-          [routerLink]="['/dental/sms']"
-          >SMS</a
-        >
-      </li> -->
-      <!-- <li class="nav-item">
-        <a
-          class="nav-item nav-link"
-          routerLinkActive="is-active"
-          [routerLink]="['/dental/invoice']"
-          >Invoice</a
-        >
-      </li> -->
-      <!-- <li class="nav-item">
-        <a
-          class="nav-item nav-link"
-          routerLinkActive="is-active"
-          [routerLink]="['/pov']"
-          >Enter POV</a
-        >
-      </li> -->
-      <!--  <li class="nav-item">
-        <a
-          class="nav-item nav-link"
-          routerLinkActive="is-active"
-          [routerLink]="['/dental/client']"
-          >client list</a
-        >
-      </li> -->
-      <!--    <a class="nav-item nav-link" routerLink="/customerlist">Client </a>-->
-      <!--    <a class="nav-item nav-link" routerLinkActive="is-active"="active" (click)="logout()">Logout</a>-->
-    </ul>
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0"></ul>
   </div>
 
   <button mat-icon-button aria-label="Example icon-button with a menu"></button>

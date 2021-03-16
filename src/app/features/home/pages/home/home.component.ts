@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   showXAxisLabel = true;
   showYAxisLabel = true;
   yAxisLabel1 = "Patients";
-  yAxisLabel2 = "New cusotmers";
+  yAxisLabel2 = "New Clients";
   xAxisLabel1 = "";
   xAxisLabel2 = "";
   barPadding = 1;

@@ -14,6 +14,7 @@ export class TableTopBarComponent implements OnInit {
   /* props */
 
   statuses$: Observable<any>;
+
   isSearchShowing = false;
   customDate = new CustomJs();
   formatDate = new FormatDate();
@@ -66,7 +67,8 @@ export class TableTopBarComponent implements OnInit {
   // keyword: string;
 
   @Output()
-  add: EventEmitter<void> = new EventEmitter(); @Output()
+  add: EventEmitter<void> = new EventEmitter();
+  @Output()
   add2: EventEmitter<void> = new EventEmitter();
 
   @Output()
@@ -88,7 +90,6 @@ export class TableTopBarComponent implements OnInit {
     this.getDateAfter();
   }
 
-  
   fromDateFormatter: DateFormatter = (date) => {
     return `${date.year} / ${date.month + 1} / ${date.day} `;
   };
@@ -146,6 +147,6 @@ export class TableTopBarComponent implements OnInit {
     this.statuses$ = this.sharedService.getVisitType();
   }
   resetStatus() {
-    this.status = "";
+    this.status = "null";
   }
 }
