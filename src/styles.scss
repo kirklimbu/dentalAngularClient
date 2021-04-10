@@ -320,13 +320,19 @@ mat-toolbar {
   .table-bordered > tbody > tr > td {
     border: 0 !important;
   }
+  @page
+  {
+   /* size: 8.5in 5.5in;
+   size: potrait; */
+   size:148 x 210
+ }
 }
-
+/* 
 @media print {
   .table-bordered,
   .table-borderless {
     font-size: 1.4rem;
   }
-}
+} */
 
 
